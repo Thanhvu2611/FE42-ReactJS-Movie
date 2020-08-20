@@ -1,10 +1,13 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import Navadmin from "./../components/Navadmin";
 
 function AdminLayout(props) {
   return (
     <div>
-      {props.children}
+      <h3>Dashboard</h3>
+      <Navadmin />
+      {/* {props.children} */}
     </div>
   )
 }
