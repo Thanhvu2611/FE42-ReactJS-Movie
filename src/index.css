@@ -1,15 +1,13 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 /* Để tạm */
@@ -430,12 +428,7 @@ header .buttonDangNhap {
   transform: rotate(360deg);
 }
 
-.movieGalaxy
-  .movies-group
-  .movies-item
-  .movie-home
-  .overlay_movie
-  .overlay_content {
+.movieGalaxy .movies-group .movies-item .movie-home .overlay_movie .overlay_content {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -830,20 +823,11 @@ footer .footer-items li a:hover {
   margin-top: 50px;
 }
 
-.detailPhim
-  .contentPhim
-  .LichChieu
-  .LichChieu_suatChieu
-  .LichChieu_suatChieuItems {
+.detailPhim .contentPhim .LichChieu .LichChieu_suatChieu .LichChieu_suatChieuItems {
   margin-bottom: 40px;
 }
 
-.detailPhim
-  .contentPhim
-  .LichChieu
-  .LichChieu_suatChieu
-  .LichChieu_suatChieuItems
-  .titleRap {
+.detailPhim .contentPhim .LichChieu .LichChieu_suatChieu .LichChieu_suatChieuItems .titleRap {
   background-color: #f26b38;
   width: 30%;
   height: 40%;
@@ -852,25 +836,14 @@ footer .footer-items li a:hover {
   color: white;
 }
 
-.detailPhim
-  .contentPhim
-  .LichChieu
-  .LichChieu_suatChieu
-  .LichChieu_suatChieuItems
-  .LichChieu_gioChieu {
+.detailPhim .contentPhim .LichChieu .LichChieu_suatChieu .LichChieu_suatChieuItems .LichChieu_gioChieu {
   width: 100%;
   height: auto;
   padding: 20px;
   border: 1px solid gray;
 }
 
-.detailPhim
-  .contentPhim
-  .LichChieu
-  .LichChieu_suatChieu
-  .LichChieu_suatChieuItems
-  .LichChieu_gioChieu
-  a {
+.detailPhim .contentPhim .LichChieu .LichChieu_suatChieu .LichChieu_suatChieuItems .LichChieu_gioChieu a {
   text-decoration: none;
   border: 1px solid black;
   padding: 10px;
@@ -883,13 +856,7 @@ footer .footer-items li a:hover {
   margin-bottom: 10px;
 }
 
-.detailPhim
-  .contentPhim
-  .LichChieu
-  .LichChieu_suatChieu
-  .LichChieu_suatChieuItems
-  .LichChieu_gioChieu
-  a:hover {
+.detailPhim .contentPhim .LichChieu .LichChieu_suatChieu .LichChieu_suatChieuItems .LichChieu_gioChieu a:hover {
   color: white;
   background-color: tomato;
   border-color: tomato;
@@ -1012,21 +979,21 @@ footer .footer-items li a:hover {
   color: black;
 }
 
-#btn-muave {
-  border: 2px solid white;
-  background-color: rgba(0, 0, 0, 0.7);
-  font-size: 1rem;
-  font-weight: 500;
-  color: white;
-  padding: 15px 30px;
-  text-align: center;
-  transition: all 0.5s;
+.btn-muave {
+  border: 2px solid white !important;
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  color: white !important;
+  padding: 15px 30px !important;
+  text-align: center !important;
+  transition: all 0.5s !important;
 }
 
-#btn-muave:hover {
-  color: white;
-  background-color: tomato;
-  border-color: tomato;
+.btn-muave:hover {
+  color: white !important;
+  background-color: tomato !important;
+  border-color: tomato !important;
 }
 
 #btn-backtoTop {

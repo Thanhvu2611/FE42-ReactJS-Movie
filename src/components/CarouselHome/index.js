@@ -197,7 +197,7 @@ export default function CarouselHome() {
                 </select>
               </form>
             </div>
-            <button id="btn-muave" className="btn btn-muavenhanh">
+            <button id="" className="btn btn-muave btn-muavenhanh">
               MUA VÉ
             </button>
           </div>
@@ -358,7 +358,7 @@ export default function CarouselHome() {
               </form>
             </div>
             <div className="div_buttonmuave">
-              <button id="btn-muave" className="btn btn-muavenhanh">
+              <button id="" className="btn btn-muave btn-muavenhanh">
                 MUA VÉ
               </button>
             </div>
