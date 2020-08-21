@@ -1,33 +1,33 @@
 import {
-  MOVIE_SOON_REQUEST,
-  MOVIE_SOON_SUCCESS,
-  MOVIE_SOON_FAILED,
-} from "./constans";
+  MOVIE_NOW_REQUEST,
+  MOVIE_NOW_SUCCESS,
+  MOVIE_NOW_FAILED,
+} from "../constans";
 
 let initialState = {
   loading: false,
-  soonMovie: {},
+  nowMovie: {},
   err: null,
 };
-const soonMovieReducer = (state = initialState, action) => {
+const nowMovieReducer = (state = initialState, action) => {
   switch (action.type) {
-    case MOVIE_SOON_REQUEST:
+    case MOVIE_NOW_REQUEST:
       state.loading = true;
-      state.soonMovie = {};
+      state.nowMovie = {};
       state.err = null;
       return { ...state };
-    case MOVIE_SOON_SUCCESS:
+    case MOVIE_NOW_SUCCESS:
       state.loading = false;
-      state.soonMovie = action.data.items;
+      state.nowMovie = action.data.items;
       state.err = null;
       return { ...state };
-    case MOVIE_SOON_FAILED:
+    case MOVIE_NOW_FAILED:
       state.loading = false;
-      state.soonMovie = {};
+      state.nowMovie = {};
       state.err = action.err;
       return { ...state };
     default:
       return { ...state };
   }
 };
-export default soonMovieReducer;
+export default nowMovieReducer;

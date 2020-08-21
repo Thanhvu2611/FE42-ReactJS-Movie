@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { actFetchMovieNow, actFetchMovieSoon } from "./module/action";
 import { connect } from "react-redux";
 
-function Movie(props) {
+export default function Movie(props) {
   //ComponentDidMount
-  useEffect(() => {
-    props.fetchNowMovie();
-  }, []);
+  // useEffect(() => {
+  //   props.fetchNowMovie();
+  // }, []);
+
   return (
     <div>
       <section className="movieGalaxy">
@@ -260,22 +261,22 @@ function Movie(props) {
       </section>
     </div>
   );
-  const mapStateToProps = (state) => {
-    return {
-      nowMovie: state.nowMovieReducer.nowMovie,
-      soonMovie: state.soonMovieReducer.soonMovie,
-    };
-  };
-  const mapDispatchToProps = (dispatch) => {
-    return {
-      fetchNowMovie: () => {
-        dispatch(actFetchMovieNow());
-      },
-      fetchSoonMovie: () => {
-        dispatch(actFetchMovieSoon());
-      },
-    };
-  };
-
-  export default connect(mapStateToProps, mapDispatchToProps)(Movie);
 }
+// const mapStateToProps = (state) => {
+//   return {
+//     nowMovie: state.nowMovieReducer.nowMovie,
+//     soonMovie: state.soonMovieReducer.soonMovie,
+//   };
+// };
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     fetchNowMovie: () => {
+//       dispatch(actFetchMovieNow());
+//     },
+//     fetchSoonMovie: () => {
+//       dispatch(actFetchMovieSoon());
+//     },
+//   };
+// };
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Movie);
