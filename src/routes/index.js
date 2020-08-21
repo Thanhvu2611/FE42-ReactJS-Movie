@@ -4,7 +4,12 @@ import Movie from "../components/Movie";
 import HomePage from "../containers/home/HomePage";
 
 //ADMIN
-import Dashboard from "./../containers/admin/Dashboard";
+
+import UserManagerment from "../containers/admin/Dashboard/UserManagerment";
+
+import MovieManagerment from "../containers/admin/Dashboard/MovieManagerment";
+import Dashboard from "../containers/admin/Dashboard";
+import AddMovie from "../containers/admin/Dashboard/MovieManagerment/AddMovie";
 
 //Mảng chứa các route
 const routesHome = [
@@ -16,10 +21,21 @@ const routesHome = [
 ];
 
 const routesAdmin = [
+
   {
     exact: false,
-    path: "/dashboard",
-    component: Dashboard
+    path: "/admin/moviemanagerment",
+    component: MovieManagerment,
+  },
+  {
+    exact: false,
+    path: "/admin/usermanagerment",
+    component: UserManagerment,
+  },
+  {
+    exact: false,
+    path: "/admin/addmovie",
+    component: AddMovie,
   }
 ]
 

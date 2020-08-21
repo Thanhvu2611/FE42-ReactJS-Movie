@@ -4,10 +4,14 @@ import Navadmin from "./../components/Navadmin";
 
 function AdminLayout(props) {
   return (
-    <div>
-      <h3>Dashboard</h3>
-      <Navadmin />
-      {/* {props.children} */}
+    <div className="row">
+      <div className="col-2">
+        <h3>Dashboard</h3>
+        <Navadmin />
+      </div>
+      <div className="col-10">
+        {props.children}
+      </div>
     </div>
   )
 }

@@ -1,21 +1,17 @@
 import React from 'react';
-import Search from './Search';
-import MovieList from './MovieList';
-import Modal from './Modal';
+import Search from './DetailListMovie/Search';
+import MovieList from './DetailListMovie';
+import { Link } from 'react-router-dom';
+import ModalDetailMovie from '../../components/Modal/ModalDetailMovie';
+
 
 export default function MovieManagerment() {
   return (
-    <div>
-      <button
-        className="btn btn-success"
-        data-toggle="modal"
-        data-target="#modelIdUser"
-      >
-        Thêm Phim
-          </button>
+    <div className="container">
+      <Link activeClassName="active" className="nav-link" to="/admin/addmovie">Thêm Phim</Link>
       <Search />
       <MovieList />
-      <Modal />
+      <ModalDetailMovie />
     </div>
   )
 }

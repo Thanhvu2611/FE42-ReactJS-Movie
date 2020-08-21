@@ -1,11 +1,11 @@
 import React from 'react'
 
-export default function Modal() {
+export default function ModalDetailMovie() {
   return (
     <div>
       <div
         className="modal fade"
-        id="modelIdUser"
+        id="modelIdDetailMovie"
         tabIndex={-1}
         role="dialog"
         aria-labelledby="modelTitleId"
@@ -75,10 +75,33 @@ export default function Modal() {
                     </div>
                   </div>
                 </div>
-                <button type="submit" className="btn btn-success">
-                  Submit
+                <div>
+                  <button type="submit" className="btn btn-success">
+                    Submit
                 </button>
+                  <button type="submit" className="btn btn-danger">
+                    Delete
+                </button>
+                </div>
               </form>
+              <div>
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Mã Lịch Chiếu</th>
+                      <th>Hệ Thống</th>
+                      <th>Cụm Rạp</th>
+                      <th>Ngày Giờ Chiếu</th>
+                      <th>Giá</th>
+                      <th>Thời Lượng</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
