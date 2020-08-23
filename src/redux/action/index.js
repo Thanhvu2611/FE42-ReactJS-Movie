@@ -16,7 +16,7 @@ const actFetchMovieNow = () => {
       method: "GET",
     })
       .then((result) => {
-        //console.log(result.data);
+        console.log(result.data);
         dispatch(actMovieNowSuccess(result.data.items));
       })
       .catch((err) => {
@@ -52,7 +52,7 @@ const actFetchMovieSoon = () => {
       method: "GET",
     })
       .then((result) => {
-        //console.log(result.data);
+        console.log(result.data);
         dispatch(actMovieSoonSuccess(result.data.items));
       })
       .catch((err) => {

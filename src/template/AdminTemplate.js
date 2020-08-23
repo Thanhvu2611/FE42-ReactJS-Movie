@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import Navadmin from "./../components/Navadmin";
+import Navadmin from "../containers/admin/components/Navadmin";
 
 function AdminLayout(props) {
   return (

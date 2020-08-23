@@ -8,7 +8,7 @@ import ModalDetailMovie from '../../components/Modal/ModalDetailMovie';
 export default function MovieManagerment() {
   return (
     <div className="container">
-      <Link activeClassName="active" className="nav-link" to="/admin/addmovie">Thêm Phim</Link>
+      <Link className="nav-link" to="/admin/addmovie">Thêm Phim</Link>
       <Search />
       <MovieList />
       <ModalDetailMovie />

@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import { actFetchListMovie } from "./modules/action";
+import { connect } from "react-redux";
+function MovieItem(props) {
+  useEffect(() => {
+    props.fetchListMovie();
+  }, []);
 
-export default function MovieItem() {
   return (
-    <tr>
-      <td></td>
+
+    <div>
+      {/* <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -25,7 +31,22 @@ export default function MovieItem() {
           Sửa
           </button>
         <button className="btn btn-danger">Xóa</button>
-      </td>
-    </tr>
+      </td> */}
+    </ div >
   )
 }
+const mapStateToProps = state => {
+  return {
+    listMovie: state.movieReducer.listMovie
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchListMovie: () => {
+      dispatch(actFetchListMovie());
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieItem)

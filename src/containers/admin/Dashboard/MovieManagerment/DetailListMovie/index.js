@@ -1,5 +1,5 @@
 import React from 'react';
-import MovieItem from '../../../components/movieItem';
+import MovieItem from "../../../components/movieItem"
 
 export default function MovieList() {
   return (
@@ -18,10 +18,9 @@ export default function MovieList() {
         </thead>
         <tbody>
           <MovieItem />
-          <MovieItem />
-          <MovieItem />
         </tbody>
       </table>
+
     </div>
   )
 }
