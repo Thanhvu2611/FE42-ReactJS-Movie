@@ -1,52 +1,37 @@
-import React, { useEffect } from 'react';
-import { actFetchListMovie } from "./modules/action";
-import { connect } from "react-redux";
-function MovieItem(props) {
-  useEffect(() => {
-    props.fetchListMovie();
-  }, []);
+import React, { Component } from 'react';
 
-  return (
 
-    <div>
-      {/* <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>
-        <button
-          className="btn btn-success"
-          data-toggle="modal"
-          data-target="#modelIdDetailMovie"
-        >
-          Tạo Lịch Chiếu
+
+export default class MovieItem extends Component {
+  render() {
+    const { movie } = this.props;
+    return (
+
+      <tr>
+        <td>{movie.maPhim}</td>
+        <td>{movie.tenPhim}</td>
+        <td><img src={movie.hinhAnh} style={{ width: "100px", height: "70px" }} /></td>
+        <td>{movie.moTa}</td>
+        <td>{movie.maNhom}</td>
+        <td>{movie.ngayKhoiChieu}</td>
+        <td>
+          <button
+            className="btn btn-success"
+            data-toggle="modal"
+            data-target="#modelIdDetailMovie"
+          >
+            Tạo Lịch Chiếu
           </button>
-        <button
-          className="btn btn-success"
-          data-toggle="modal"
-          data-target="#modelIdDetailMovie"
-        >
-          Sửa
+          <button
+            className="btn btn-success"
+            data-toggle="modal"
+            data-target="#modelIdDetailMovie"
+          >
+            Sửa
           </button>
-        <button className="btn btn-danger">Xóa</button>
-      </td> */}
-    </ div >
-  )
-}
-const mapStateToProps = state => {
-  return {
-    listMovie: state.movieReducer.listMovie
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchListMovie: () => {
-      dispatch(actFetchListMovie());
-    }
+          <button className="btn btn-danger">Xóa</button>
+        </td>
+      </ tr >
+    )
   }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MovieItem)
+}

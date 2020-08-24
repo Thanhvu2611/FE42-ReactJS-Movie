@@ -1,0 +1,4 @@
+export const DETAIL_LISTMOVIE_REQUEST = "DetailListMovieReducer/DETAIL_LISTMOVIE_REQUEST";
+export const DETAIL_LISTMOVIE_SUCCESS = "DetailListMovieReducer/DETAIL_LISTMOVIE_SUCCESS";
+
+export const DETAIL_LISTMOVIE_FAILED = "DetailListMovieReducer/DETAIL_LISTMOVIE_FAILED";

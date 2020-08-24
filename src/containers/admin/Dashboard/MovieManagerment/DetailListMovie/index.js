@@ -1,7 +1,29 @@
-import React from 'react';
-import MovieItem from "../../../components/movieItem"
+import React, { useEffect } from 'react';
+import MovieItem from "../../../components/movieItem";
 
-export default function MovieList() {
+
+import { actFetchDetailListMovie } from "./modules/action";
+import Loading from "./../../../../../components/Loading";
+import { connect } from "react-redux";
+
+function MovieList(props) {
+  useEffect(() => {
+    props.actFetchDetailListMovie();
+    // eslint-disable-next-line
+  }, []);
+
+  const renderTable = () => {
+    const { listMovie } = props;
+
+    if (listMovie && listMovie.length > 0) {
+      return listMovie.map((movie) => {
+        return <MovieItem key={movie.maPhim} movie={movie} />
+
+      })
+    }
+  }
+
+
   return (
     <div>
       <table className="table">
@@ -17,10 +39,25 @@ export default function MovieList() {
           </tr>
         </thead>
         <tbody>
-          <MovieItem />
+          {renderTable()}
         </tbody>
       </table>
 
     </div>
   )
 }
+const mapStateToProps = state => {
+  return {
+    listMovie: state.movieReducer.listMovie
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchListMovie: () => {
+      dispatch(actFetchDetailListMovie());
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieList)
