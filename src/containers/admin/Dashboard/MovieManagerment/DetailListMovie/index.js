@@ -8,8 +8,9 @@ import { connect } from "react-redux";
 
 function MovieList(props) {
   useEffect(() => {
-    props.actFetchDetailListMovie();
+    props.fetchListMovie();
     // eslint-disable-next-line
+    // console.log(props);
   }, []);
 
   const renderTable = () => {
