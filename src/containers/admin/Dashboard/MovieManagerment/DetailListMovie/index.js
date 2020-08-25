@@ -12,9 +12,9 @@ function MovieList(props) {
     // eslint-disable-next-line
     // console.log(props);
   }, []);
-
+  const { listMovie, loading } = props;
   const renderTable = () => {
-    const { listMovie } = props;
+
 
     if (listMovie && listMovie.length > 0) {
       return listMovie.map((movie) => {
@@ -23,6 +23,7 @@ function MovieList(props) {
       })
     }
   }
+  if (loading) return <Loading />
 
 
   return (
@@ -49,7 +50,8 @@ function MovieList(props) {
 }
 const mapStateToProps = state => {
   return {
-    listMovie: state.movieReducer.listMovie
+    listMovie: state.movieReducer.listMovie,
+    loading: state.movieReducer.loading
   };
 };
 

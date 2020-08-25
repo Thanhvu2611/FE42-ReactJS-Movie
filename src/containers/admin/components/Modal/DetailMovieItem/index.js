@@ -1,6 +1,26 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { actFetchMovieSchedule } from "./module/action";
+import { connect } from "react-redux";
+import movieSheduleItem from './movieSheduleItem.js';
+import Loading from '../../../../../components/Loading';
 
-export default function ModalDetailMovie() {
+function ModalMovieShedule(props) {
+  // const [state, setState] = useState({ movieShedule: {}, status: true, number: 0 });
+  useEffect(() => {
+    // console.log(props.fetchMovieSchedule(id));
+    // const id = props.match.params.id;
+
+    // props.fetchMovieSchedule(id);
+  }, []);
+  const { movieShedule, loading } = props;
+  const renderTable = () => {
+    if (movieShedule.maLichChieu && movieShedule.maLichChieu.length > 0) {
+      return movieShedule.maLichChieu.map((movieShowtime) => {
+        return <movieSheduleItem key={movieShowtime.maLichChieu} movieShowtime={movieShedule} />
+      })
+    }
+  }
+
   return (
     <div>
       <div
@@ -109,3 +129,21 @@ export default function ModalDetailMovie() {
     </div>
   )
 }
+
+const mapStateToProps = state => {
+  return {
+    movieShedule: state.movieSheduleReducer.movieShedule,
+    loading: state.movieSheduleReducer.loading
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchMovieSchedule: (id) => {
+      // console.log(id);
+      dispatch(actFetchMovieSchedule(id));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModalMovieShedule);

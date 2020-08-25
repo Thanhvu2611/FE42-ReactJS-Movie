@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { DETAIL_LISTMOVIE_REQUEST, DETAIL_LISTMOVIE_SUCCESS, DETAIL_LISTMOVIE_FAILED } from "./constans";
 
-const actFetchDetailListMovie = (maPhim) => {
+const actFetchDetailListMovie = () => {
   return dispatch => {
     dispatch(actDetailListMovieRequest());
     Axios({
