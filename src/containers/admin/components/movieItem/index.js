@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-
+import { Link } from "react-router-dom";
 export default class MovieItem extends Component {
   render() {
     const { movie } = this.props;
+    console.log(this.props);
     return (
       <tr>
         <td>{movie.maPhim}</td>
@@ -14,20 +15,13 @@ export default class MovieItem extends Component {
         <td>{movie.maNhom}</td>
         <td>{movie.ngayKhoiChieu}</td>
         <td>
-          <button
+          <Link
             className="btn btn-primary"
-            data-toggle="modal"
-            data-target="#modelIdDetailMovie"
+            to={`/admin/detail/${movie.maPhim}`}
           >
             Tạo Lịch Chiếu
-          </button>
-          <button
-            className="btn btn-success"
-            data-toggle="modal"
-            data-target="#modelIdDetailMovie"
-          >
-            Sửa
-          </button>
+          </Link>
+          <button className="btn btn-success">Sửa</button>
           <button className="btn btn-danger">Xóa</button>
         </td>
       </tr>
