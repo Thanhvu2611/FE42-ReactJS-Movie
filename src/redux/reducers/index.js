@@ -4,7 +4,7 @@ import soonMovieReducer from "../reducers/reducerSoonMovie";
 
 //admin
 import movieReducer from "./../../containers/admin/Dashboard/MovieManagerment/DetailListMovie/modules/reducer";
-import movieSheduleReducer from "../../containers/admin/components/Modal/DetailMovieItem/module/reducer";
+import movieSheduleReducer from "../../containers/admin/Dashboard/DetailMovieItem/module/reducer";
 
 
 

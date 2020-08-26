@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default class MovieItem extends Component {
   render() {
     const { movie } = this.props;
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <tr>
         <td>{movie.maPhim}</td>

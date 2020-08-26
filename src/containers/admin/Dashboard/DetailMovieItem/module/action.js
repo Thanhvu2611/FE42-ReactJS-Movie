@@ -13,11 +13,11 @@ const actFetchMovieSchedule = (id) => {
       method: "GET",
     })
       .then((result) => {
-        console.log(result.data);
+        // console.log(result.data.heThongRapChieu);
         dispatch(actMovieScheduleSuccess(result.data));
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         dispatch(actMovieScheduleFailed(err));
       });
   };

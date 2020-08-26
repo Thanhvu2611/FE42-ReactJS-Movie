@@ -4,9 +4,10 @@ import Movie from "../components/Movie";
 import HomePage from "../containers/home/HomePage";
 
 //ADMIN
+import MovieList from "../containers/admin/components/movieItem"
 
 import UserManagerment from "../containers/admin/Dashboard/UserManagerment";
-import ModalMovieShedule from "../containers/admin/components/Modal/DetailMovieItem";
+import ListMovieShedule from "../containers/admin/Dashboard/DetailMovieItem";
 import MovieManagerment from "../containers/admin/Dashboard/MovieManagerment";
 //import Dashboard from "../containers/admin/Dashboard";
 import AddMovie from "../containers/admin/Dashboard/MovieManagerment/AddMovie";
@@ -23,12 +24,12 @@ const routesHome = [
 const routesAdmin = [
   {
     exact: false,
-    path: "/admin/moviemanagerment",
+    path: "/admin/movie",
     component: MovieManagerment,
   },
   {
     exact: false,
-    path: "/admin/usermanagerment",
+    path: "/admin/user",
     component: UserManagerment,
   },
   {
@@ -39,7 +40,7 @@ const routesAdmin = [
   {
     exact: false,
     path: "/admin/detail/:id",
-    component: ModalMovieShedule,
+    component: ListMovieShedule,
   },
 ];
 

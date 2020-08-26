@@ -1,33 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { actFetchMovieSchedule } from "./module/action";
 import { connect } from "react-redux";
 import movieSheduleItem from "./movieSheduleItem.js";
-import Loading from "../../../../../components/Loading";
 
-function ModalMovieShedule(props) {
-  // const [state, setState] = useState({
-  //   movieShedule: {},
-  //   status: true,
-  //   number: 0,
-  // });
+function ListMovieShedule(props) {
+  // componentDidMount() {
+  //   // console.log(this.props.match.params);
+  //   const id = this.props.match.params.id;
+  //   this.props.fetchMovieSchedule(id);
+  // }
+
+
   useEffect(() => {
-    console.log(props.match);
+
     const id = props.match.params.id;
     props.fetchMovieSchedule(id);
+
   }, []);
-  const { movieShedule, loading } = props;
+
   const renderTable = () => {
-    if (movieShedule.maLichChieu && movieShedule.maLichChieu.length > 0) {
-      return movieShedule.maLichChieu.map((movieShowtime) => {
-        return (
-          <movieSheduleItem
-            key={movieShowtime.maLichChieu}
-            movieShowtime={movieShedule}
-          />
-        );
+    const { movieShedule } = props;
+    console.log(movieShedule.heThongRapChieu);
+    if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
+      return movieShedule.heThongRapChieu.map((movieShowtime) => {
+        return <movieSheduleItem
+          key={movieShowtime.heThongRapChieu}
+          movieShowtime={movieShowtime}
+        />;
       });
+
     }
   };
+
+
 
   return (
     <div>
@@ -107,13 +112,14 @@ function ModalMovieShedule(props) {
                   <th></th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>{renderTable()}</tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
   );
+
 }
 
 const mapStateToProps = (state) => {
@@ -126,10 +132,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchMovieSchedule: (id) => {
-      console.log(id);
+      // console.log(id);
       dispatch(actFetchMovieSchedule(id));
     },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalMovieShedule);
+export default connect(mapStateToProps, mapDispatchToProps)(ListMovieShedule);
