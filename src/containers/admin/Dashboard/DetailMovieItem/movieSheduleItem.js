@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
+import React from "react";
 
-export default class movieSheduleItem extends Component {
-  render() {
-    const { movieShowtime } = this.props;
-    // console.log(this.props);
-    return (
-      <tr>
-        <td>{movieShowtime.maHeThong}</td>
-      </tr>
-    )
-  }
+export default function movieSheduleItem(props) {
+  const { movieShowtime } = props;
+
+  return (
+    <tr>
+      <td>{movieShowtime.maHeThong}</td>
+      <td>{movieShowtime.tenHeThong}</td>
+      <td>{movieShowtime.cumRapChieu.tenCumRap}</td>
+    </tr>
+  );
 }
