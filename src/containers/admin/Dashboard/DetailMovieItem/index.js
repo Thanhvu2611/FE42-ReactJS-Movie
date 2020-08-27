@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { actFetchMovieSchedule } from "./module/action";
 import { connect } from "react-redux";
-import movieSheduleItem from "./movieSheduleItem.js";
+import MovieSheduleItem from "../../components/movieSheduleItem";
+
 
 function ListMovieShedule(props) {
   // componentDidMount() {
@@ -15,18 +16,24 @@ function ListMovieShedule(props) {
 
     const id = props.match.params.id;
     props.fetchMovieSchedule(id);
+    //console.log(props.fetchMovieSchedule(id));
 
   }, []);
 
   const renderTable = () => {
     const { movieShedule } = props;
-    console.log(movieShedule.heThongRapChieu);
+
     if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
+      console.log(movieShedule.heThongRapChieu.cumRapChieu);
       return movieShedule.heThongRapChieu.map((movieShowtime) => {
-        return <movieSheduleItem
-          key={movieShowtime.heThongRapChieu}
-          movieShowtime={movieShowtime}
-        />;
+        console.log(movieShowtime.cumRapChieu);
+        return movieShowtime.cumRapChieu.map((showtime) => {
+
+          return showtime.lichChieuPhim.map((show) => {
+            return <MovieSheduleItem show={show.maLichChieu} show={show} movieShowtime={movieShowtime} showtime={showtime} />
+          })
+        })
+
       });
 
     }
