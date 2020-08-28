@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import MovieItem from "../../../components/movieItem";
 
 
-import { actFetchDetailListMovie } from "./modules/action";
+import { actFetchDetailListMovie, actGetKeyWordListMovie } from "./modules/action";
 import Loading from "./../../../../../components/Loading";
 import { connect } from "react-redux";
 
@@ -12,13 +12,13 @@ function MovieList(props) {
     // eslint-disable-next-line
     // console.log(props);
   }, []);
-  const { listMovie, loading } = props;
+  const { listMovie, loading, keyword } = props;
   const renderTable = () => {
-
 
     if (listMovie && listMovie.length > 0) {
       return listMovie.map((movie) => {
         return <MovieItem key={movie.maPhim} movie={movie} />
+
 
       })
     }
@@ -51,7 +51,8 @@ function MovieList(props) {
 const mapStateToProps = state => {
   return {
     listMovie: state.movieReducer.listMovie,
-    loading: state.movieReducer.loading
+    loading: state.movieReducer.loading,
+    keyword: state.movieReducer.keyword
   };
 };
 

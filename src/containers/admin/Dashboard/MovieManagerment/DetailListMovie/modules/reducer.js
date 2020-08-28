@@ -1,11 +1,12 @@
-import { DETAIL_LISTMOVIE_REQUEST, DETAIL_LISTMOVIE_SUCCESS, DETAIL_LISTMOVIE_FAILED } from "./constans";
+import { DETAIL_LISTMOVIE_REQUEST, DETAIL_LISTMOVIE_SUCCESS, DETAIL_LISTMOVIE_FAILED, GET_KEYWORD_LISTMOVIE } from "./constans";
 
 
 let initialState = {
   loading: false,
   listMovie: [],
   // detailMovie: {},
-  err: null
+  err: null,
+  keyword: ""
 };
 
 const movieReducer = (state = initialState, action) => {
@@ -30,6 +31,9 @@ const movieReducer = (state = initialState, action) => {
       // state.detailMovie = {};
       state.err = action.err;
 
+      return { ...state };
+    case GET_KEYWORD_LISTMOVIE:
+      state.keyword = action.keyword;
       return { ...state };
 
     default:
