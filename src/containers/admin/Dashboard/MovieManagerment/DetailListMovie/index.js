@@ -12,8 +12,11 @@ function MovieList(props) {
     // eslint-disable-next-line
     // console.log(props);
   }, []);
-  const { listMovie, loading, keyword } = props;
+  let { listMovie, loading, keyword } = props;
   const renderTable = () => {
+    listMovie = listMovie.filter((item) => {
+      return item.tenPhim.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
+    });
 
     if (listMovie && listMovie.length > 0) {
       return listMovie.map((movie) => {
