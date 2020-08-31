@@ -31,6 +31,41 @@ class AddMovie extends Component {
 
     };
   };
+  //EditMovie
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (nextProps && nextProps.editListMovie) {
+      this.setState({
+        values: {
+          ...this.state.values,
+          maPhim: nextProps.editListMovie.maPhim,
+          tenPhim: nextProps.editListMovie.tenPhim,
+          biDanh: nextProps.editListMovie.biDanh,
+          trailer: nextProps.editListMovie.trailer,
+          hinhAnh: nextProps.editListMovie.hinhAnh,
+          maNhom: nextProps.editListMovie.maNhom,
+          ngayKhoiChieu: nextProps.editListMovie.ngayKhoiChieu,
+          danhGia: nextProps.editListMovie.danhGia,
+          moTa: nextProps.editListMovie.moTa
+        }
+      });
+    } else {
+      this.setState({
+        values: {
+          ...this.state.values,
+          maPhim: Number,
+          tenPhim: "",
+          biDanh: "",
+          trailer: "",
+          hinhAnh: "",
+          maNhom: "GP01",
+          ngayKhoiChieu: Date,
+          danhGia: null,
+          moTa: ""
+        }
+      });
+    }
+  }
+
   //Listeral
   handleChange = (event) => {
     const { value, name } = event.target;
@@ -177,11 +212,20 @@ class AddMovie extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    editListMovie: state.addListMovieReducer.editListMovie
+
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     fetchAddListMovie: (listMovie) => {
-      dispatch(actAddDetailListMovie(listMovie))
+      dispatch(actAddDetailListMovie(listMovie));
+
     }
   }
 }
-export default connect(null, mapDispatchToProps)(AddMovie);
+export default connect(mapStateToProps, mapDispatchToProps)(AddMovie);

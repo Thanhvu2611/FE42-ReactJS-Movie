@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-export default class MovieItem extends Component {
+import { connect } from "react-redux";
+import { actEditListMovie } from "./../../Dashboard/MovieManagerment/AddMovie/modules/action";
+
+class MovieItem extends Component {
   render() {
     const { movie } = this.props;
     // console.log(this.props);
@@ -21,10 +24,23 @@ export default class MovieItem extends Component {
           >
             Tạo Lịch Chiếu
           </Link>
-          <button className="btn btn-success">Sửa</button>
+          <Link className="btn btn-success" to={"/admin/addmovie"} onClick={() => {
+            this.props.editListMovie(movie)
+          }}>Sửa</Link>
           <button className="btn btn-danger">Xóa</button>
         </td>
       </tr>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    //EDIT LISTMOVIE
+    editListMovie: (movie) => {
+      dispatch(actEditListMovie(movie));
+      console.log(actEditListMovie(movie))
+    }
+  }
+}
+export default connect(null, mapDispatchToProps)(MovieItem);

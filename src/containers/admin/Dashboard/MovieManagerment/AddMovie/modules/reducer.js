@@ -1,8 +1,9 @@
-import { ADD_DETAIL_LISTMOVIE_REQUEST, ADD_DETAIL_LISTMOVIE_SUCCESSADD_DETAIL_LISTMOVIE_FAILED, ADD_DETAIL_LISTMOVIE_SUCCESS, ADD_DETAIL_LISTMOVIE_FAILED } from "./constans";
+import { ADD_DETAIL_LISTMOVIE_REQUEST, ADD_DETAIL_LISTMOVIE_SUCCESS, ADD_DETAIL_LISTMOVIE_FAILED, EDIT_DETAIL_LISTMOVIE } from "./constans";
 let initialState = {
   loading: false,
   listMovie: [],
-  err: null
+  err: null,
+  editListMovie: null
 }
 
 const addListMovieReducer = (state = initialState, action) => {
@@ -24,6 +25,10 @@ const addListMovieReducer = (state = initialState, action) => {
       state.listMovie = [];
       state.err = action.err;
 
+      return { ...state };
+    //EDIT MOVIE
+    case EDIT_DETAIL_LISTMOVIE:
+      state.editListMovie = action.data;
       return { ...state };
 
     default:
