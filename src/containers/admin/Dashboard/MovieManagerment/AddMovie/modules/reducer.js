@@ -1,10 +1,15 @@
-import { ADD_DETAIL_LISTMOVIE_REQUEST, ADD_DETAIL_LISTMOVIE_SUCCESS, ADD_DETAIL_LISTMOVIE_FAILED, EDIT_DETAIL_LISTMOVIE } from "./constans";
+import {
+  ADD_DETAIL_LISTMOVIE_REQUEST,
+  ADD_DETAIL_LISTMOVIE_SUCCESS,
+  ADD_DETAIL_LISTMOVIE_FAILED,
+  USER_EDIT,
+} from "./constans";
 let initialState = {
   loading: false,
   listMovie: [],
   err: null,
-  editListMovie: null
-}
+  editMovie: null,
+};
 
 const addListMovieReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -27,12 +32,13 @@ const addListMovieReducer = (state = initialState, action) => {
 
       return { ...state };
     //EDIT MOVIE
-    case EDIT_DETAIL_LISTMOVIE:
-      state.editListMovie = action.data;
+    case "MOVIE_EDIT":
+      state.editMovie = action.data;
+      console.log(action.data);
       return { ...state };
 
     default:
       return { ...state };
   }
-}
+};
 export default addListMovieReducer;

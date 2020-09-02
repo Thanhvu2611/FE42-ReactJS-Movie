@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import MovieItem from "../../../components/movieItem";
 
-
 import { actFetchDetailListMovie } from "./modules/action";
-import { actAddDetailListMovie } from "../AddMovie/modules/action";
+import { actAddMovie } from "../AddMovie/modules/action";
 import Loading from "./../../../../../components/Loading";
 import { connect } from "react-redux";
 
@@ -21,14 +20,11 @@ function MovieList(props) {
 
     if (listMovie && listMovie.length > 0) {
       return listMovie.map((movie) => {
-        return <MovieItem key={movie.maPhim} movie={movie} />
-
-
-      })
+        return <MovieItem key={movie.maPhim} movie={movie} />;
+      });
     }
-  }
-  if (loading) return <Loading />
-
+  };
+  if (loading) return <Loading />;
 
   return (
     <div>
@@ -44,31 +40,28 @@ function MovieList(props) {
             <th>Tạo Lịch Chiếu/Sửa/Xóa</th>
           </tr>
         </thead>
-        <tbody>
-          {renderTable()}
-        </tbody>
+        <tbody>{renderTable()}</tbody>
       </table>
-
     </div>
-  )
+  );
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     listMovie: state.movieReducer.listMovie,
     loading: state.movieReducer.loading,
-    keyword: state.movieReducer.keyword
+    keyword: state.movieReducer.keyword,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchListMovie: () => {
       dispatch(actFetchDetailListMovie());
     },
     addDetailListMovie: (listMovie) => {
-      dispatch(actAddDetailListMovie);
-    }
-  }
+      dispatch(actAddMovie(listMovie));
+    },
+  };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MovieList)
+export default connect(mapStateToProps, mapDispatchToProps)(MovieList);

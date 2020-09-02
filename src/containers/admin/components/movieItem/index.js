@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { MOVIE_EDIT } from "../../Dashboard/MovieManagerment/AddMovie/modules/action";
 import { actEditListMovie } from "./../../Dashboard/MovieManagerment/AddMovie/modules/action";
 
 class MovieItem extends Component {
@@ -24,9 +25,15 @@ class MovieItem extends Component {
           >
             Tạo Lịch Chiếu
           </Link>
-          <Link className="btn btn-success" to={"/admin/addmovie"} onClick={() => {
-            this.props.editListMovie(movie)
-          }}>Sửa</Link>
+          <Link
+            className="btn btn-success"
+            to={"/admin/addmovie"}
+            onClick={() => {
+              this.props.editMovie(movie);
+            }}
+          >
+            Sửa
+          </Link>
           <button className="btn btn-danger">Xóa</button>
         </td>
       </tr>
@@ -34,13 +41,20 @@ class MovieItem extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     //EDIT LISTMOVIE
-    editListMovie: (movie) => {
-      dispatch(actEditListMovie(movie));
-      console.log(actEditListMovie(movie))
-    }
-  }
-}
+    // editListMovie: (movie) => {
+    //   dispatch(actEditListMovie(movie));
+    //   console.log(actEditListMovie(movie));
+    // },
+    editMovie: (movie) => {
+      let action = {
+        type: "MOVIE_EDIT",
+        movie,
+      };
+      dispatch(action);
+    },
+  };
+};
 export default connect(null, mapDispatchToProps)(MovieItem);
