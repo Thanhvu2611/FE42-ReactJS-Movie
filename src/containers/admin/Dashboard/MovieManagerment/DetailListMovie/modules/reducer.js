@@ -37,9 +37,7 @@ const movieReducer = (state = initialState, action) => {
     case GET_KEYWORD_LISTMOVIE:
       state.keyword = action.keyword;
       return { ...state };
-    case EDIT_MOVIE:
-      state.editMovie = action.movie;
-      return { ...state };
+
 
 
 

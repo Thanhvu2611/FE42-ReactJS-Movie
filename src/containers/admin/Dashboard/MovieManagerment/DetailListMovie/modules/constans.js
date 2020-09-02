@@ -8,4 +8,4 @@ export const ADD_DETAIL_LISTMOVIE_REQUEST = "DetailListMovieReducer/ADD_DETAIL_L
 export const ADD_DETAIL_LISTMOVIE_SUCCESS = "DetailListMovieReducer/ADD_DETAIL_LISTMOVIE_SUCCESS"
 export const ADD_DETAIL_LISTMOVIE_FAILED = "DetailListMovieReducer/ADD_DETAIL_LISTMOVIE_FAILED"
 
-export const EDIT_MOVIE = "AddListMovieReducer/EDIT_DETAIL_LISTMOVIE";
+

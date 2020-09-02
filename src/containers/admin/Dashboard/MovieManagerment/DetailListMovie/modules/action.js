@@ -44,12 +44,6 @@ const actGetKeyWordListMovie = (keyword) => {
     keyword
   }
 }
-export const actEditMovie = (movie) => {
-  return {
-    type: EDIT_MOVIE,
-    movie
-  }
-};
 
 
 
