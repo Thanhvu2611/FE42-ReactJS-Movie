@@ -6,16 +6,17 @@ import soonMovieReducer from "../reducers/reducerSoonMovie";
 import movieReducer from "./../../containers/admin/Dashboard/MovieManagerment/DetailListMovie/modules/reducer";
 import movieSheduleReducer from "../../containers/admin/Dashboard/DetailMovieItem/module/reducer";
 import addListMovieReducer from "../../containers/admin/Dashboard/MovieManagerment/AddMovie/modules/reducer";
+import authReducer from "../../containers/admin/auth/modules/reducer";
 
-
-const rootReducer = combineReducers({
+const rootReducers = combineReducers({
   //key: value
   nowMovieReducer,
   soonMovieReducer,
   movieReducer,
   movieSheduleReducer,
-  addListMovieReducer
+  addListMovieReducer,
+  authReducer
 
 });
 
-export { rootReducer };
+export default rootReducers;

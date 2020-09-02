@@ -1,12 +1,13 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Router } from "react-router-dom";
 import PageNotFound from "./containers/PageNotFound";
 //import NavBar from "./components/Navbar";
 import { routesHome, routesAdmin } from "./routes";
 //import Footer from "./components/Footer";
 import HomeTemplate from './template/HomeTemplate';
 import AdminTemplate from './template/AdminTemplate';
+import Auth from "./containers/admin/auth";
 
 function App() {
   const showMenusHome = (routes) => {
@@ -43,7 +44,7 @@ function App() {
     <Route path="/list-movie" component={ListMoviePage} /> */}
         {showMenusHome(routesHome)}
         {showMenuAdmin(routesAdmin)}
-
+        <Router exact={false} path="/auth" component={Auth} />
 
         {/* Route này phải nằm ở cuối cùng. Vì những Route ở dưới PNF thì sẽ không chạy */}
         <Route path="" component={PageNotFound} />

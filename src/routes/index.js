@@ -9,7 +9,6 @@ import MovieList from "../containers/admin/components/movieItem"
 import UserManagerment from "../containers/admin/Dashboard/UserManagerment";
 import ListMovieShedule from "../containers/admin/Dashboard/DetailMovieItem";
 import MovieManagerment from "../containers/admin/Dashboard/MovieManagerment";
-//import Dashboard from "../containers/admin/Dashboard";
 import AddMovie from "../containers/admin/Dashboard/MovieManagerment/AddMovie";
 
 //Mảng chứa các route
@@ -24,22 +23,22 @@ const routesHome = [
 const routesAdmin = [
   {
     exact: false,
-    path: "/admin/movie",
+    path: "/dashboard/movie",
     component: MovieManagerment,
   },
   {
     exact: false,
-    path: "/admin/user",
+    path: "/dashboard/user",
     component: UserManagerment,
   },
   {
     exact: false,
-    path: "/admin/addmovie",
+    path: "/dashboard/addmovie",
     component: AddMovie,
   },
   {
     exact: false,
-    path: "/admin/detail/:id",
+    path: "/dashboard/detail/:id",
     component: ListMovieShedule,
   },
 ];

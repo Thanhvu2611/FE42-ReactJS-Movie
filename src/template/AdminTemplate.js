@@ -18,15 +18,20 @@ function AdminLayout(props) {
 
 export default function AdminTemplate({ Component, ...props }) {
   return (
-    <Route
-      {...props}
-      render={propsComponent => {
-        return (
-          <AdminLayout>
-            <Component {...propsComponent} />
-          </AdminLayout>
-        )
-      }}
-    />
+    <div>
+      <Route
+        {...props}
+        render={propsComponent => {
+          if (localStorage.getItem("userAmin")) {
+            return (
+              <AdminLayout>
+                <Component {...propsComponent} />
+              </AdminLayout>
+            );
+          }
+          return <Redirect to="/auth" />
+        }}
+      />
+    </div>
   )
 }

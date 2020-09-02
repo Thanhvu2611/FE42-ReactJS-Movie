@@ -21,13 +21,13 @@ class MovieItem extends Component {
         <td>
           <Link
             className="btn btn-primary"
-            to={`/admin/detail/${movie.maPhim}`}
+            to={`/dashboard/detail/${movie.maPhim}`}
           >
             Tạo Lịch Chiếu
           </Link>
           <Link
             className="btn btn-success"
-            to={"/admin/addmovie"}
+            to={"/dashboard/addmovie"}
             onClick={() => {
               this.props.editMovie(movie);
             }}
