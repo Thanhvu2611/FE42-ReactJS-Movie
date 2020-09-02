@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { MOVIE_EDIT } from "../../Dashboard/MovieManagerment/AddMovie/modules/action";
-import { actEditListMovie } from "./../../Dashboard/MovieManagerment/AddMovie/modules/action";
+import { actEditMovie } from "./../../Dashboard/MovieManagerment/DetailListMovie/modules/action";
 
 class MovieItem extends Component {
   render() {
@@ -21,13 +20,13 @@ class MovieItem extends Component {
         <td>
           <Link
             className="btn btn-primary"
-            to={`/dashboard/detail/${movie.maPhim}`}
+            to={`/admin/detail/${movie.maPhim}`}
           >
             Tạo Lịch Chiếu
           </Link>
           <Link
             className="btn btn-success"
-            to={"/dashboard/addmovie"}
+            to={"/admin/addmovie"}
             onClick={() => {
               this.props.editMovie(movie);
             }}
@@ -43,17 +42,10 @@ class MovieItem extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    //EDIT LISTMOVIE
-    // editListMovie: (movie) => {
-    //   dispatch(actEditListMovie(movie));
-    //   console.log(actEditListMovie(movie));
-    // },
     editMovie: (movie) => {
-      let action = {
-        type: "MOVIE_EDIT",
-        movie,
-      };
-      dispatch(action);
+
+      dispatch(actEditMovie(movie));
+      //console.log(actEditMovie(movie));
     },
   };
 };

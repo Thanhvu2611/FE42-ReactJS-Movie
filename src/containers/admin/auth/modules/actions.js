@@ -1,7 +1,7 @@
 import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILED } from "./constants";
 import Axios from "axios";
 
-const actFecthLogin = (user, history) => {
+const actFetchLogin = (user, history) => {
   return dispatch => {
     dispatch(actLoginRequest());
     Axios({
@@ -11,17 +11,22 @@ const actFecthLogin = (user, history) => {
     })
       .then(result => {
         dispatch(actLoginSuccess(result.data))
+        //Lưu danh sách người dùng xuống trang, hệ thống trả về 2 mã loại người dùng
+        //Xét mã loại người dùng quan trị hay user để phân loại quyền truy cập
         if (result.data.maLoaiNguoiDung === "QuanTri") {
+
           localStorage.setItem("userAdmin", JSON.stringify(result.data));
-          history.push("/dashboard/movie")
+          //Chuyển hướng qua trang Dashboard
+          history.push("/admin/movie");
         } else {
-          alert("Không có quyền truy cập");
+          alert("Không có quyền truy cập!");
         }
+
       })
       .catch(err => {
         dispatch(actLoginFailed(err));
-      }
-      );
+
+      });
   };
 };
 
@@ -30,7 +35,6 @@ const actLoginRequest = () => {
     type: AUTH_REQUEST
   };
 };
-
 const actLoginSuccess = (data) => {
   return {
     type: AUTH_SUCCESS,
@@ -45,4 +49,4 @@ const actLoginFailed = (err) => {
   };
 };
 
-export { actFecthLogin };
+export { actFetchLogin };

@@ -24,9 +24,9 @@ function ListMovieShedule(props) {
     const { movieShedule } = props;
 
     if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
-      console.log(movieShedule.heThongRapChieu.cumRapChieu);
+      //console.log(movieShedule.heThongRapChieu.cumRapChieu);
       return movieShedule.heThongRapChieu.map((movieShowtime) => {
-        console.log(movieShowtime.cumRapChieu);
+        //console.log(movieShowtime.cumRapChieu);
         return movieShowtime.cumRapChieu.map((showtime) => {
 
           return showtime.lichChieuPhim.map((show) => {

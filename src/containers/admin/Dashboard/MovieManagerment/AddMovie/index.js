@@ -7,31 +7,35 @@ class AddMovie extends Component {
     super(props);
     this.state = {
       values: {
-        maPhim: 0,
+        maPhim: Number,
         tenPhim: "",
         biDanh: "",
         trailer: "",
         hinhAnh: "",
+        moTa: "",
         maNhom: "GP01",
         ngayKhoiChieu: "",
-        danhGia: 0,
-        moTa: "",
+        danhGia: Number,
+
       },
       errors: {
-        maPhim: "",
+        maPhim: Number,
         tenPhim: "",
         biDanh: "",
         trailer: "",
         hinhAnh: "",
-        maNhom: "GP01",
-        ngayKhoiChieu: "",
-        danhGia: "",
         moTa: "",
+        maNhom: "",
+        ngayKhoiChieu: "",
+        danhGia: Number,
+
       },
     };
+    //console.log("Contrustor");
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
+    console.log("dsa");
     if (nextProps && nextProps.editMovie) {
       this.setState({
         values: {
@@ -41,10 +45,11 @@ class AddMovie extends Component {
           biDanh: nextProps.editMovie.biDanh,
           trailer: nextProps.editMovie.trailer,
           hinhAnh: nextProps.editMovie.hinhAnh,
+          moTa: nextProps.editMovie.moTa,
           maNhom: nextProps.editMovie.maNhom,
           ngayKhoiChieu: nextProps.editMovie.ngayKhoiChieu,
           danhGia: nextProps.editMovie.danhGia,
-          moTa: nextProps.editMovie.moTa,
+
         },
       });
     } else {
@@ -56,10 +61,11 @@ class AddMovie extends Component {
           biDanh: "",
           trailer: "",
           hinhAnh: "",
-          maNhom: "GP01",
+          moTa: "",
+          maNhom: "",
           ngayKhoiChieu: "",
           danhGia: "",
-          moTa: "",
+
         },
       });
     }
@@ -109,7 +115,6 @@ class AddMovie extends Component {
     }
     if (!isValid) return;
     this.props.fetchAddListMovie(this.state.values);
-    console.log(this.state.values);
   };
 
   //Validate
@@ -136,10 +141,11 @@ class AddMovie extends Component {
     return errorMessage;
   };
   render() {
-    // console.log(this.state.values);
+    console.log(this.props)
     return (
       <div className="container">
         <form>
+          <h3>Thêm Phim</h3>
           <div className="row">
             <div className="col-6">
               <div className="form-group">
@@ -238,7 +244,7 @@ class AddMovie extends Component {
               <div className="form-group">
                 <label>Hình Ảnh</label>
                 <input
-                  type="file"
+                  type="text"
                   name="hinhAnh"
                   className="form-control"
                   value={this.state.values.hinhAnh}
@@ -298,15 +304,16 @@ class AddMovie extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    listMovie: state.addListMovieReducer.listMovie,
+    movie: state.addListMovieReducer.movie,
     editMovie: state.addListMovieReducer.editMovie,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAddListMovie: (listMovie) => {
-      dispatch(actAddMovie(listMovie));
+    fetchAddListMovie: (movie) => {
+      dispatch(actAddMovie(movie));
+      //console.log(actAddMovie(movie));
     },
   };
 };

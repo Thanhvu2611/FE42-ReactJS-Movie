@@ -1,42 +1,40 @@
 import {
   ADD_DETAIL_LISTMOVIE_REQUEST,
   ADD_DETAIL_LISTMOVIE_SUCCESS,
-  ADD_DETAIL_LISTMOVIE_FAILED,
-  USER_EDIT,
+  ADD_DETAIL_LISTMOVIE_FAILED, EDIT_MOVIE
 } from "./constans";
+
 let initialState = {
   loading: false,
-  listMovie: [],
+  movie: [],
   err: null,
-  editMovie: null,
+  editMovie: [],
 };
 
 const addListMovieReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_DETAIL_LISTMOVIE_REQUEST:
       state.loading = true;
-      state.listMovie = [];
+      state.movie = [];
       state.err = null;
 
       return { ...state };
     case ADD_DETAIL_LISTMOVIE_SUCCESS:
       state.loading = false;
-      state.listMovie = action.data;
+      state.movie = action.data;
       state.err = null;
 
       return { ...state };
     case ADD_DETAIL_LISTMOVIE_FAILED:
       state.loading = false;
-      state.listMovie = [];
+      state.movie = [];
       state.err = action.err;
 
       return { ...state };
     //EDIT MOVIE
-    case "MOVIE_EDIT":
-      state.editMovie = action.data;
-      console.log(action.data);
+    case EDIT_MOVIE:
+      state.editMovie = action.movie;
       return { ...state };
-
     default:
       return { ...state };
   }

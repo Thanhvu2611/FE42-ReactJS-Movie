@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { DETAIL_LISTMOVIE_REQUEST, DETAIL_LISTMOVIE_SUCCESS, DETAIL_LISTMOVIE_FAILED, GET_KEYWORD_LISTMOVIE } from "./constans";
+import { DETAIL_LISTMOVIE_REQUEST, DETAIL_LISTMOVIE_SUCCESS, DETAIL_LISTMOVIE_FAILED, GET_KEYWORD_LISTMOVIE, EDIT_MOVIE } from "./constans";
 
 const actFetchDetailListMovie = () => {
   return dispatch => {
@@ -44,6 +44,12 @@ const actGetKeyWordListMovie = (keyword) => {
     keyword
   }
 }
+export const actEditMovie = (movie) => {
+  return {
+    type: EDIT_MOVIE,
+    movie
+  }
+};
 
 
 

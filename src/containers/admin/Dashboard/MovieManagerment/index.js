@@ -5,10 +5,8 @@ import { Link } from "react-router-dom";
 
 export default function MovieManagerment() {
   return (
-    <div className="container">
-      <Link className="nav-link" to="/dashboard/addmovie">
-        Thêm Phim
-      </Link>
+    <div>
+      <Link to="/admin/addmovie">Thêm Phim</Link>
       <Search />
       <MovieList />
     </div>

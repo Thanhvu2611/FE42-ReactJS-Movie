@@ -24,10 +24,10 @@ const authReducer = (state = initialState, action) => {
       state.err = action.err;
       return { ...state };
 
-
     default:
       return { ...state };
   }
+
 }
 
 export default authReducer;

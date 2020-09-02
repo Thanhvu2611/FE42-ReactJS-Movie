@@ -1,15 +1,14 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import Navadmin from "../containers/admin/components/Navadmin";
+import Dashboard from './../containers/admin/Dashboard';
 
 function AdminLayout(props) {
   return (
     <div className="row">
-      <div className="col-2">
-        <h3>Dashboard</h3>
-        <Navadmin />
+      <div className="col-sm-2">
+        <Dashboard />
       </div>
-      <div className="col-10">
+      <div className="col-sm-10">
         {props.children}
       </div>
     </div>
@@ -22,7 +21,7 @@ export default function AdminTemplate({ Component, ...props }) {
       <Route
         {...props}
         render={propsComponent => {
-          if (localStorage.getItem("userAmin")) {
+          if (localStorage.getItem("userAdmin")) {
             return (
               <AdminLayout>
                 <Component {...propsComponent} />

@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter, Route, Switch, Router } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import PageNotFound from "./containers/PageNotFound";
 //import NavBar from "./components/Navbar";
 import { routesHome, routesAdmin } from "./routes";
@@ -37,19 +37,12 @@ function App() {
   }
   return (
     <BrowserRouter>
-      {/* <NavBar /> */}
       <Switch>
-        {/* <Route exact path="/" component={HomePage} />
-    <Route path="/about" component={AboutPage} />
-    <Route path="/list-movie" component={ListMoviePage} /> */}
         {showMenusHome(routesHome)}
         {showMenuAdmin(routesAdmin)}
-        <Router exact={false} path="/auth" component={Auth} />
-
-        {/* Route này phải nằm ở cuối cùng. Vì những Route ở dưới PNF thì sẽ không chạy */}
+        <Route exact={false} path="/auth" component={Auth} />
         <Route path="" component={PageNotFound} />
       </Switch>
-      {/* <Footer /> */}
     </BrowserRouter>
   );
 }

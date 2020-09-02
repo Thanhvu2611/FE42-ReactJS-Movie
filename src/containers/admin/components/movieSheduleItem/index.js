@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class MovieSheduleItem extends Component {
   render() {
     const { show, movieShowtime, showtime } = this.props;
-    console.log(this.props)
+    //console.log(this.props)
     return (
       <tr>
         <td>{show.maLichChieu}</td>

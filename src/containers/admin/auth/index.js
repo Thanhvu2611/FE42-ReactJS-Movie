@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { actFecthLogin } from "./modules/actions";
+import { actFetchLogin } from "./modules/actions";
 import { connect } from "react-redux";
-
 import Loading from "./../../../components/Loading";
+
 
 class Auth extends Component {
   constructor(props) {
@@ -23,19 +23,19 @@ class Auth extends Component {
   handleLogin = (event) => {
     event.preventDefault();
     const user = {
-      taikhoan: this.state.username,
+      taiKhoan: this.state.username,
       matkhau: this.state.password
     }
     this.props.fetchLogin(user, this.props.history);
-
   };
 
   renderNoti = () => {
     const { errUser } = this.props;
     if (errUser) {
-      return <div className="alert alert-danger">{errUser.reponse.data}</div>
+      return <div className="alert alert-danger">{errUser.response.data}</div>
     }
   }
+
 
   render() {
     // console.log(this.props);
@@ -43,13 +43,11 @@ class Auth extends Component {
     if (loading) {
       return <Loading />;
     }
-
     return (
       <div className="container">
         <div className="row">
           <div className="col-sm-6 mx-auto">
-            {this.renderNoti}
-
+            {this.renderNoti()}
             <form onSubmit={this.handleLogin}>
               <div className="form-group">
                 <label>UserName</label>
@@ -63,7 +61,6 @@ class Auth extends Component {
             </form>
           </div>
         </div>
-
       </div>
     )
   }
@@ -79,9 +76,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchLogin: (user, history) => {
-      dispatch(actFecthLogin(user, history));
+      dispatch(actFetchLogin(user, history));
     }
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth)

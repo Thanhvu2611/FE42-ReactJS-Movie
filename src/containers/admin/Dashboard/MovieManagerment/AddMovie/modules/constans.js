@@ -5,4 +5,4 @@ export const ADD_DETAIL_LISTMOVIE_SUCCESS =
 export const ADD_DETAIL_LISTMOVIE_FAILED =
   "AddListMovieReducer/ADD_DETAIL_LISTMOVIE_FAILED";
 
-export const USER_EDIT = "AddListMovieReducer/EDIT_DETAIL_LISTMOVIE";
+export const EDIT_MOVIE = "AddListMovieReducer/EDIT_DETAIL_LISTMOVIE";
