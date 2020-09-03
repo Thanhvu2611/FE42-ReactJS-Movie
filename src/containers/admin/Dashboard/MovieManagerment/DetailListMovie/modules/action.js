@@ -44,8 +44,13 @@ const actGetKeyWordListMovie = (keyword) => {
     keyword
   }
 }
+const actEditMovie = (movie) => {
+  return {
+    type: EDIT_MOVIE,
+    movie
+  }
+};
 
 
 
-
-export { actFetchDetailListMovie, actGetKeyWordListMovie };
+export { actFetchDetailListMovie, actGetKeyWordListMovie, actEditMovie };

@@ -1,7 +1,7 @@
 import {
   ADD_DETAIL_LISTMOVIE_REQUEST,
   ADD_DETAIL_LISTMOVIE_SUCCESS,
-  ADD_DETAIL_LISTMOVIE_FAILED, EDIT_MOVIE
+  ADD_DETAIL_LISTMOVIE_FAILED,
 } from "./constans";
 import Axios from "axios";
 
@@ -49,10 +49,5 @@ const actAddListMovieFailed = (err) => {
     err,
   };
 };
-export const actEditMovie = (movie) => {
-  return {
-    type: EDIT_MOVIE,
-    movie
-  }
-};
+
 

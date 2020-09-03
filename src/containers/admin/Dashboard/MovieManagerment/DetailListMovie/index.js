@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import MovieItem from "../../../components/movieItem";
 
 import { actFetchDetailListMovie } from "./modules/action";
-import { actAddMovie } from "../AddMovie/modules/action";
 import Loading from "./../../../../../components/Loading";
 import { connect } from "react-redux";
 
@@ -57,9 +56,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchListMovie: () => {
       dispatch(actFetchDetailListMovie());
-    },
-    addDetailListMovie: (listMovie) => {
-      dispatch(actAddMovie(listMovie));
     },
   };
 };

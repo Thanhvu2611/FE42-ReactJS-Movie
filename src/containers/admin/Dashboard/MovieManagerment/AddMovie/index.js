@@ -7,7 +7,7 @@ class AddMovie extends Component {
     super(props);
     this.state = {
       values: {
-        maPhim: Number,
+        maPhim: "",
         tenPhim: "",
         biDanh: "",
         trailer: "",
@@ -15,11 +15,11 @@ class AddMovie extends Component {
         moTa: "",
         maNhom: "GP01",
         ngayKhoiChieu: "",
-        danhGia: Number,
+        danhGia: "",
 
       },
       errors: {
-        maPhim: Number,
+        maPhim: "",
         tenPhim: "",
         biDanh: "",
         trailer: "",
@@ -27,7 +27,7 @@ class AddMovie extends Component {
         moTa: "",
         maNhom: "",
         ngayKhoiChieu: "",
-        danhGia: Number,
+        danhGia: "",
 
       },
     };
@@ -35,7 +35,7 @@ class AddMovie extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log("dsa");
+
     if (nextProps && nextProps.editMovie) {
       this.setState({
         values: {
@@ -141,11 +141,11 @@ class AddMovie extends Component {
     return errorMessage;
   };
   render() {
-    console.log(this.props)
+    console.log(this.props.editMovie)
     return (
       <div className="container">
         <form>
-          <h3>Thêm Phim</h3>
+          <h3>{this.props.editMovie ? "EDIT MOVIE" : "ADD MOIVE"}</h3>
           <div className="row">
             <div className="col-6">
               <div className="form-group">
@@ -217,7 +217,7 @@ class AddMovie extends Component {
               <div className="form-group">
                 <label>Ngày Khởi Chiếu</label>
                 <input
-                  type="text"
+                  type="datetime"
                   name="ngayKhoiChieu"
                   className="form-control"
                   value={this.state.values.ngayKhoiChieu}
@@ -233,7 +233,7 @@ class AddMovie extends Component {
               <div className="form-group">
                 <label>Đánh Giá</label>
                 <input
-                  type="text"
+                  type="number"
                   name="danhGia"
                   className="form-control"
                   value={this.state.values.danhGia}
@@ -262,7 +262,6 @@ class AddMovie extends Component {
                 <input
                   type="text"
                   name="maNhom"
-                  disabled
                   className="form-control"
                   value={this.state.values.maNhom}
                   onChange={this.handleChange}
@@ -302,10 +301,9 @@ class AddMovie extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    movie: state.addListMovieReducer.movie,
-    editMovie: state.addListMovieReducer.editMovie,
+    editMovie: state.movieReducer.editMovie,
   };
 };
 

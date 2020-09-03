@@ -5,12 +5,6 @@ import MovieSheduleItem from "../../components/movieSheduleItem";
 
 
 function ListMovieShedule(props) {
-  // componentDidMount() {
-  //   // console.log(this.props.match.params);
-  //   const id = this.props.match.params.id;
-  //   this.props.fetchMovieSchedule(id);
-  // }
-
 
   useEffect(() => {
 

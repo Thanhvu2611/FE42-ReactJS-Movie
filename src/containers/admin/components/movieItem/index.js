@@ -43,9 +43,7 @@ class MovieItem extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     editMovie: (movie) => {
-
       dispatch(actEditMovie(movie));
-      //console.log(actEditMovie(movie));
     },
   };
 };
