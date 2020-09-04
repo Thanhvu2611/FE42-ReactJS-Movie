@@ -1,4 +1,4 @@
-import { DETAIL_LISTMOVIE_REQUEST, DETAIL_LISTMOVIE_SUCCESS, DETAIL_LISTMOVIE_FAILED, GET_KEYWORD_LISTMOVIE, EDIT_MOVIE } from "./constans";
+import { DETAIL_LISTMOVIE_REQUEST, DETAIL_LISTMOVIE_SUCCESS, DETAIL_LISTMOVIE_FAILED, GET_KEYWORD_LISTMOVIE, EDIT_MOVIE, DELETE_MOVIE } from "./constans";
 
 
 
@@ -7,7 +7,7 @@ let initialState = {
   listMovie: [],
   err: null,
   keyword: "",
-  editMovie: null,
+  editMovie: {},
 };
 
 const movieReducer = (state = initialState, action) => {
@@ -34,8 +34,12 @@ const movieReducer = (state = initialState, action) => {
       state.keyword = action.keyword;
       return { ...state };
     case EDIT_MOVIE:
-      state.editMovie = action.movie;
+      state.editMovie = action.data;
       return { ...state };
+    case DELETE_MOVIE:
+      state.listMovie = action.data;
+      return { ...state };
+    case DELETE_MOVIE:
     default:
       return { ...state };
   }

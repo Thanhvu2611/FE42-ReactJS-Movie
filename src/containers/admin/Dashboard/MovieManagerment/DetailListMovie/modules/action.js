@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { DETAIL_LISTMOVIE_REQUEST, DETAIL_LISTMOVIE_SUCCESS, DETAIL_LISTMOVIE_FAILED, GET_KEYWORD_LISTMOVIE, EDIT_MOVIE } from "./constans";
+import { DETAIL_LISTMOVIE_REQUEST, DETAIL_LISTMOVIE_SUCCESS, DETAIL_LISTMOVIE_FAILED, GET_KEYWORD_LISTMOVIE, EDIT_MOVIE, DELETE_MOVIE } from "./constans";
 
 const actFetchDetailListMovie = () => {
   return dispatch => {
@@ -38,19 +38,71 @@ const actDetailListMovieFailed = (err) => {
   }
 };
 
+//Key Word
+
 const actGetKeyWordListMovie = (keyword) => {
   return {
     type: GET_KEYWORD_LISTMOVIE,
     keyword
   }
 }
-const actEditMovie = (movie) => {
-  return {
-    type: EDIT_MOVIE,
-    movie
+
+//Edit
+
+const actFetchEditMovie = (id) => {
+  let token = "";
+  if (localStorage.getItem("userAdmin")) {
+    token = JSON.parse(localStorage.getItem("userAdmin")).accessToken;
+    //console.log(accesstoken);
+  }
+  return dispatch => {
+    Axios({
+      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayThongTinPhim?MaPhim=${id}`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((result) => {
+        console.log(result.data)
+        dispatch(actEditMovie(result.data));
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 };
+const actEditMovie = (id) => {
+  return {
+    type: EDIT_MOVIE,
+    data: id
+  }
+}
 
 
+//DELETE
 
-export { actFetchDetailListMovie, actGetKeyWordListMovie, actEditMovie };
+const actFetchDeleteMovie = (id) => {
+  return dispatch => {
+    Axios({
+      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/XoaPhim?MaPhim=${id}`,
+      method: "DELETE"
+    })
+      .then((result) => {
+        console.log(result.data)
+        dispatch(actDeleteMovie(result.data));
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+};
+const actDeleteMovie = (data) => {
+  return {
+    type: DELETE_MOVIE,
+    data
+  }
+}
+
+
+export { actFetchDetailListMovie, actGetKeyWordListMovie, actFetchEditMovie, actFetchDeleteMovie };

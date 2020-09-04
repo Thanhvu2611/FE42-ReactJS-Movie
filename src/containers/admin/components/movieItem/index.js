@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { actEditMovie } from "./../../Dashboard/MovieManagerment/DetailListMovie/modules/action";
+import { actFetchEditMovie, actFetchDeleteMovie } from "./../../Dashboard/MovieManagerment/DetailListMovie/modules/action";
 
 class MovieItem extends Component {
   render() {
@@ -25,15 +25,11 @@ class MovieItem extends Component {
             Tạo Lịch Chiếu
           </Link>
           <Link
-            className="btn btn-success"
-            to={"/admin/addmovie"}
-            onClick={() => {
-              this.props.editMovie(movie);
-            }}
-          >
-            Sửa
+            to={`/admin/addmovie/${movie.maPhim}`}
+          ><button className="btn btn-success" onClick={() => { this.props.editMovie(movie) }}>
+              Sửa</button>
           </Link>
-          <button className="btn btn-danger">Xóa</button>
+          <button className="btn btn-danger" onClick={() => { this.props.fetchDeleteMovie(movie.maPhim) }}>Xóa</button>
         </td>
       </tr>
     );
@@ -42,9 +38,12 @@ class MovieItem extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    editMovie: (movie) => {
-      dispatch(actEditMovie(movie));
+    editMovie: (id) => {
+      dispatch(actFetchEditMovie(id));
     },
+    fetchDeleteMovie: (id) => {
+      dispatch(actFetchDeleteMovie(id));
+    }
   };
 };
 export default connect(null, mapDispatchToProps)(MovieItem);

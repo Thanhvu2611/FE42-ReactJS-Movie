@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 function MovieManagerment(props) {
   return (
     <div>
-      <Link to="/admin/addmovie" onClick={() => { props.addMovie() }}>ADD MOVIE</Link>
+      <Link to="/admin/addmovie/:id"><button className="btn btn-success" onClick={() => { props.addMovie() }}>ADD MOVIE</button></Link>
       <Search />
       <MovieList />
     </div>

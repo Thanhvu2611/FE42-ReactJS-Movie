@@ -39,7 +39,7 @@ const actAddListMovieRequest = () => {
 const actAddListMovieSuccess = (data) => {
   return {
     type: ADD_DETAIL_LISTMOVIE_SUCCESS,
-    data,
+    data
   };
 };
 

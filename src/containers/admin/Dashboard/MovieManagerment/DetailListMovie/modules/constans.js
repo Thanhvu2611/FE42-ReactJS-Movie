@@ -5,3 +5,5 @@ export const DETAIL_LISTMOVIE_FAILED = "MovieReducer/DETAIL_LISTMOVIE_FAILED";
 export const GET_KEYWORD_LISTMOVIE = "MovieReducer/GET_KEYWORD_LISTMOVIE";
 
 export const EDIT_MOVIE = "MovieReducer/EDIT_DETAIL_LISTMOVIE";
+
+export const DELETE_MOVIE = "MovieReducer/DELETE_MOVIE"

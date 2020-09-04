@@ -1,25 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { actAddMovie } from "../AddMovie/modules/action";
+import { actFetchEditMovie } from "../DetailListMovie/modules/action";
 
 class AddMovie extends Component {
   constructor(props) {
     super(props);
     this.state = {
       values: {
-        maPhim: "",
-        tenPhim: "",
-        biDanh: "",
-        trailer: "",
-        hinhAnh: "",
-        moTa: "",
-        maNhom: "GP01",
-        ngayKhoiChieu: "",
-        danhGia: "",
-
-      },
-      errors: {
-        maPhim: "",
+        maPhim: 0,
         tenPhim: "",
         biDanh: "",
         trailer: "",
@@ -27,15 +16,32 @@ class AddMovie extends Component {
         moTa: "",
         maNhom: "",
         ngayKhoiChieu: "",
-        danhGia: "",
+        danhGia: 0
+
+      },
+      errors: {
+        maPhim: 0,
+        tenPhim: "",
+        biDanh: "",
+        trailer: "",
+        hinhAnh: "",
+        moTa: "",
+        maNhom: "",
+        ngayKhoiChieu: "",
+        danhGia: 0
 
       },
     };
     //console.log("Contrustor");
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  componentDidMount() {
 
+    const id = this.props.match.params.id;
+    this.props.fetchEditMovie(id);
+    console.log(this.props.fetchEditMovie(id));
+  }
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.editMovie) {
       this.setState({
         values: {
@@ -48,28 +54,28 @@ class AddMovie extends Component {
           moTa: nextProps.editMovie.moTa,
           maNhom: nextProps.editMovie.maNhom,
           ngayKhoiChieu: nextProps.editMovie.ngayKhoiChieu,
-          danhGia: nextProps.editMovie.danhGia,
-
-        },
+          danhGia: nextProps.editMovie.danhGia
+        }
       });
     } else {
       this.setState({
         values: {
           ...this.state.values,
-          maPhim: "",
+          maPhim: Number,
           tenPhim: "",
           biDanh: "",
           trailer: "",
           hinhAnh: "",
           moTa: "",
-          maNhom: "",
+          maNhom: "GP01",
           ngayKhoiChieu: "",
-          danhGia: "",
-
-        },
+          danhGia: Number
+        }
       });
+
     }
   }
+
 
   //Listeral
   handleChange = (event) => {
@@ -115,6 +121,7 @@ class AddMovie extends Component {
     }
     if (!isValid) return;
     this.props.fetchAddListMovie(this.state.values);
+    console.log(this.state.values);
   };
 
   //Validate
@@ -144,7 +151,7 @@ class AddMovie extends Component {
     console.log(this.props.editMovie)
     return (
       <div className="container">
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <h3>{this.props.editMovie ? "EDIT MOVIE" : "ADD MOIVE"}</h3>
           <div className="row">
             <div className="col-6">
@@ -287,13 +294,13 @@ class AddMovie extends Component {
             <button
               type="submit"
               className="btn btn-success"
-              onClick={this.handleSubmit}
+            //onClick={this.handleSubmit}
             >
-              Add
+              Submit
             </button>
-            <button type="submit" className="btn btn-info">
+            {/* <button type="submit" className="btn btn-info">
               Save
-            </button>
+            </button> */}
           </div>
         </form>
       </div>
@@ -313,6 +320,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actAddMovie(movie));
       //console.log(actAddMovie(movie));
     },
+    fetchEditMovie: (id) => {
+      //console.log(id);
+      dispatch(actFetchEditMovie(id));
+    }
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AddMovie);

@@ -31,7 +31,7 @@ const routesAdmin = [
   },
   {
     exact: false,
-    path: "/admin/addmovie",
+    path: "/admin/addmovie/:id",
     component: AddMovie,
   },
   {
