@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { actAddMovie } from "../AddMovie/modules/action";
 import { actFetchEditMovie } from "../DetailListMovie/modules/action";
+import Loading from "../../../../../components/Loading";
 
 class AddMovie extends Component {
   constructor(props) {
@@ -42,6 +43,7 @@ class AddMovie extends Component {
     console.log(this.props.fetchEditMovie(id));
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     if (nextProps && nextProps.editMovie) {
       this.setState({
         values: {
@@ -148,7 +150,10 @@ class AddMovie extends Component {
     return errorMessage;
   };
   render() {
-    console.log(this.props.editMovie)
+    //console.log(this.props.editMovie)
+    // const { loading } = this.props;
+    // if (this.props.loading) return <Loading />
+
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit}>

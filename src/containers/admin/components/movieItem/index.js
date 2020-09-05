@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import { actFetchEditMovie, actFetchDeleteMovie } from "./../../Dashboard/MovieManagerment/DetailListMovie/modules/action";
 
 class MovieItem extends Component {
+
   render() {
     const { movie } = this.props;
-    // console.log(this.props);
     return (
       <tr>
         <td>{movie.maPhim}</td>
@@ -35,6 +35,8 @@ class MovieItem extends Component {
     );
   }
 }
+
+
 
 const mapDispatchToProps = (dispatch) => {
   return {

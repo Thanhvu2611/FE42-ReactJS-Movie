@@ -1,5 +1,6 @@
 import Axios from "axios";
-import { DETAIL_LISTMOVIE_REQUEST, DETAIL_LISTMOVIE_SUCCESS, DETAIL_LISTMOVIE_FAILED, GET_KEYWORD_LISTMOVIE, EDIT_MOVIE, DELETE_MOVIE } from "./constans";
+import { DETAIL_LISTMOVIE_REQUEST, DETAIL_LISTMOVIE_SUCCESS, DETAIL_LISTMOVIE_FAILED, GET_KEYWORD_LISTMOVIE, DELETE_MOVIE } from "./constans";
+import { EDIT_MOVIE_REQUEST, EDIT_MOVIE_SUCCESS, EDIT_MOVIE_FAILED } from "./constans";
 
 const actFetchDetailListMovie = () => {
   return dispatch => {
@@ -47,6 +48,7 @@ const actGetKeyWordListMovie = (keyword) => {
   }
 }
 
+
 //Edit
 
 const actFetchEditMovie = (id) => {
@@ -56,6 +58,7 @@ const actFetchEditMovie = (id) => {
     //console.log(accesstoken);
   }
   return dispatch => {
+    dispatch(actEditMovieRequest());
     Axios({
       url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayThongTinPhim?MaPhim=${id}`,
       method: "GET",
@@ -64,43 +67,63 @@ const actFetchEditMovie = (id) => {
       },
     })
       .then((result) => {
-        console.log(result.data)
-        dispatch(actEditMovie(result.data));
+        //console.log(result.data)
+        dispatch(actEditMovieSuccess(result.data));
       })
       .catch(err => {
-        console.log(err);
+        dispatch(actEditMovieFailed(err));
       })
   }
 };
-const actEditMovie = (id) => {
+const actEditMovieRequest = () => {
   return {
-    type: EDIT_MOVIE,
+    type: EDIT_MOVIE_REQUEST,
+  }
+};
+
+const actEditMovieSuccess = (id) => {
+  return {
+    type: EDIT_MOVIE_SUCCESS,
     data: id
   }
-}
+};
+
+const actEditMovieFailed = (err) => {
+  return {
+    type: EDIT_MOVIE_FAILED,
+    err
+  }
+};
 
 
 //DELETE
 
 const actFetchDeleteMovie = (id) => {
+  let token = "";
+  if (localStorage.getItem("userAdmin")) {
+    token = JSON.parse(localStorage.getItem("userAdmin")).accessToken;
+  }
   return dispatch => {
     Axios({
       url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/XoaPhim?MaPhim=${id}`,
-      method: "DELETE"
+      method: "DELETE",
+      data: null,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
     })
       .then((result) => {
-        console.log(result.data)
-        dispatch(actDeleteMovie(result.data));
+        dispatch(actDeleteMovie(id));
       })
       .catch(err => {
         console.log(err);
       })
   }
 };
-const actDeleteMovie = (data) => {
+const actDeleteMovie = (id) => {
   return {
     type: DELETE_MOVIE,
-    data
+    id
   }
 }
 

@@ -10,7 +10,10 @@ let initialState = {
   err: null,
 };
 
+
+
 const addListMovieReducer = (state = initialState, action) => {
+
   switch (action.type) {
     case ADD_DETAIL_LISTMOVIE_REQUEST:
       state.loading = true;
