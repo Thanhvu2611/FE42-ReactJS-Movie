@@ -1,11 +1,11 @@
 import {
   ADD_DETAIL_LISTMOVIE_REQUEST,
   ADD_DETAIL_LISTMOVIE_SUCCESS,
-  ADD_DETAIL_LISTMOVIE_FAILED,
+  ADD_DETAIL_LISTMOVIE_FAILED, UPDATE_MOVIE
 } from "./constans";
 import Axios from "axios";
 
-export const actAddMovie = (movie) => {
+const actAddMovie = (movie, history) => {
   console.log(movie);
 
   let token = "";
@@ -25,7 +25,7 @@ export const actAddMovie = (movie) => {
     })
       .then((result) => {
         dispatch(actAddListMovieSuccess(result.data));
-        console.log(1);
+        history.push("/admin/movie");
       })
       .catch((err) => {
         dispatch(actAddListMovieFailed(err));
@@ -53,4 +53,38 @@ const actAddListMovieFailed = (err) => {
   };
 };
 
+//EDIT MOVIE
 
+const actUpdateMovieRequest = (movie) => {
+  let token = "";
+  if (localStorage.getItem("userAdmin")) {
+    token = JSON.parse(localStorage.getItem("userAdmin")).accessToken;
+  }
+  return dispatch => {
+    Axios({
+      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhim/${movie.id}`,
+      method: "POST",
+      data: movie,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((result) => {
+        //console.log(result.data)
+        dispatch(actUpdateMovie(result.data));
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+};
+
+const actUpdateMovie = (movie) => {
+  return {
+    type: UPDATE_MOVIE,
+    movie
+
+  }
+}
+
+export { actAddMovie, actUpdateMovieRequest };

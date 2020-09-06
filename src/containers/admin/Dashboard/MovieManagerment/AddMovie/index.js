@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { actAddMovie } from "../AddMovie/modules/action";
-import { actFetchEditMovie } from "../DetailListMovie/modules/action";
+import { actFetchEditMovie, } from "../DetailListMovie/modules/action";
+import { actUpdateMovieRequest } from "./modules/action";
 import Loading from "../../../../../components/Loading";
 
 class AddMovie extends Component {
@@ -101,6 +102,20 @@ class AddMovie extends Component {
     });
   };
   handleSubmit = (event) => {
+    let { maphim } = this.state
+    const { history } = this.props;
+    let movie = {
+      id: maphim,
+      tenPhim: "",
+      biDanh: "",
+      trailer: "",
+      hinhAnh: "",
+      moTa: "",
+      maNhom: "",
+      ngayKhoiChieu: "",
+      danhGia: 0
+    }
+
     event.preventDefault();
     let isValid = true;
     for (let key in this.state.values) {
@@ -118,16 +133,21 @@ class AddMovie extends Component {
       });
     }
     if (!isValid) return;
-    this.props.fetchAddListMovie(this.state.values);
-    console.log(this.state.values);
+    if (maphim) {
+      this.props.fetchUpdateMovie(movie);
+    } else {
+      this.props.fetchAddListMovie(movie);
+    }
+    history.push("/admin/movie");
+    //console.log(this.state.values);
   };
 
   //Validate
   validate = (name, value) => {
     let errorMessage = "";
-    if (name === "maPhim") {
-      errorMessage = !value ? "Mã Phim không được để trống" : "";
-    }
+    // if (name === "maPhim") {
+    //   errorMessage = !value ? "Mã Phim không được để trống" : "";
+    // }
     if (name === "tenPhim") {
       errorMessage = !value ? "Tên Phim không được để trống" : "";
     }
@@ -147,8 +167,8 @@ class AddMovie extends Component {
   };
   render() {
     //console.log(this.props.editMovie)
-    // const { loading } = this.props;
-    // if (this.props.loading) return <Loading />
+    const { loading } = this.props;
+    if (loading) return <Loading />
 
     return (
       <div className="container">
@@ -156,7 +176,7 @@ class AddMovie extends Component {
           <h3>{this.props.editMovie ? "EDIT MOVIE" : "ADD MOIVE"}</h3>
           <div className="row">
             <div className="col-6">
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label>Mã Phim</label>
                 <input
                   type="number"
@@ -171,7 +191,7 @@ class AddMovie extends Component {
                     <span>{this.state.errors.maPhim}</span>
                   </div>
                 )}
-              </div>
+              </div> */}
               <div className="form-group">
                 <label>Tên Phim</label>
                 <input
@@ -312,6 +332,7 @@ class AddMovie extends Component {
 const mapStateToProps = state => {
   return {
     editMovie: state.movieReducer.editMovie,
+    loading: state.movieReducer.loading
   };
 };
 
@@ -324,6 +345,9 @@ const mapDispatchToProps = (dispatch) => {
     fetchEditMovie: (id) => {
       //console.log(id);
       dispatch(actFetchEditMovie(id));
+    },
+    fetchUpdateMovie: (movie) => {
+      dispatch(actUpdateMovieRequest(movie));
     }
   };
 };

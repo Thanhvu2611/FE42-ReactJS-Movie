@@ -11,21 +11,22 @@ let initialState = {
   editMovie: {},
 };
 
+// let findIndex = (movieReducer, id) => {
+//   let result = -1;
+//   movieReducer.forEach((listMovie, index) => {
+//     if (listMovie.id === id) {
+//       result = index;
+//     }
+//   });
+//   return result;
+// }
 
 
 const movieReducer = (state = initialState, action) => {
-
+  // var index = -1;
+  // var { id } = action;
   switch (action.type) {
-    case DELETE_MOVIE:
-      let index = state.listMovie.findIndex((item) => {
-        return item.id === action.id;
-      })
-      if (index !== -1) {
-        let listMovie = [...state.listMovie];
-        listMovie.splice(index, 1);
-        state.listMovie = listMovie;
-      }
-      return { ...state };
+
 
     case DETAIL_LISTMOVIE_REQUEST:
       state.loading = true;
@@ -44,6 +45,20 @@ const movieReducer = (state = initialState, action) => {
       state.listMovie = [];
       state.err = action.err;
 
+      return { ...state };
+
+    case DELETE_MOVIE:
+      let index = state.listMovie.findIndex((item) => {
+        return item.id === action.id;
+      })
+      if (index !== -1) {
+        let listMovie = [...state.listMovie];
+        listMovie.splice(index, 1);
+        state.listMovie = listMovie;
+      }
+      // index = findIndex(state, id);
+      // state.splice(index, 1);
+      // state.listMovie = listMovie;
       return { ...state };
 
     case GET_KEYWORD_LISTMOVIE:

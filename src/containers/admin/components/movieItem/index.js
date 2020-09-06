@@ -26,7 +26,9 @@ class MovieItem extends Component {
           </Link>
           <Link
             to={`/admin/addmovie/${movie.maPhim}`}
-          ><button className="btn btn-success" onClick={() => { this.props.editMovie(movie) }}>
+          ><button className="btn btn-success" onClick={() => {
+            this.props.editMovie(movie.id)
+          }}>
               Sửa</button>
           </Link>
           <button className="btn btn-danger" onClick={() => { this.props.fetchDeleteMovie(movie.maPhim) }}>Xóa</button>
