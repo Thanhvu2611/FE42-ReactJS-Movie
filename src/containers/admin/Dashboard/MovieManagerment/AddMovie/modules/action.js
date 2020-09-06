@@ -6,6 +6,8 @@ import {
 import Axios from "axios";
 
 export const actAddMovie = (movie) => {
+  console.log(movie);
+
   let token = "";
   if (localStorage.getItem("userAdmin")) {
     token = JSON.parse(localStorage.getItem("userAdmin")).accessToken;
@@ -23,6 +25,7 @@ export const actAddMovie = (movie) => {
     })
       .then((result) => {
         dispatch(actAddListMovieSuccess(result.data));
+        console.log(1);
       })
       .catch((err) => {
         dispatch(actAddListMovieFailed(err));

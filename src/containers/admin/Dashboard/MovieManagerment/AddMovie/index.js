@@ -9,7 +9,6 @@ class AddMovie extends Component {
     super(props);
     this.state = {
       values: {
-        maPhim: 0,
         tenPhim: "",
         biDanh: "",
         trailer: "",
@@ -21,7 +20,6 @@ class AddMovie extends Component {
 
       },
       errors: {
-        maPhim: 0,
         tenPhim: "",
         biDanh: "",
         trailer: "",
@@ -48,7 +46,6 @@ class AddMovie extends Component {
       this.setState({
         values: {
           ...this.state.values,
-          maPhim: nextProps.editMovie.maPhim,
           tenPhim: nextProps.editMovie.tenPhim,
           biDanh: nextProps.editMovie.biDanh,
           trailer: nextProps.editMovie.trailer,
@@ -63,7 +60,6 @@ class AddMovie extends Component {
       this.setState({
         values: {
           ...this.state.values,
-          maPhim: Number,
           tenPhim: "",
           biDanh: "",
           trailer: "",

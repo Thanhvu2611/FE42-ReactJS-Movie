@@ -103,6 +103,8 @@ const actFetchDeleteMovie = (id) => {
   if (localStorage.getItem("userAdmin")) {
     token = JSON.parse(localStorage.getItem("userAdmin")).accessToken;
   }
+  console.log(token);
+  console.log(id);
   return dispatch => {
     Axios({
       url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/XoaPhim?MaPhim=${id}`,
