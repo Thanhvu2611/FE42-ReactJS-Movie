@@ -49,51 +49,6 @@ const actGetKeyWordListMovie = (keyword) => {
 }
 
 
-//Edit
-
-const actFetchEditMovie = (id) => {
-  let token = "";
-  if (localStorage.getItem("userAdmin")) {
-    token = JSON.parse(localStorage.getItem("userAdmin")).accessToken;
-    //console.log(accesstoken);
-  }
-  return dispatch => {
-    dispatch(actEditMovieRequest());
-    Axios({
-      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayThongTinPhim?MaPhim=${id}`,
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((result) => {
-        //console.log(result.data)
-        dispatch(actEditMovieSuccess(result.data));
-      })
-      .catch(err => {
-        dispatch(actEditMovieFailed(err));
-      })
-  }
-};
-const actEditMovieRequest = () => {
-  return {
-    type: EDIT_MOVIE_REQUEST,
-  }
-};
-
-const actEditMovieSuccess = (movie) => {
-  return {
-    type: EDIT_MOVIE_SUCCESS,
-    data: movie
-  }
-};
-
-const actEditMovieFailed = (err) => {
-  return {
-    type: EDIT_MOVIE_FAILED,
-    err
-  }
-};
 
 
 //DELETE
