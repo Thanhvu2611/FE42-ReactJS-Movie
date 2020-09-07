@@ -36,6 +36,11 @@ const routesAdmin = [
   },
   {
     exact: false,
+    path: "/admin/addmovie",
+    component: AddMovie,
+  },
+  {
+    exact: false,
     path: "/admin/detail/:id",
     component: ListMovieShedule,
   },

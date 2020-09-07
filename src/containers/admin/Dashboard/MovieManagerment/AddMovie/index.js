@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { actAddMovie } from "../AddMovie/modules/action";
-import { actFetchEditMovie, } from "../DetailListMovie/modules/action";
-import { actUpdateMovieRequest } from "./modules/action";
+import { actFetchEditMovie, actUpdateMovieRequest } from "./editmodules/action";
+
 import Loading from "../../../../../components/Loading";
 
 class AddMovie extends Component {
@@ -10,6 +10,7 @@ class AddMovie extends Component {
     super(props);
     this.state = {
       values: {
+        maPhim: Number,
         tenPhim: "",
         biDanh: "",
         trailer: "",
@@ -21,6 +22,7 @@ class AddMovie extends Component {
 
       },
       errors: {
+        maPhim: Number,
         tenPhim: "",
         biDanh: "",
         trailer: "",
@@ -37,16 +39,20 @@ class AddMovie extends Component {
 
   componentDidMount() {
 
-    const id = this.props.match.params.id;
-    this.props.fetchEditMovie(id);
-    console.log(this.props.fetchEditMovie(id));
+    var { match } = this.props;
+    if (match) {
+      const id = match.params.id;
+      this.props.fetchEditMovie(id);
+      //console.log(this.props.fetchEditMovie(id));
+    }
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+
     if (nextProps && nextProps.editMovie) {
       this.setState({
         values: {
           ...this.state.values,
+          maPhim: nextProps.editMovie.maPhim,
           tenPhim: nextProps.editMovie.tenPhim,
           biDanh: nextProps.editMovie.biDanh,
           trailer: nextProps.editMovie.trailer,
@@ -57,21 +63,6 @@ class AddMovie extends Component {
           danhGia: nextProps.editMovie.danhGia
         }
       });
-    } else {
-      this.setState({
-        values: {
-          ...this.state.values,
-          tenPhim: "",
-          biDanh: "",
-          trailer: "",
-          hinhAnh: "",
-          moTa: "",
-          maNhom: "GP01",
-          ngayKhoiChieu: "",
-          danhGia: Number
-        }
-      });
-
     }
   }
 
@@ -102,21 +93,22 @@ class AddMovie extends Component {
     });
   };
   handleSubmit = (event) => {
-    let { maphim } = this.state
-    const { history } = this.props;
-    let movie = {
-      id: maphim,
-      tenPhim: "",
-      biDanh: "",
-      trailer: "",
-      hinhAnh: "",
-      moTa: "",
-      maNhom: "",
-      ngayKhoiChieu: "",
-      danhGia: 0
-    }
-
     event.preventDefault();
+    //let { id, maPhim, tenPhim, biDanh, trailer, hinhAnh, moTa, maNhom, ngayKhoiChieu, danhGia } = this.state;
+    const { history } = this.props;
+    // let movie = {
+    //   id: maPhim,
+    //   tenPhim: tenPhim,
+    //   biDanh: biDanh,
+    //   trailer: trailer,
+    //   hinhAnh: hinhAnh,
+    //   moTa: moTa,
+    //   maNhom: maNhom,
+    //   ngayKhoiChieu: ngayKhoiChieu,
+    //   danhGia: danhGia,
+    // }
+
+
     let isValid = true;
     for (let key in this.state.values) {
       const errorMessage = this.validate(key, this.state.values[key]);
@@ -132,15 +124,33 @@ class AddMovie extends Component {
         };
       });
     }
-    if (!isValid) return;
-    if (maphim) {
-      this.props.fetchUpdateMovie(movie);
-    } else {
-      this.props.fetchAddListMovie(movie);
-    }
-    history.push("/admin/movie");
+    // if (!isValid) return;
+    // if (id) {
+
+    // } else {
+    this.props.fetchAddListMovie(this.state.values);
+    //}
+    history.goBack()
     //console.log(this.state.values);
   };
+  handleSave = (event) => {
+    event.preventDefault();
+    let { id, maPhim, tenPhim, biDanh, trailer, hinhAnh, moTa, maNhom, ngayKhoiChieu, danhGia } = this.state;
+    const { history } = this.props;
+    let movie = {
+      maPhim: maPhim,
+      tenPhim: tenPhim,
+      biDanh: biDanh,
+      trailer: trailer,
+      hinhAnh: hinhAnh,
+      moTa: moTa,
+      maNhom: maNhom,
+      ngayKhoiChieu: ngayKhoiChieu,
+      danhGia: danhGia,
+    }
+
+    this.props.fetchUpdateMovie(movie);
+  }
 
   //Validate
   validate = (name, value) => {
@@ -166,14 +176,15 @@ class AddMovie extends Component {
     return errorMessage;
   };
   render() {
-    //console.log(this.props.editMovie)
     const { loading } = this.props;
     if (loading) return <Loading />
 
     return (
       <div className="container">
-        <form onSubmit={this.handleSubmit}>
-          <h3>{this.props.editMovie ? "EDIT MOVIE" : "ADD MOIVE"}</h3>
+        <form
+        //  onSubmit={this.handleSubmit}
+        >
+          <h3>{this.props.editMovie ? "EDIT MOVIE" : "ADD MOVIE"}</h3>
           <div className="row">
             <div className="col-6">
               {/* <div className="form-group">
@@ -315,13 +326,13 @@ class AddMovie extends Component {
             <button
               type="submit"
               className="btn btn-success"
-            //onClick={this.handleSubmit}
+              onClick={this.handleSubmit}
             >
               Submit
             </button>
-            {/* <button type="submit" className="btn btn-info">
+            <button type="submit" className="btn btn-info" onClick={this.handleSave}>
               Save
-            </button> */}
+            </button>
           </div>
         </form>
       </div>
@@ -331,8 +342,7 @@ class AddMovie extends Component {
 
 const mapStateToProps = state => {
   return {
-    editMovie: state.movieReducer.editMovie,
-    loading: state.movieReducer.loading
+    editMovie: state.EditMovieReducer.editMovie,
   };
 };
 
@@ -342,9 +352,9 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actAddMovie(movie));
       //console.log(actAddMovie(movie));
     },
-    fetchEditMovie: (id) => {
+    fetchEditMovie: (movie) => {
       //console.log(id);
-      dispatch(actFetchEditMovie(id));
+      dispatch(actFetchEditMovie(movie));
     },
     fetchUpdateMovie: (movie) => {
       dispatch(actUpdateMovieRequest(movie));

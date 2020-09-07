@@ -73,7 +73,7 @@ const movieReducer = (state = initialState, action) => {
       return { ...state };
     case EDIT_MOVIE_SUCCESS:
       state.loading = false;
-      state.editMovie = action.data;
+      state.editMovie = action.movie;
       state.err = null;
 
       return { ...state };

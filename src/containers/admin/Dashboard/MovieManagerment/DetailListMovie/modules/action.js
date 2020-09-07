@@ -81,10 +81,10 @@ const actEditMovieRequest = () => {
   }
 };
 
-const actEditMovieSuccess = (id) => {
+const actEditMovieSuccess = (movie) => {
   return {
     type: EDIT_MOVIE_SUCCESS,
-    data: id
+    data: movie
   }
 };
 

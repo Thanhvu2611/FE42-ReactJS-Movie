@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 function MovieManagerment(props) {
   return (
     <div>
-      <Link to="/admin/addmovie/:id"><button className="btn btn-success" onClick={() => { props.addMovie() }}>ADD MOVIE</button></Link>
+      <Link to="/admin/addmovie"><button className="btn btn-success" onClick={() => { props.addMovie() }}>ADD MOVIE</button></Link>
       <Search />
       <MovieList />
     </div>
@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addMovie: () => {
       let action = {
-        type: "MovieReducer/EDIT_DETAIL_LISTMOVIE",
+        type: "MovieReducer/EDIT_MOVIE_SUCCESS",
         movie: null
       };
       dispatch(action);

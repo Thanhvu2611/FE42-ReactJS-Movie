@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { actFetchEditMovie, actFetchDeleteMovie } from "./../../Dashboard/MovieManagerment/DetailListMovie/modules/action";
-
+import { actFetchDeleteMovie } from "./../../Dashboard/MovieManagerment/DetailListMovie/modules/action";
+import { actFetchEditMovie } from "./../../Dashboard/MovieManagerment/AddMovie/editmodules/action";
 class MovieItem extends Component {
 
   render() {
