@@ -1,9 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import { connect } from "react-redux";
+import UserItem from "../../../components/userItem";
+import { actFetchUser, actSearchUserRequest } from "./module/action";
+import Loading from '../../../../../components/Loading';
 
-export default function ListUser() {
+function ListUser(props) {
+  useEffect(() => {
+    props.fetchUser();
+    // eslint-disable-next-line
+    //console.log(props);
+  }, []);
+  let { user, loading, keyword } = props;
+  const renderUser = () => {
+    // if(keyword &&keyword.length>0){
+    //   return user.filter((item))
+    // }
+
+    if (user && user.length > 0) {
+      return user.map((user, index) => {
+        return <UserItem key={user.taiKhoan} user={user} index={index} />
+      });
+    }
+  };
+
+  if (loading) return <Loading />
+
   return (
     <div>
-      <table className="table">
+      <table>
         <thead>
           <tr>
             <th>STT</th>
@@ -15,8 +39,29 @@ export default function ListUser() {
             <th>Thao Tác</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>{renderUser()}</tbody>
       </table>
     </div>
   )
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.userReducer.user,
+    loading: state.userReducer.loading,
+    keyword: state.userReducer.keyword,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchUser: () => {
+      dispatch(actFetchUser());
+    },
+    searchUser: (user) => {
+      dispatch(actSearchUserRequest(user));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListUser)

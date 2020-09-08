@@ -54,7 +54,7 @@ export const actUpdateMovieRequest = (id, movie) => {
     })
       .then((result) => {
         //console.log(result.data)
-        dispatch(actUpdateMovie(result.data.id));
+        dispatch(actUpdateMovie(result.data));
       })
       .catch(err => {
         console.log(err);

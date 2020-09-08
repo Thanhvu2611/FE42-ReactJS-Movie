@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addMovie: () => {
       let action = {
-        type: "MovieReducer/EDIT_MOVIE_SUCCESS",
+        type: "EditMovieReducer/EDIT_MOVIE_SUCCESS",
         movie: null
       };
       dispatch(action);

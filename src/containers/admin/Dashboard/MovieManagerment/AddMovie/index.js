@@ -10,7 +10,7 @@ class AddMovie extends Component {
     super(props);
     this.state = {
       values: {
-        maPhim: Number,
+
         tenPhim: "",
         biDanh: "",
         trailer: "",
@@ -22,7 +22,7 @@ class AddMovie extends Component {
 
       },
       errors: {
-        maPhim: Number,
+
         tenPhim: "",
         biDanh: "",
         trailer: "",
@@ -52,7 +52,6 @@ class AddMovie extends Component {
       this.setState({
         values: {
           ...this.state.values,
-          maPhim: nextProps.editMovie.maPhim,
           tenPhim: nextProps.editMovie.tenPhim,
           biDanh: nextProps.editMovie.biDanh,
           trailer: nextProps.editMovie.trailer,
@@ -94,20 +93,7 @@ class AddMovie extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    //let { id, maPhim, tenPhim, biDanh, trailer, hinhAnh, moTa, maNhom, ngayKhoiChieu, danhGia } = this.state;
     const { history } = this.props;
-    // let movie = {
-    //   id: maPhim,
-    //   tenPhim: tenPhim,
-    //   biDanh: biDanh,
-    //   trailer: trailer,
-    //   hinhAnh: hinhAnh,
-    //   moTa: moTa,
-    //   maNhom: maNhom,
-    //   ngayKhoiChieu: ngayKhoiChieu,
-    //   danhGia: danhGia,
-    // }
-
 
     let isValid = true;
     for (let key in this.state.values) {
@@ -124,7 +110,7 @@ class AddMovie extends Component {
         };
       });
     }
-    // if (!isValid) return;
+    if (!isValid) return;
     // if (id) {
 
     // } else {
@@ -135,21 +121,10 @@ class AddMovie extends Component {
   };
   handleSave = (event) => {
     event.preventDefault();
-    let { id, maPhim, tenPhim, biDanh, trailer, hinhAnh, moTa, maNhom, ngayKhoiChieu, danhGia } = this.state;
     const { history } = this.props;
-    let movie = {
-      maPhim: maPhim,
-      tenPhim: tenPhim,
-      biDanh: biDanh,
-      trailer: trailer,
-      hinhAnh: hinhAnh,
-      moTa: moTa,
-      maNhom: maNhom,
-      ngayKhoiChieu: ngayKhoiChieu,
-      danhGia: danhGia,
-    }
 
-    this.props.fetchUpdateMovie(movie);
+
+    this.props.fetchUpdateMovie(this.state.values);
   }
 
   //Validate

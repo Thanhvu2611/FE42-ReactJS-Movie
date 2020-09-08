@@ -8,6 +8,8 @@ import movieSheduleReducer from "../../containers/admin/Dashboard/DetailMovieIte
 import addListMovieReducer from "../../containers/admin/Dashboard/MovieManagerment/AddMovie/modules/reducer";
 import authReducer from "../../containers/admin/auth/modules/reducer";
 import EditMovieReducer from "../../containers/admin/Dashboard/MovieManagerment/AddMovie/editmodules/reducer";
+//admin/user
+import userReducer from "../../containers/admin/Dashboard/UserManagerment/listUser/module/reducer";
 
 const rootReducers = combineReducers({
   //key: value
@@ -17,7 +19,9 @@ const rootReducers = combineReducers({
   movieSheduleReducer,
   addListMovieReducer,
   authReducer,
-  EditMovieReducer
+  EditMovieReducer,
+  userReducer
+
 
 });
 
