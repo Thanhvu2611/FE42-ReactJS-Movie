@@ -1,4 +1,4 @@
-import { DETAIL_USER_REQUEST, DETAIL_USER_SUCCESS, DETAIL_USER_FAILED, GET_KEYWORD_USER } from "./constans";
+import { DETAIL_USER_REQUEST, DETAIL_USER_SUCCESS, DETAIL_USER_FAILED, GET_KEYWORD_USER, DELETE_USER } from "./constans";
 
 let initialState = {
   loading: false,
@@ -28,7 +28,10 @@ const userReducer = (state = initialState, action) => {
 
       return { ...state };
     case GET_KEYWORD_USER:
-      state.keyword = action.user;
+      state.keyword = action.keyword;
+      return { ...state };
+    case DELETE_USER:
+      state.user = action.user;
       return { ...state };
     default:
       return { ...state };

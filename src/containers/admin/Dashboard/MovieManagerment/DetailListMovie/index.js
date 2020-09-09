@@ -6,14 +6,19 @@ import Loading from "./../../../../../components/Loading";
 import { connect } from "react-redux";
 
 function MovieList(props) {
+
   useEffect(() => {
 
     props.fetchListMovie();
     // eslint-disable-next-line
     // console.log(props);
   }, []);
+
+
   let { listMovie, loading, keyword } = props;
+  //console.log(props);
   const renderTable = () => {
+    //console.log(listMovie, "search");
     listMovie = listMovie.filter((item) => {
       return item.tenPhim.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
     });

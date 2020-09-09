@@ -39,9 +39,9 @@ const movieReducer = (state = initialState, action) => {
       if (index !== -1) {
         let listMovie = [...state.listMovie];
         listMovie.splice(index, 1);
-        state.listMovie = listMovie;
+        state.listMovie = [...listMovie];
       }
-
+      console.log(state, "store");
       return { ...state };
 
     case GET_KEYWORD_LISTMOVIE:

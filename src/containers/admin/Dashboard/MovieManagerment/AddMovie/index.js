@@ -16,9 +16,9 @@ class AddMovie extends Component {
         trailer: "",
         hinhAnh: "",
         moTa: "",
-        maNhom: "",
+        maNhom: "GP01",
         ngayKhoiChieu: "",
-        danhGia: 0
+        danhGia: ""
 
       },
       errors: {
@@ -30,7 +30,7 @@ class AddMovie extends Component {
         moTa: "",
         maNhom: "",
         ngayKhoiChieu: "",
-        danhGia: 0
+        danhGia: ""
 
       },
     };

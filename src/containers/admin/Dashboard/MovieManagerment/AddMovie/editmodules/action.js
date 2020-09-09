@@ -38,15 +38,15 @@ const actEditMovieSuccess = (movie) => {
 
 //UPDATE MOVIE
 
-export const actUpdateMovieRequest = (id, movie) => {
+export const actUpdateMovieRequest = (movie) => {
   let token = "";
   if (localStorage.getItem("userAdmin")) {
     token = JSON.parse(localStorage.getItem("userAdmin")).accessToken;
   }
   return dispatch => {
     Axios({
-      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhim/${id}`,
-      method: "POST",
+      url: "http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhim/",
+      method: "PUT",
       data: movie,
       headers: {
         Authorization: `Bearer ${token}`,

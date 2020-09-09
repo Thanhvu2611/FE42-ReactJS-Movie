@@ -12,9 +12,9 @@ function ListUser(props) {
   }, []);
   let { user, loading, keyword } = props;
   const renderUser = () => {
-    // if(keyword &&keyword.length>0){
-    //   return user.filter((item))
-    // }
+    user = user.filter((item) => {
+      return item.taiKhoan.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
+    });
 
     if (user && user.length > 0) {
       return user.map((user, index) => {
@@ -58,9 +58,9 @@ const mapDispatchToProps = (dispatch) => {
     fetchUser: () => {
       dispatch(actFetchUser());
     },
-    searchUser: (user) => {
-      dispatch(actSearchUserRequest(user));
-    }
+    // searchUser: (user) => {
+    //   dispatch(actSearchUserRequest(user));
+    // }
   }
 }
 

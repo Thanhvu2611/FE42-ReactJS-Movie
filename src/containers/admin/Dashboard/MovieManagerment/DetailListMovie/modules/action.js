@@ -69,19 +69,19 @@ const actFetchDeleteMovie = (id) => {
       }
     })
       .then((result) => {
-        dispatch(actDeleteMovie(result.id));
+        dispatch(actFetchDetailListMovie(result.data));
       })
       .catch(err => {
         console.log(err);
       })
   }
 };
-const actDeleteMovie = (id) => {
-  return {
-    type: DELETE_MOVIE,
-    id
-  }
-}
+// const actDeleteMovie = (id) => {
+//   return {
+//     type: DELETE_MOVIE,
+//     id
+//   }
+// }
 
 
 export { actFetchDetailListMovie, actGetKeyWordListMovie, actFetchDeleteMovie };

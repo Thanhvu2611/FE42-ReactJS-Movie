@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-//import { connect } from "react-redux";
-
-export default class UserItem extends Component {
+import { connect } from "react-redux";
+import { actFetchDeleteUser } from "../../Dashboard/UserManagerment/listUser/module/action"
+class UserItem extends Component {
 
   render() {
     const { user, index } = this.props;
@@ -17,12 +17,22 @@ export default class UserItem extends Component {
         <td>{user.soDt}</td>
         <td>
           <button className="btn btn-primary">Ghi Danh</button>
-          <button className="btn btn-success">Thêm</button>
-          <button className="btn btn-danger">Xóa</button>
+          <Link to={`/admin/adduser/${user.taiKhoan}`}><button className="btn btn-success">Sửa</button></Link>
+          <button className="btn btn-danger" onClick={() => { this.props.fetchDeleteUser(user.taiKhoan) }}>Xóa</button>
         </td>
 
       </tr>
     )
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchDeleteUser: (id) => {
+      dispatch(actFetchDeleteUser(id));
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(UserItem);
 

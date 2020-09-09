@@ -10,7 +10,6 @@ const actFetchUser = () => {
       method: "GET",
     })
       .then((result) => {
-        console.log(result.data);
         dispatch(actUserSuccess(result.data));
 
       })
@@ -40,28 +39,53 @@ const actUserFailed = (err) => {
   }
 }
 
-//SEARCH
-
-const actSearchUserRequest = (user) => {
+//DELETE
+const actFetchDeleteUser = (id) => {
+  let token = "";
+  if (localStorage.getItem("userAdmin")) {
+    token = JSON.parse(localStorage.getItem("userAdmin")).accessToken;
+  }
   return dispatch => {
     Axios({
-      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP01&tuKhoa=${user}`,
-      method: "GET",
+      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${id}`,
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
     })
       .then((result) => {
-        dispatch(actSearchUserSucess(result.data));
+        dispatch(actFetchUser(result.data));
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       })
   }
 }
 
+
+//SEARCH
+
+// const actSearchUserRequest = (user) => {
+//   return dispatch => {
+//     Axios({
+//       url: `http://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP01&tuKhoa=${user}`,
+//       method: "GET",
+//     })
+//       .then((result) => {
+//         dispatch(actSearchUserSucess(result.data));
+//         //console.log(result.data);
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       })
+//   }
+// }
+
 const actSearchUserSucess = (keyword) => {
   return {
     type: GET_KEYWORD_USER,
-    user: keyword
+    keyword
   }
 }
 
-export { actFetchUser, actSearchUserRequest };
+export { actFetchUser, actSearchUserSucess, actFetchDeleteUser };

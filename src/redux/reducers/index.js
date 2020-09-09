@@ -10,7 +10,7 @@ import authReducer from "../../containers/admin/auth/modules/reducer";
 import EditMovieReducer from "../../containers/admin/Dashboard/MovieManagerment/AddMovie/editmodules/reducer";
 //admin/user
 import userReducer from "../../containers/admin/Dashboard/UserManagerment/listUser/module/reducer";
-
+import addUserReducer from "../../containers/admin/Dashboard/UserManagerment/AddUser/module/reducer";
 const rootReducers = combineReducers({
   //key: value
   nowMovieReducer,
@@ -20,7 +20,8 @@ const rootReducers = combineReducers({
   addListMovieReducer,
   authReducer,
   EditMovieReducer,
-  userReducer
+  userReducer,
+  addUserReducer
 
 
 });
