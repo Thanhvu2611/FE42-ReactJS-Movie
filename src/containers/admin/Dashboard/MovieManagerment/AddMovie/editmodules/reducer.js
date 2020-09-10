@@ -2,7 +2,7 @@ import { EDIT_MOVIE_SUCCESS, UPDATE_MOVIE_SUCCESS } from "./constans";
 
 let initialState = {
   movie: [],
-  editMovie: {}
+  editMovie: []
 };
 
 const EditMovieReducer = (state = initialState, action) => {

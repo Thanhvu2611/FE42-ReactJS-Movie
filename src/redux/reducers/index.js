@@ -11,6 +11,8 @@ import EditMovieReducer from "../../containers/admin/Dashboard/MovieManagerment/
 //admin/user
 import userReducer from "../../containers/admin/Dashboard/UserManagerment/listUser/module/reducer";
 import addUserReducer from "../../containers/admin/Dashboard/UserManagerment/AddUser/module/reducer";
+import editUserReducer from "../../containers/admin/Dashboard/UserManagerment/AddUser/editmodule/reducer"
+
 const rootReducers = combineReducers({
   //key: value
   nowMovieReducer,
@@ -21,7 +23,8 @@ const rootReducers = combineReducers({
   authReducer,
   EditMovieReducer,
   userReducer,
-  addUserReducer
+  addUserReducer,
+  editUserReducer
 
 
 });

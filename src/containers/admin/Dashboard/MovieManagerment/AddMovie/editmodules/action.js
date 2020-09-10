@@ -4,19 +4,12 @@ import Axios from 'axios';
 //GET MOVIE
 
 export const actFetchEditMovie = (id) => {
-  let token = "";
-  if (localStorage.getItem("userAdmin")) {
-    token = JSON.parse(localStorage.getItem("userAdmin")).accessToken;
-    //console.log(accesstoken);
-  }
+
   return dispatch => {
 
     Axios({
       url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayThongTinPhim?MaPhim=${id}`,
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     })
       .then((result) => {
         //console.log(result.data)
