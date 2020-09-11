@@ -25,10 +25,10 @@ const actAddUser = (user) => {
   }
 }
 
-const actAddUserSuccess = (data) => {
+const actAddUserSuccess = (user) => {
   return {
     type: ADD_USER,
-    data
+    user
   }
 }
 

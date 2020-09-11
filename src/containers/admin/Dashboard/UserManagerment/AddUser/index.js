@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { actAddUser } from "./module/action";
-import { actGetUsers } from "./editmodule/action";
+import { actGetUsers, fectUpdateUserRequest } from "./editmodule/action";
 
 
 class AddUser extends Component {
@@ -16,6 +16,7 @@ class AddUser extends Component {
         maNhom: "GP01",
         maLoaiNguoiDung: "",
         hoTen: ""
+
 
       },
       errors: {
@@ -32,28 +33,29 @@ class AddUser extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.match);
     if (this.props.match) {
       const id = this.props.match.params.id;
       this.props.fetchGetUser(id);
-      //console.log(this.props.fetchGetUser(id))
     }
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps && nextProps.editUser) {
-      this.setState({
-        values: {
-          ...this.state.values,
-          taiKhoan: nextProps.editUser.taiKhoan,
-          matKhau: nextProps.editUser.matKhau,
-          email: nextProps.editUser.email,
-          soDt: nextProps.editUser.soDt,
-          maLoaiNguoiDung: nextProps.editUser.maLoaiNguoiDung,
-          hoTen: nextProps.editUser.hoTen
 
-        }
-      });
+    if (nextProps && nextProps.editUser) {
+      nextProps.editUser.forEach(editUser => {
+        this.setState({
+          values: {
+            ...this.state.values,
+            taiKhoan: editUser.taiKhoan,
+            matKhau: editUser.matKhau,
+            email: editUser.email,
+            soDt: editUser.soDt,
+            maLoaiNguoiDung: editUser.maLoaiNguoiDung,
+            hoTen: editUser.hoTen
+
+          }
+        });
+      })
     }
   }
 
@@ -105,6 +107,15 @@ class AddUser extends Component {
     //console.log(this.props);
   }
 
+  //UPDATE USER
+  handleSave = (event) => {
+    event.prvenDefault();
+    console.log("1");
+    this.props.updateUser(this.state.values);
+
+  }
+
+  ///VALIDATION
   validate = (name, value) => {
     let errorMessage = "";
     if (name === "taiKhoan") {
@@ -232,7 +243,7 @@ class AddUser extends Component {
               </div>
               <div className="form-group">
                 <label>Loại Người Dùng </label>
-                <select className="form-control" name="maLoaiNguoiDung" value={this.state.values.maLoaiNguoiDung}>
+                <select className="form-control" name="maLoaiNguoiDung" value={this.state.values.maLoaiNguoiDung.value}>
                   <option value="KhachHang">Khách Hàng</option>
                   <option value="QuanTri">Quản Trị</option>
 
@@ -240,7 +251,7 @@ class AddUser extends Component {
               </div>
             </div>
             <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Thêm</button>
-            <button type="submit" className="btn btn-success">Lưu</button>
+            <button type="submit" className="btn btn-success" onClick={this.handleSave}>Lưu</button>
           </div>
         </form>
       </div >
@@ -261,6 +272,10 @@ const mapDispatchToProps = dispatch => {
     },
     fetchGetUser: (id) => {
       dispatch(actGetUsers(id));
+    },
+    updateUser: (user) => {
+      dispatch(fectUpdateUserRequest(user));
+      console.log(1);
     }
   }
 }
