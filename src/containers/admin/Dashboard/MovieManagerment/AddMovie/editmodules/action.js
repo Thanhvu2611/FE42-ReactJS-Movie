@@ -38,7 +38,7 @@ export const actUpdateMovieRequest = (movie) => {
   }
   return dispatch => {
     Axios({
-      url: "http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhim/",
+      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhim/${movie.maPhim}`,
       method: "PUT",
       data: movie,
       headers: {
