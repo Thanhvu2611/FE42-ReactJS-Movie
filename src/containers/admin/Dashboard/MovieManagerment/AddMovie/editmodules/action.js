@@ -32,20 +32,22 @@ const actEditMovieSuccess = (movie) => {
 //UPDATE MOVIE
 
 export const actUpdateMovieRequest = (movie) => {
+
   let token = "";
   if (localStorage.getItem("userAdmin")) {
     token = JSON.parse(localStorage.getItem("userAdmin")).accessToken;
   }
   return dispatch => {
     Axios({
-      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhim/${movie.maPhim}`,
-      method: "PUT",
+      url: "http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhim",
+      method: "POST",
       data: movie,
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((result) => {
+        // debugger
         //console.log(result.data)
         dispatch(actUpdateMovie(result.data));
       })
@@ -55,10 +57,10 @@ export const actUpdateMovieRequest = (movie) => {
   }
 };
 
-const actUpdateMovie = (movie) => {
+const actUpdateMovie = (movie, id) => {
   return {
     type: UPDATE_MOVIE_SUCCESS,
-    movie
+    movie, id
 
   }
 }

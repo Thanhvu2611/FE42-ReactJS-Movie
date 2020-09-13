@@ -121,9 +121,9 @@ class AddMovie extends Component {
   };
   handleSave = (event) => {
     event.preventDefault();
-    const { history } = this.props;
-
-
+    // const { match } = this.props;
+    // const id = match.params.id;
+    // console.log(id);
     this.props.fetchUpdateMovie(this.state.values);
   }
 

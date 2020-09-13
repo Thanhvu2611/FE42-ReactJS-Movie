@@ -33,7 +33,7 @@ export const fectUpdateUserRequest = (user) => {
   }
   return dispatch => {
     Axios({
-      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung/${user.taiKhoan}`,
+      url: "http://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung",
       method: "PUT",
       data: user,
       headers: {
