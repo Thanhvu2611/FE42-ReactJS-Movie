@@ -10,7 +10,7 @@ class AddMovie extends Component {
     super(props);
     this.state = {
       values: {
-
+        maPhim: "",
         tenPhim: "",
         biDanh: "",
         trailer: "",
@@ -22,7 +22,7 @@ class AddMovie extends Component {
 
       },
       errors: {
-
+        maPhim: "",
         tenPhim: "",
         biDanh: "",
         trailer: "",
@@ -52,6 +52,7 @@ class AddMovie extends Component {
       this.setState({
         values: {
           ...this.state.values,
+          maPhim: nextProps.editMovie.maPhim,
           tenPhim: nextProps.editMovie.tenPhim,
           biDanh: nextProps.editMovie.biDanh,
           trailer: nextProps.editMovie.trailer,
@@ -331,8 +332,8 @@ const mapDispatchToProps = (dispatch) => {
       //console.log(id);
       dispatch(actFetchEditMovie(movie));
     },
-    fetchUpdateMovie: (movie) => {
-      dispatch(actUpdateMovieRequest(movie));
+    fetchUpdateMovie: (editmovie) => {
+      dispatch(actUpdateMovieRequest(editmovie));
     }
   };
 };

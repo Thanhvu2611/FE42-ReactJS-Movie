@@ -12,7 +12,7 @@ const EditMovieReducer = (state = initialState, action) => {
       return { ...state };
     case UPDATE_MOVIE_SUCCESS:
 
-      state.movie = action.movie
+      state.movie = action.editmovie
       return { ...state };
     default:
       return { ...state };

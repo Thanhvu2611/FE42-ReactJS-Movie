@@ -31,7 +31,7 @@ const actEditMovieSuccess = (movie) => {
 
 //UPDATE MOVIE
 
-export const actUpdateMovieRequest = (movie) => {
+export const actUpdateMovieRequest = (editmovie) => {
 
   let token = "";
   if (localStorage.getItem("userAdmin")) {
@@ -41,7 +41,7 @@ export const actUpdateMovieRequest = (movie) => {
     Axios({
       url: "http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhim",
       method: "POST",
-      data: movie,
+      data: editmovie,
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -57,10 +57,10 @@ export const actUpdateMovieRequest = (movie) => {
   }
 };
 
-const actUpdateMovie = (movie, id) => {
+const actUpdateMovie = (editmovie) => {
   return {
     type: UPDATE_MOVIE_SUCCESS,
-    movie, id
+    editmovie
 
   }
 }

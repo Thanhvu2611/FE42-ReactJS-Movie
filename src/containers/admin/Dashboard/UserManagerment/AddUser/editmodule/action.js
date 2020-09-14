@@ -26,7 +26,7 @@ const actEditUserSuccess = (editUser) => {
 };
 
 //UPDATE USER
-export const fectUpdateUserRequest = (user) => {
+export const fectUpdateUserRequest = (editUser) => {
   let token = "";
   if (localStorage.getItem("userAdmin")) {
     token = JSON.parse(localStorage.getItem("userAdmin")).accessToken;
@@ -35,7 +35,7 @@ export const fectUpdateUserRequest = (user) => {
     Axios({
       url: "http://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung",
       method: "PUT",
-      data: user,
+      data: editUser,
       headers: {
         Authorization: `Bearer ${token}`,
       }
@@ -51,10 +51,10 @@ export const fectUpdateUserRequest = (user) => {
   }
 }
 
-const actUpdateUserSuccess = (user) => {
+const actUpdateUserSuccess = (editUser) => {
   return {
     type: UPDATE_USER_SUCCESS,
-    user
+    editUser
   }
 
 

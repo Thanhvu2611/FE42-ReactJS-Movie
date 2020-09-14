@@ -86,7 +86,7 @@ class AddUser extends Component {
   };
 
   handleSubmit = (event) => {
-    event.prvenDefault();
+    event.preventDefault();
     let isValid = true;
     for (let key in this.state.values) {
       const errorMessage = this.validate(key, this.state.values[key]);
@@ -109,8 +109,8 @@ class AddUser extends Component {
 
   //UPDATE USER
   handleSave = (event) => {
-    event.prvenDefault();
-    console.log("1");
+    event.preventDefault();
+    //console.log("1");
     this.props.updateUser(this.state.values);
 
   }
@@ -273,9 +273,9 @@ const mapDispatchToProps = dispatch => {
     fetchGetUser: (id) => {
       dispatch(actGetUsers(id));
     },
-    updateUser: (user) => {
-      dispatch(fectUpdateUserRequest(user));
-      console.log(1);
+    updateUser: (editUser) => {
+      dispatch(fectUpdateUserRequest(editUser));
+      // console.log(1);
     }
   }
 }
