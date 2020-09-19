@@ -70,14 +70,15 @@ class AddMovie extends Component {
   //Listeral
   handleChange = (event) => {
     const { value, name } = event.target;
-    this.setState((state) => {
-      return {
-        values: {
-          ...state.values,
-          [name]: value,
-        },
-      };
-    });
+    if (name === "hinhAnh") {
+      this.setState({ hinhAnh: event.target.file[0] }, () => {
+        console.log(this.state);
+      })
+    } else {
+      this.setState({ [name]: value }, () => {
+        console.log(this.state);
+      });
+    }
   };
 
   handleBlur = (event) => {
@@ -94,31 +95,34 @@ class AddMovie extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    const { history } = this.props;
-
-    let isValid = true;
-    for (let key in this.state.values) {
-      const errorMessage = this.validate(key, this.state.values[key]);
-      if (errorMessage) {
-        isValid = false;
-      }
-      this.setState((state) => {
-        return {
-          errors: {
-            ...state.errors,
-            [key]: errorMessage,
-          },
-        };
-      });
+    var form_data = new FormData();
+    for (var key in this.state) {
+      form_data.append(key, this.state[key]);
     }
-    if (!isValid) return;
-    // if (id) {
 
-    // } else {
-    this.props.fetchAddListMovie(this.state.values);
-    //}
-    history.goBack()
-    //console.log(this.state.values);
+    // let isValid = true;
+    // for (let key in this.state.values) {
+    //   const errorMessage = this.validate(key, this.state.values[key]);
+    //   if (errorMessage) {
+    //     isValid = false;
+    //   }
+    //   this.setState((state) => {
+    //     return {
+    //       errors: {
+    //         ...state.errors,
+    //         [key]: errorMessage,
+    //       },
+    //     };
+    //   });
+    // }
+    // if (!isValid) return;
+    // // if (id) {
+
+    // // } else {
+    // this.props.fetchAddListMovie(this.state.values);
+    // //}
+    // history.goBack()
+    // //console.log(this.state.values);
   };
   handleSave = (event) => {
     event.preventDefault();
@@ -259,10 +263,10 @@ class AddMovie extends Component {
               <div className="form-group">
                 <label>Hình Ảnh</label>
                 <input
-                  type="text"
+                  type="file"
                   name="hinhAnh"
                   className="form-control"
-                  value={this.state.values.hinhAnh}
+                  //value={this.state.values.hinhAnh}
                   onChange={this.handleChange}
                   onBlur={this.handleBlur}
                 />

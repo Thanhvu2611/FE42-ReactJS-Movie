@@ -16,7 +16,7 @@ const actAddMovie = (movie, history) => {
   return (dispatch) => {
     dispatch(actAddListMovieRequest());
     Axios({
-      url: "http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/ThemPhim",
+      url: "http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/ThemPhimUploadHinh",
       method: "POST",
       data: movie,
       headers: {
