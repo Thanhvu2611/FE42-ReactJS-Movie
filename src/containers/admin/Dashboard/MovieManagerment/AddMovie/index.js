@@ -49,6 +49,7 @@ class AddMovie extends Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
 
     if (nextProps && nextProps.editMovie) {
+      console.log(nextProps.editMovie.hinhAnh)
       this.setState({
         values: {
           ...this.state.values,
@@ -69,14 +70,25 @@ class AddMovie extends Component {
 
   //Listeral
   handleChange = (event) => {
-    const { value, name } = event.target;
+    //let target = event.target;
+    const { value, name, files } = event.target;
+    //console.log(event.target.files[0]);
     if (name === "hinhAnh") {
-      this.setState({ hinhAnh: event.target.file[0] }, () => {
-        console.log(this.state);
+      this.setState({ hinhAnh: event.target.files[0] }, () => {
+        return {
+          values: {
+            ...this.state.values,
+            name: files
+          }
+        }
       })
     } else {
-      this.setState({ [name]: value }, () => {
-        console.log(this.state);
+
+      this.setState({
+        values: {
+          ...this.state.values,
+          [name]: value
+        }
       });
     }
   };
@@ -96,33 +108,34 @@ class AddMovie extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     var form_data = new FormData();
-    for (var key in this.state) {
-      form_data.append(key, this.state[key]);
+    let isValid = true;
+    for (var key in this.state.values) {
+
+
+
+      const errorMessage = this.validate(key, this.state.values[key]);
+      if (errorMessage) {
+        isValid = false;
+      }
+      this.setState((state) => {
+        return {
+          errors: {
+            ...state.errors,
+            [key]: errorMessage,
+          },
+        };
+      });
+
+      form_data.append(key, this.state.values[key]);
     }
-
-    // let isValid = true;
-    // for (let key in this.state.values) {
-    //   const errorMessage = this.validate(key, this.state.values[key]);
-    //   if (errorMessage) {
-    //     isValid = false;
-    //   }
-    //   this.setState((state) => {
-    //     return {
-    //       errors: {
-    //         ...state.errors,
-    //         [key]: errorMessage,
-    //       },
-    //     };
-    //   });
-    // }
     // if (!isValid) return;
-    // // if (id) {
 
-    // // } else {
-    // this.props.fetchAddListMovie(this.state.values);
-    // //}
+
+    this.props.fetchAddListMovie(form_data);
+
+
+
     // history.goBack()
-    // //console.log(this.state.values);
   };
   handleSave = (event) => {
     event.preventDefault();
@@ -158,7 +171,7 @@ class AddMovie extends Component {
   render() {
     const { loading } = this.props;
     if (loading) return <Loading />
-
+    console.log(this.state);
     return (
       <div className="container">
         <form
@@ -236,7 +249,7 @@ class AddMovie extends Component {
               <div className="form-group">
                 <label>Ngày Khởi Chiếu</label>
                 <input
-                  type="datetime"
+                  type="text"
                   name="ngayKhoiChieu"
                   className="form-control"
                   value={this.state.values.ngayKhoiChieu}
@@ -266,10 +279,10 @@ class AddMovie extends Component {
                   type="file"
                   name="hinhAnh"
                   className="form-control"
-                  //value={this.state.values.hinhAnh}
                   onChange={this.handleChange}
                   onBlur={this.handleBlur}
                 />
+                <image src={this.state.values.hinhAnh} />
                 {this.state.errors.hinhAnh && (
                   <div className="alert alert-danger">
                     <span>{this.state.errors.hinhAnh}</span>
@@ -328,9 +341,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAddListMovie: (movie) => {
-      dispatch(actAddMovie(movie));
-      //console.log(actAddMovie(movie));
+    fetchAddListMovie: (form_data) => {
+      dispatch(actAddMovie(form_data));
+      //console.log(actAddMovie(form_data));
     },
     fetchEditMovie: (movie) => {
       //console.log(id);

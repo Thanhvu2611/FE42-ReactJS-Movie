@@ -5,8 +5,8 @@ import {
 } from "./constans";
 import Axios from "axios";
 
-const actAddMovie = (movie, history) => {
-  //console.log(movie);
+const actAddMovie = (form_data) => {
+  console.log(form_data);
 
   let token = "";
   if (localStorage.getItem("userAdmin")) {
@@ -18,14 +18,14 @@ const actAddMovie = (movie, history) => {
     Axios({
       url: "http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/ThemPhimUploadHinh",
       method: "POST",
-      data: movie,
+      data: form_data,
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((result) => {
         dispatch(actAddListMovieSuccess(result.data));
-        history.push("/admin/movie");
+        //history.push("/admin/movie");
       })
       .catch((err) => {
         dispatch(actAddListMovieFailed(err));
@@ -39,10 +39,10 @@ const actAddListMovieRequest = () => {
   };
 };
 
-const actAddListMovieSuccess = (data) => {
+const actAddListMovieSuccess = (form_data) => {
   return {
     type: ADD_DETAIL_LISTMOVIE_SUCCESS,
-    data
+    form_data
   };
 };
 

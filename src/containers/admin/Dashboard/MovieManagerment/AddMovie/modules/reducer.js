@@ -34,7 +34,7 @@ const addListMovieReducer = (state = initialState, action) => {
     case ADD_DETAIL_LISTMOVIE_SUCCESS:
 
       state.loading = false;
-      state.movie = action.data;
+      state.movie = action.form_data;
       state.err = null;
 
       return { ...state };
