@@ -6,7 +6,7 @@ import {
 import Axios from "axios";
 
 const actAddMovie = (form_data) => {
-  console.log(form_data);
+  //console.log(form_data);
 
   let token = "";
   if (localStorage.getItem("userAdmin")) {

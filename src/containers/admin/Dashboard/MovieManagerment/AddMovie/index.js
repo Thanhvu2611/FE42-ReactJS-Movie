@@ -10,11 +10,11 @@ class AddMovie extends Component {
     super(props);
     this.state = {
       values: {
+        hinhAnh: "",
         maPhim: "",
         tenPhim: "",
         biDanh: "",
         trailer: "",
-        hinhAnh: "",
         moTa: "",
         maNhom: "GP01",
         ngayKhoiChieu: "",
@@ -22,11 +22,11 @@ class AddMovie extends Component {
 
       },
       errors: {
+        hinhAnh: "",
         maPhim: "",
         tenPhim: "",
         biDanh: "",
         trailer: "",
-        hinhAnh: "",
         moTa: "",
         maNhom: "",
         ngayKhoiChieu: "",
@@ -78,7 +78,7 @@ class AddMovie extends Component {
         return {
           values: {
             ...this.state.values,
-            name: files
+            name: File
           }
         }
       })
@@ -107,33 +107,34 @@ class AddMovie extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    var form_data = new FormData();
-    let isValid = true;
+    var frm = new FormData();
+    //let isValid = true;
     for (var key in this.state.values) {
 
 
 
-      const errorMessage = this.validate(key, this.state.values[key]);
-      if (errorMessage) {
-        isValid = false;
-      }
-      this.setState((state) => {
-        return {
-          errors: {
-            ...state.errors,
-            [key]: errorMessage,
-          },
-        };
-      });
+      // const errorMessage = this.validate(key, this.state.values[key]);
+      // if (errorMessage) {
+      //   isValid = false;
+      // }
+      // this.setState((state) => {
+      //   return {
+      //     errors: {
+      //       ...state.errors,
+      //       [key]: errorMessage,
+      //     },
+      //   };
+      // });
 
-      form_data.append(key, this.state.values[key]);
+      frm.append(key, this.state.values[key]);
+      console.log(frm);
     }
     // if (!isValid) return;
 
 
-    this.props.fetchAddListMovie(form_data);
+    this.props.fetchAddListMovie(frm);
 
-
+    //console.log(this.props.fetchAddListMovie(form_data));
 
     // history.goBack()
   };

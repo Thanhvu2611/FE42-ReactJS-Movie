@@ -68,6 +68,7 @@ class AddUser extends Component {
           [name]: value
         }
       };
+      console.log(this.state.values);
     });
   };
 
