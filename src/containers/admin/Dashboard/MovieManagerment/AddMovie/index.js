@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { actAddMovie } from "../AddMovie/modules/action";
-import { actFetchEditMovie, actUpdateMovieRequest } from "./editmodules/action";
+import { actAddMovie, } from "../AddMovie/modules/action";
+import { actFetchEditMovie, actUpdateMovieRequest, } from "./editmodules/action";
+import Axios from "axios";
+
 
 import Loading from "../../../../../components/Loading";
 
@@ -11,7 +13,7 @@ class AddMovie extends Component {
     this.state = {
       values: {
         hinhAnh: "",
-        maPhim: "",
+        //maPhim: "",
         tenPhim: "",
         biDanh: "",
         trailer: "",
@@ -49,7 +51,7 @@ class AddMovie extends Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
 
     if (nextProps && nextProps.editMovie) {
-      console.log(nextProps.editMovie.hinhAnh)
+      //console.log(nextProps.editMovie.hinhAnh)
       this.setState({
         values: {
           ...this.state.values,
@@ -64,6 +66,21 @@ class AddMovie extends Component {
           danhGia: nextProps.editMovie.danhGia
         }
       });
+      // } else {
+      //   this.setState({
+      //     values: {
+      //       ...this.state.values,
+      //       hinhAnh: "",
+      //       maPhim: "",
+      //       tenPhim: "",
+      //       biDanh: "",
+      //       trailer: "",
+      //       moTa: "",
+      //       maNhom: "GP01",
+      //       ngayKhoiChieu: "",
+      //       danhGia: ""
+      //     }
+      //   })
     }
   }
 
@@ -71,26 +88,16 @@ class AddMovie extends Component {
   //Listeral
   handleChange = (event) => {
     //let target = event.target;
-    const { value, name, files } = event.target;
+    const { value, name } = event.target;
     //console.log(event.target.files[0]);
-    if (name === "hinhAnh") {
-      this.setState({ hinhAnh: event.target.files[0] }, () => {
-        return {
-          values: {
-            ...this.state.values,
-            name: File
-          }
-        }
-      })
-    } else {
-
-      this.setState({
+    this.setState((state) => {
+      return {
         values: {
-          ...this.state.values,
-          [name]: value
+          ...state.values,
+          [name]: value,
         }
-      });
-    }
+      }
+    })
   };
 
   handleBlur = (event) => {
@@ -107,43 +114,55 @@ class AddMovie extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    var frm = new FormData();
-    //let isValid = true;
+
+    let isValid = true;
     for (var key in this.state.values) {
 
-
-
-      // const errorMessage = this.validate(key, this.state.values[key]);
-      // if (errorMessage) {
-      //   isValid = false;
-      // }
-      // this.setState((state) => {
-      //   return {
-      //     errors: {
-      //       ...state.errors,
-      //       [key]: errorMessage,
-      //     },
-      //   };
-      // });
-
-      frm.append(key, this.state.values[key]);
-      console.log(frm);
+      const errorMessage = this.validate(key, this.state.values[key]);
+      if (errorMessage) {
+        isValid = false;
+      }
+      this.setState((state) => {
+        return {
+          errors: {
+            ...state.errors,
+            [key]: errorMessage,
+          },
+        };
+      });
     }
-    // if (!isValid) return;
+    if (!isValid) return;
+    if (this.state.values.maPhim) {
+      this.props.fetchUpdateMovie(this.state.values);
+    } else {
+      this.props.fetchAddListMovie(this.state.values);
 
-
-    this.props.fetchAddListMovie(frm);
-
+    }
     //console.log(this.props.fetchAddListMovie(form_data));
 
     // history.goBack()
   };
   handleSave = (event) => {
     event.preventDefault();
-    // const { match } = this.props;
-    // const id = match.params.id;
-    // console.log(id);
-    this.props.fetchUpdateMovie(this.state.values);
+    const uploadImg = (imgUpload, movie) => {
+      if (imgUpload.name) {
+        let formData = new FormData();
+        formData.append("File", imgUpload, imgUpload.name);
+        formData.append("tenPhim", movie.tenPhim);
+        formData.append("maNhom", "GP01");
+        Axios({
+          method: "POST",
+          url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/UploadHinhAnhPhim`,
+          data: formData
+        })
+          .then(result => {
+            console.log(result.data);
+          })
+          .catch(err => {
+            console.log(err.reponse.data);
+          })
+      }
+    }
   }
 
   //Validate
@@ -282,8 +301,9 @@ class AddMovie extends Component {
                   className="form-control"
                   onChange={this.handleChange}
                   onBlur={this.handleBlur}
+                //value={this.state.values.hinhAnh}
                 />
-                <image src={this.state.values.hinhAnh} />
+
                 {this.state.errors.hinhAnh && (
                   <div className="alert alert-danger">
                     <span>{this.state.errors.hinhAnh}</span>
@@ -342,8 +362,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAddListMovie: (form_data) => {
-      dispatch(actAddMovie(form_data));
+    fetchAddListMovie: (movie) => {
+      dispatch(actAddMovie(movie));
       //console.log(actAddMovie(form_data));
     },
     fetchEditMovie: (movie) => {
@@ -352,7 +372,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     fetchUpdateMovie: (editmovie) => {
       dispatch(actUpdateMovieRequest(editmovie));
-    }
+    },
+    // fechUploadImg: (formData) => {
+    //   dispatch(uploadImg(formData))
+    // }
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AddMovie);

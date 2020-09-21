@@ -1,6 +1,8 @@
 import React from "react";
 import Search from "./DetailListMovie/search";
 import MovieList from "./DetailListMovie";
+import Axios from "axios";
+
 
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
