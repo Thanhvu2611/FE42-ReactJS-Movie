@@ -48,6 +48,9 @@ const addListMovieReducer = (state = initialState, action) => {
       index = findIndex(state, movie.id);
       state[index] = movie;
       return { ...state };
+    // case UPLOAD_IMG:
+    //   state.movie = action.formData
+    //   return { ...state };
     default:
       return { ...state };
   }

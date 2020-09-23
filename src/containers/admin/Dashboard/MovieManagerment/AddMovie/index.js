@@ -114,6 +114,7 @@ class AddMovie extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
+    const { movie } = this.state
 
     let isValid = true;
     for (var key in this.state.values) {
@@ -135,15 +136,14 @@ class AddMovie extends Component {
     if (this.state.values.maPhim) {
       this.props.fetchUpdateMovie(this.state.values);
     } else {
+
       this.props.fetchAddListMovie(this.state.values);
 
-    }
-    //console.log(this.props.fetchAddListMovie(form_data));
 
-    // history.goBack()
-  };
-  handleSave = (event) => {
-    event.preventDefault();
+
+
+    }
+
     const uploadImg = (imgUpload, movie) => {
       if (imgUpload.name) {
         let formData = new FormData();
@@ -163,6 +163,12 @@ class AddMovie extends Component {
           })
       }
     }
+
+
+    // history.goBack()
+  };
+  handleSave = (event) => {
+    event.preventDefault();
   }
 
   //Validate
@@ -357,6 +363,7 @@ class AddMovie extends Component {
 const mapStateToProps = state => {
   return {
     editMovie: state.EditMovieReducer.editMovie,
+    movie: state.addListMovieReducer.movie
   };
 };
 
