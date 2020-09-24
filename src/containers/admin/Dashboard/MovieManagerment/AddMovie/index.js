@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { actAddMovie, } from "../AddMovie/modules/action";
 import { actFetchEditMovie, actUpdateMovieRequest, } from "./editmodules/action";
-import Axios from "axios";
 
 
 import Loading from "../../../../../components/Loading";
@@ -12,7 +11,7 @@ class AddMovie extends Component {
     super(props);
     this.state = {
       values: {
-        hinhAnh: "",
+        hinhAnh: {},
         //maPhim: "",
         tenPhim: "",
         biDanh: "",
@@ -66,39 +65,62 @@ class AddMovie extends Component {
           danhGia: nextProps.editMovie.danhGia
         }
       });
-      // } else {
-      //   this.setState({
-      //     values: {
-      //       ...this.state.values,
-      //       hinhAnh: "",
-      //       maPhim: "",
-      //       tenPhim: "",
-      //       biDanh: "",
-      //       trailer: "",
-      //       moTa: "",
-      //       maNhom: "GP01",
-      //       ngayKhoiChieu: "",
-      //       danhGia: ""
-      //     }
-      //   })
+
     }
   }
 
 
   //Listeral
+  // handleChange = (event) => {
+  //   //let target = event.target;
+  //   const { value, name } = event.target;
+  //   //console.log(event.target.files[0]);
+  //   if (name === 'hinhAnh') {
+  //     this.setState(
+  //       { hinhAnh: event.target.files[0] }
+
+  //     );
+  //   } else {
+  //     this.setState((state) => {
+  //       return {
+  //         values: {
+  //           ...state.values,
+  //           [name]: value,
+  //         }
+  //       }
+  //     })
+  //   }
+  // };
+
   handleChange = (event) => {
-    //let target = event.target;
-    const { value, name } = event.target;
-    //console.log(event.target.files[0]);
-    this.setState((state) => {
-      return {
-        values: {
-          ...state.values,
-          [name]: value,
-        }
-      }
+    let { name, value } = event.target;
+    var newValues = {
+      ...this.state.values,
+      [name]: value
+    }
+
+    if (name === "hinhAnh") {
+      this.setState({ hinhAnh: event.target.files[0] }, () => {
+        console.log();
+      })
+    } else {
+      this.setState({ [name]: value }, () => {
+        console.log(this.state);
+      });
+    }
+
+    var newState = {
+      values: newValues,
+      errors: this.state.errors
+    }
+
+    this.setState(newState, () => {
+      console.log(this.state);
     })
-  };
+  }
+
+
+
 
   handleBlur = (event) => {
     const { value, name } = event.target;
@@ -114,7 +136,6 @@ class AddMovie extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    const { movie } = this.state
 
     let isValid = true;
     for (var key in this.state.values) {
@@ -133,34 +154,19 @@ class AddMovie extends Component {
       });
     }
     if (!isValid) return;
+    var form_data = new FormData();
+    for (var key in this.state.values) {
+
+
+      form_data.append(key, this.state.values[key]);
+
+    }
     if (this.state.values.maPhim) {
-      this.props.fetchUpdateMovie(this.state.values);
+      this.props.fetchUpdateMovie(form_data);
     } else {
 
-      this.props.fetchAddListMovie(this.state.values);
+      this.props.fetchAddListMovie(form_data);
     }
-
-    const uploadImg = (imgUpload, movie) => {
-      if (imgUpload.name) {
-        let formData = new FormData();
-        formData.append("File", imgUpload, imgUpload.name);
-        formData.append("tenPhim", movie.tenPhim);
-        formData.append("maNhom", "GP01");
-        Axios({
-          method: "POST",
-          url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/UploadHinhAnhPhim`,
-          data: formData
-        })
-          .then(result => {
-            console.log(result.data);
-          })
-          .catch(err => {
-            console.log(err.reponse.data);
-          })
-      }
-    }
-
-
     // history.goBack()
   };
   handleSave = (event) => {
@@ -359,14 +365,14 @@ class AddMovie extends Component {
 const mapStateToProps = state => {
   return {
     editMovie: state.EditMovieReducer.editMovie,
-    movie: state.addListMovieReducer.movie
+
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAddListMovie: (movie) => {
-      dispatch(actAddMovie(movie));
+    fetchAddListMovie: (form_data) => {
+      dispatch(actAddMovie(form_data));
       //console.log(actAddMovie(form_data));
     },
     fetchEditMovie: (movie) => {
