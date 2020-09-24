@@ -138,10 +138,6 @@ class AddMovie extends Component {
     } else {
 
       this.props.fetchAddListMovie(this.state.values);
-
-
-
-
     }
 
     const uploadImg = (imgUpload, movie) => {
