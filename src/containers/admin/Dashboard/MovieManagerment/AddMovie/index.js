@@ -68,56 +68,89 @@ class AddMovie extends Component {
 
     }
   }
+  handleChange = (event) => {
+    const { value, name } = event.target;
 
+    this.setState((state) => {
+      return {
+        values: {
+          ...this.state.values,
+          [name]: value,
+          hinhAnh: event.target.files[0]
+        }
+      }
+    })
+
+
+  }
 
   //Listeral
   // handleChange = (event) => {
-  //   //let target = event.target;
+  //   let target = event.target;
   //   const { value, name } = event.target;
   //   //console.log(event.target.files[0]);
-  //   if (name === 'hinhAnh') {
-  //     this.setState(
-  //       { hinhAnh: event.target.files[0] }
-
-  //     );
-  //   } else {
+  //   if (target.name === 'hinhAnh') {
   //     this.setState((state) => {
+  //       console.log(this.state);
   //       return {
   //         values: {
+
   //           ...state.values,
+  //           hinhAnh: event.target.files[0],
   //           [name]: value,
   //         }
   //       }
+
   //     })
   //   }
+  //   // else {
+  //   //   this.setState({ [event.target.name]: event.target.value }, (state) => {
+  //   //     console.log(this.state);
+  //   //     return {
+  //   //       values: {
+  //   //         ...state.values,
+  //   //         [name]: value,
+  //   //       }
+  //   //     }
+  //   //   });
+  //   // }
+  //   // this.setState((state) => {
+  //   //   return {
+  //   //     values: {
+  //   //       ...state.values,
+  //   //       [name]: value,
+  //   //     }
+  //   //   }
+  //   // })
+
   // };
 
-  handleChange = (event) => {
-    let { name, value } = event.target;
-    var newValues = {
-      ...this.state.values,
-      [name]: value
-    }
+  // handleChange = (event) => {
+  //   let { name, value } = event.target;
+  //   var newValues = {
+  //     ...this.state.values,
+  //     [name]: value
+  //   }
 
-    if (name === "hinhAnh") {
-      this.setState({ hinhAnh: event.target.files[0] }, () => {
-        console.log();
-      })
-    } else {
-      this.setState({ [name]: value }, () => {
-        console.log(this.state);
-      });
-    }
+  //   if (name === "hinhAnh") {
+  //     this.setState({ hinhAnh: event.target.files[0] }, () => {
+  //       console.log(this.state.values.hinhAnh);
+  //     })
+  //   } else {
+  //     this.setState({ [name]: value }, () => {
+  //       console.log(this.state);
+  //     });
+  //   }
 
-    var newState = {
-      values: newValues,
-      errors: this.state.errors
-    }
+  //   var newState = {
+  //     values: newValues,
+  //     errors: this.state.errors
+  //   }
 
-    this.setState(newState, () => {
-      console.log(this.state);
-    })
-  }
+  //   this.setState(newState, () => {
+  //     console.log(this.state);
+  //   })
+  // }
 
 
 
@@ -154,18 +187,18 @@ class AddMovie extends Component {
       });
     }
     if (!isValid) return;
-    var form_data = new FormData();
-    for (var key in this.state.values) {
+    // var form_data = new FormData();
+    // for (var key in this.state.values) {
 
 
-      form_data.append(key, this.state.values[key]);
+    //   form_data.append(key, this.state.values[key]);
 
-    }
+    // }
     if (this.state.values.maPhim) {
-      this.props.fetchUpdateMovie(form_data);
+      this.props.fetchUpdateMovie(this.state.values);
     } else {
 
-      this.props.fetchAddListMovie(form_data);
+      this.props.fetchAddListMovie(this.state.values);
     }
     // history.goBack()
   };
@@ -309,7 +342,7 @@ class AddMovie extends Component {
                   className="form-control"
                   onChange={this.handleChange}
                   onBlur={this.handleBlur}
-                //value={this.state.values.hinhAnh}
+                //value={this.state.values.hinhAnh[0]}
                 />
 
                 {this.state.errors.hinhAnh && (
@@ -371,8 +404,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAddListMovie: (form_data) => {
-      dispatch(actAddMovie(form_data));
+    fetchAddListMovie: (movie) => {
+      dispatch(actAddMovie(movie));
       //console.log(actAddMovie(form_data));
     },
     fetchEditMovie: (movie) => {
