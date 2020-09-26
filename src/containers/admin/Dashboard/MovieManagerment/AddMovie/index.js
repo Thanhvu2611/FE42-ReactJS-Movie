@@ -71,88 +71,15 @@ class AddMovie extends Component {
   handleChange = (event) => {
     const { value, name } = event.target;
 
-    this.setState((state) => {
-      return {
-        values: {
-          ...this.state.values,
-          [name]: value,
-          hinhAnh: event.target.files[0]
-        }
-      }
-    })
-
-
+    this.setState({
+      values: { ...this.state.values, [name]: value }
+    });
+    if (event.target.files && event.target.files[0]) {
+      this.setState({
+        values: { ...this.state.values, hinhAnh: event.target.files[0] },
+      })
+    }
   }
-
-  //Listeral
-  // handleChange = (event) => {
-  //   let target = event.target;
-  //   const { value, name } = event.target;
-  //   //console.log(event.target.files[0]);
-  //   if (target.name === 'hinhAnh') {
-  //     this.setState((state) => {
-  //       console.log(this.state);
-  //       return {
-  //         values: {
-
-  //           ...state.values,
-  //           hinhAnh: event.target.files[0],
-  //           [name]: value,
-  //         }
-  //       }
-
-  //     })
-  //   }
-  //   // else {
-  //   //   this.setState({ [event.target.name]: event.target.value }, (state) => {
-  //   //     console.log(this.state);
-  //   //     return {
-  //   //       values: {
-  //   //         ...state.values,
-  //   //         [name]: value,
-  //   //       }
-  //   //     }
-  //   //   });
-  //   // }
-  //   // this.setState((state) => {
-  //   //   return {
-  //   //     values: {
-  //   //       ...state.values,
-  //   //       [name]: value,
-  //   //     }
-  //   //   }
-  //   // })
-
-  // };
-
-  // handleChange = (event) => {
-  //   let { name, value } = event.target;
-  //   var newValues = {
-  //     ...this.state.values,
-  //     [name]: value
-  //   }
-
-  //   if (name === "hinhAnh") {
-  //     this.setState({ hinhAnh: event.target.files[0] }, () => {
-  //       console.log(this.state.values.hinhAnh);
-  //     })
-  //   } else {
-  //     this.setState({ [name]: value }, () => {
-  //       console.log(this.state);
-  //     });
-  //   }
-
-  //   var newState = {
-  //     values: newValues,
-  //     errors: this.state.errors
-  //   }
-
-  //   this.setState(newState, () => {
-  //     console.log(this.state);
-  //   })
-  // }
-
-
 
 
   handleBlur = (event) => {
@@ -204,6 +131,14 @@ class AddMovie extends Component {
   };
   handleSave = (event) => {
     event.preventDefault();
+    var form_data = new FormData();
+    for (var key in this.state.values) {
+
+
+      form_data.append(key, this.state.values[key]);
+
+    }
+    this.props.fetchUpdateMovie(form_data);
   }
 
   //Validate
@@ -225,7 +160,12 @@ class AddMovie extends Component {
       errorMessage = !value ? "Hình Ảnh không được để trống" : "";
     }
     if (name === "ngayKhoiChieu") {
-      errorMessage = !value ? "Ngày Khởi Chiếu không được để trống" : "";
+      if (!value) {
+        errorMessage = !value ? "Ngày Khởi Chiếu không được để trống" : "";
+      } else {
+        const isValid = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/.test(value);
+        errorMessage = !isValid ? "Ngày khởi chiếu không đúng định dạng DD/MM/YYYY" : "";
+      }
     }
     return errorMessage;
   };
@@ -412,8 +352,8 @@ const mapDispatchToProps = (dispatch) => {
       //console.log(id);
       dispatch(actFetchEditMovie(movie));
     },
-    fetchUpdateMovie: (editmovie) => {
-      dispatch(actUpdateMovieRequest(editmovie));
+    fetchUpdateMovie: (form_data) => {
+      dispatch(actUpdateMovieRequest(form_data));
     },
     // fechUploadImg: (formData) => {
     //   dispatch(uploadImg(formData))

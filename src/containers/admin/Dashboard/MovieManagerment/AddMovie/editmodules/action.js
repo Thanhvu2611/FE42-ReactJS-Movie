@@ -31,7 +31,14 @@ const actEditMovieSuccess = (movie) => {
 
 //UPDATE MOVIE
 
-export const actUpdateMovieRequest = (editmovie) => {
+export const actUpdateMovieRequest = (form_data) => {
+  // editmovie.maNhom = "GP01"
+  // let imgUpload = "";
+  // if (editmovie.hinhAnh) {
+  //   imgUpload = editmovie.hinhAnh[0];
+  // }
+
+  // editmovie.hinhAnh = `http://movie0706.cybersoft.edu.vn/hinhanh/0_gp01.jpg`;
 
   let token = "";
   if (localStorage.getItem("userAdmin")) {
@@ -39,9 +46,10 @@ export const actUpdateMovieRequest = (editmovie) => {
   }
   return dispatch => {
     Axios({
-      url: "http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhim",
+      //url: "http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhim",
+      url: "http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhimUpload",
       method: "POST",
-      data: editmovie,
+      data: form_data,
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -50,6 +58,7 @@ export const actUpdateMovieRequest = (editmovie) => {
         // debugger
         //console.log(result.data)
         dispatch(actUpdateMovie(result.data));
+        // uploadImg(imgUpload, editmovie);
       })
       .catch(err => {
         console.log(err);
@@ -57,10 +66,31 @@ export const actUpdateMovieRequest = (editmovie) => {
   }
 };
 
-const actUpdateMovie = (editmovie) => {
+// const uploadImg = (imgUpload, editmovie) => {
+//   if (imgUpload.name) {
+//     let formData = new FormData();
+//     formData.append("File", imgUpload, imgUpload.name);
+//     formData.append("tenphim", editmovie.tenPhim);
+//     formData.append("manhom", "GP01");
+//     Axios({
+//       method: "POST",
+//       url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/UploadHinhAnhPhim`,
+//       data: formData
+//     })
+//       .then(result => {
+//         console.log(result.data);
+//       })
+//       .catch(err => {
+//         console.log(err.reponse.data);
+//       })
+//   }
+//   console.log(imgUpload);
+// }
+
+const actUpdateMovie = (form_data) => {
   return {
     type: UPDATE_MOVIE_SUCCESS,
-    editmovie
+    form_data
 
   }
 }
