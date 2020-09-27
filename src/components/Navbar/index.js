@@ -11,12 +11,12 @@ export default function Navbar() {
               <a href="#A">
                 <img
                   id="logo_website"
-                  src="./img/galaxy-logo.png"
+                  src="./img/Logo-cyber.png"
                   alt="logoBig"
                 />
                 <img
                   id="logo_mobile"
-                  src="./img/galaxy-logo-mobile.png"
+                  src="./img/Logo-cyber.png"
                   alt="logoSmall"
                 />
               </a>

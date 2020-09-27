@@ -1,16 +1,23 @@
 import React from "react";
-import Search from "./DetailListMovie/search";
+import Search from "./DetailListMovie/Search";
 import MovieList from "./DetailListMovie";
-
 
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-
 function MovieManagerment(props) {
   return (
     <div>
-      <Link to="/admin/addmovie"><button className="btn btn-success" onClick={() => { props.addMovie() }}>ADD MOVIE</button></Link>
+      <Link to="/admin/addmovie">
+        <button
+          className="btn btn-success"
+          onClick={() => {
+            props.addMovie();
+          }}
+        >
+          ADD MOVIE
+        </button>
+      </Link>
       <Search />
       <MovieList />
     </div>
@@ -22,7 +29,7 @@ const mapDispatchToProps = (dispatch) => {
     addMovie: () => {
       let action = {
         type: "EditMovieReducer/EDIT_MOVIE_SUCCESS",
-        movie: null
+        movie: null,
       };
       dispatch(action);
     },
