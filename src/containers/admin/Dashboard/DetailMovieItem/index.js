@@ -41,18 +41,13 @@ function ListMovieShedule(props) {
     if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
       return movieShedule.heThongRapChieu.map((movieShowtime) => {
         console.log(movieShedule);
-        return movieShowtime.cumRapChieu.map((showtime) => {
-          return showtime.lichChieuPhim.map((show) => {
-            index++;
-            return <option key={index} index={index}
+        index++;
+        return <option key={index} index={index}
+          movieShowtime={movieShowtime}>
+          {/* {which.tenHeThongRap || which.tenCumRap || which.tenRap} */}
+          {movieShowtime.maHeThongRap}
+        </option>
 
-              show={show} movieShowtime={movieShowtime} showtime={showtime}
-            >
-              {/* {which.tenHeThongRap || which.tenCumRap || which.tenRap} */}
-              {movieShowtime.tenHeThongRap}
-            </option>
-          })
-        })
       });
     }
   };
@@ -63,16 +58,14 @@ function ListMovieShedule(props) {
       return movieShedule.heThongRapChieu.map((movieShowtime) => {
         console.log(movieShedule);
         return movieShowtime.cumRapChieu.map((showtime) => {
-          return showtime.lichChieuPhim.map((show) => {
-            index++;
-            return <option key={index} index={index}
+          index++;
+          return <option key={index} index={index}
+            showtime={showtime}
+          >
+            {/* {which.tenHeThongRap || which.tenCumRap || which.tenRap} */}
+            {showtime.tenCumRap}
+          </option>
 
-              show={show} movieShowtime={movieShowtime} showtime={showtime}
-            >
-              {/* {which.tenHeThongRap || which.tenCumRap || which.tenRap} */}
-              {showtime.tenCumRap}
-            </option>
-          })
         })
       });
     }
@@ -88,7 +81,7 @@ function ListMovieShedule(props) {
             index++;
             return <option key={index} index={index}
 
-              show={show} movieShowtime={movieShowtime} showtime={showtime}
+              show={show}
             >
               {/* {which.tenHeThongRap || which.tenCumRap || which.tenRap} */}
               {show.tenRap}
