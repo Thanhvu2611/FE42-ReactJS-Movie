@@ -6,7 +6,7 @@ const actFetchUser = () => {
   return dispatch => {
     dispatch(actUserRequest());
     Axios({
-      url: "http://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP01",
+      url: "https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP05",
       method: "GET",
     })
       .then((result) => {
@@ -47,7 +47,7 @@ const actFetchDeleteUser = (id) => {
   }
   return dispatch => {
     Axios({
-      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${id}`,
+      url: `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${id}`,
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -68,7 +68,7 @@ const actFetchDeleteUser = (id) => {
 // const actSearchUserRequest = (user) => {
 //   return dispatch => {
 //     Axios({
-//       url: `http://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP01&tuKhoa=${user}`,
+//       url: `http://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP05&tuKhoa=${user}`,
 //       method: "GET",
 //     })
 //       .then((result) => {

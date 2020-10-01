@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { actFetchMovieSchedule } from "./module/action";
 import { connect } from "react-redux";
 import MovieSheduleItem from "../../components/movieSheduleItem";
+import MovieSheduleInput from "../../components/movieSheduleInput";
 
 
 function ListMovieShedule(props) {
@@ -20,7 +21,7 @@ function ListMovieShedule(props) {
     if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
       //console.log(movieShedule.heThongRapChieu.cumRapChieu);
       return movieShedule.heThongRapChieu.map((movieShowtime) => {
-        //console.log(movieShowtime.cumRapChieu);
+        //console.log(movieShedule)
         return movieShowtime.cumRapChieu.map((showtime) => {
 
           return showtime.lichChieuPhim.map((show) => {
@@ -31,11 +32,78 @@ function ListMovieShedule(props) {
       });
 
     }
+
+  };
+
+  const renderInputHTR = () => {
+    let index = 0;
+    const { movieShedule } = props;
+    if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
+      return movieShedule.heThongRapChieu.map((movieShowtime) => {
+        console.log(movieShedule);
+        return movieShowtime.cumRapChieu.map((showtime) => {
+          return showtime.lichChieuPhim.map((show) => {
+            index++;
+            return <option key={index} index={index}
+
+              show={show} movieShowtime={movieShowtime} showtime={showtime}
+            >
+              {/* {which.tenHeThongRap || which.tenCumRap || which.tenRap} */}
+              {movieShowtime.tenHeThongRap}
+            </option>
+          })
+        })
+      });
+    }
+  };
+  const renderInputCR = () => {
+    let index = 0;
+    const { movieShedule } = props;
+    if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
+      return movieShedule.heThongRapChieu.map((movieShowtime) => {
+        console.log(movieShedule);
+        return movieShowtime.cumRapChieu.map((showtime) => {
+          return showtime.lichChieuPhim.map((show) => {
+            index++;
+            return <option key={index} index={index}
+
+              show={show} movieShowtime={movieShowtime} showtime={showtime}
+            >
+              {/* {which.tenHeThongRap || which.tenCumRap || which.tenRap} */}
+              {showtime.tenCumRap}
+            </option>
+          })
+        })
+      });
+    }
+  };
+  const renderInputR = () => {
+    let index = 0;
+    const { movieShedule } = props;
+    if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
+      return movieShedule.heThongRapChieu.map((movieShowtime) => {
+        console.log(movieShedule);
+        return movieShowtime.cumRapChieu.map((showtime) => {
+          return showtime.lichChieuPhim.map((show) => {
+            index++;
+            return <option key={index} index={index}
+
+              show={show} movieShowtime={movieShowtime} showtime={showtime}
+            >
+              {/* {which.tenHeThongRap || which.tenCumRap || which.tenRap} */}
+              {show.tenRap}
+            </option>
+          })
+        })
+      });
+    }
   };
 
 
 
+  //let index = 0;
   return (
+
     <div>
       <div className="content">
         <div className="header">
@@ -44,26 +112,27 @@ function ListMovieShedule(props) {
         <div className="body">
           <form>
             <div className="row">
+
+              {/* {renderInput()} */}
+
+
               <div className="col-5">
                 <div className="form-group">
                   <label>Chọn Hệ Thống Rạp</label>
                   <select className="form-control">
-                    <option>BHD Star Cineplex</option>
-                    <option>cgv</option>
+                    {renderInputHTR()}
                   </select>
                 </div>
                 <div className="form-group">
                   <label>Chọn Cụm rạp</label>
                   <select className="form-control">
-                    <option>cụm 1</option>
-                    <option>cụm 2</option>
+                    {renderInputCR()}
                   </select>
                 </div>
                 <div className="form-group">
                   <label>Chọn rạp</label>
                   <select className="form-control">
-                    <option>rạp 1</option>
-                    <option>rạp 2</option>
+                    {renderInputR()}
                   </select>
                 </div>
               </div>
@@ -118,7 +187,7 @@ function ListMovieShedule(props) {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 
 }

@@ -5,7 +5,7 @@ const actFetchDetailListMovie = () => {
   return dispatch => {
     dispatch(actDetailListMovieRequest());
     Axios({
-      url: "http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP01",
+      url: "https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP05",
       method: "GET"
     })
       .then((result => {
@@ -61,7 +61,7 @@ const actFetchDeleteMovie = (id) => {
   // console.log(id);
   return dispatch => {
     Axios({
-      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/XoaPhim?MaPhim=${id}`,
+      url: `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/XoaPhim?MaPhim=${id}`,
       method: "DELETE",
       data: null,
       headers: {

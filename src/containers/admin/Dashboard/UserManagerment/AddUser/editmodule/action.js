@@ -5,7 +5,7 @@ import Axios from 'axios';
 export const actGetUsers = (id) => {
   return dispatch => {
     Axios({
-      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01&tuKhoa=${id}`,
+      url: `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP05&tuKhoa=${id}`,
       method: "GET",
     })
       .then((result) => {
@@ -33,7 +33,7 @@ export const fectUpdateUserRequest = (editUser) => {
   }
   return dispatch => {
     Axios({
-      url: "http://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung",
+      url: "https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung",
       method: "PUT",
       data: editUser,
       headers: {

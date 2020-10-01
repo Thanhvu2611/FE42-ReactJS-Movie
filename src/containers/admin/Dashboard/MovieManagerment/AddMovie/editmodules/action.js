@@ -8,7 +8,7 @@ export const actFetchEditMovie = (id) => {
   return dispatch => {
 
     Axios({
-      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayThongTinPhim?MaPhim=${id}`,
+      url: `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayThongTinPhim?MaPhim=${id}`,
       method: "GET",
     })
       .then((result) => {
@@ -32,7 +32,7 @@ const actEditMovieSuccess = (movie) => {
 //UPDATE MOVIE
 
 export const actUpdateMovieRequest = (form_data) => {
-  // editmovie.maNhom = "GP01"
+  // editmovie.maNhom = "GP05"
   // let imgUpload = "";
   // if (editmovie.hinhAnh) {
   //   imgUpload = editmovie.hinhAnh[0];
@@ -47,7 +47,7 @@ export const actUpdateMovieRequest = (form_data) => {
   return dispatch => {
     Axios({
       //url: "http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhim",
-      url: "http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhimUpload",
+      url: "https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhimUpload",
       method: "POST",
       data: form_data,
       headers: {
@@ -71,7 +71,7 @@ export const actUpdateMovieRequest = (form_data) => {
 //     let formData = new FormData();
 //     formData.append("File", imgUpload, imgUpload.name);
 //     formData.append("tenphim", editmovie.tenPhim);
-//     formData.append("manhom", "GP01");
+//     formData.append("manhom", "GP05");
 //     Axios({
 //       method: "POST",
 //       url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/UploadHinhAnhPhim`,

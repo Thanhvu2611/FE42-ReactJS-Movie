@@ -6,13 +6,13 @@ import {
 import Axios from "axios";
 
 const actAddMovie = (movie) => {
-  movie.maNhom = "GP01"
+  movie.maNhom = "GP05"
   let imgUpload = "";
   if (movie.hinhAnh) {
     imgUpload = movie.hinhAnh[0];
   }
 
-  movie.hinhAnh = `http://movie0706.cybersoft.edu.vn/hinhanh/0_gp01.jpg`;
+  movie.hinhAnh = `https://movie0706.cybersoft.edu.vn/hinhanh/0_gp01.jpg`;
   let token = "";
   if (localStorage.getItem("userAdmin")) {
     token = JSON.parse(localStorage.getItem("userAdmin")).accessToken;
@@ -24,7 +24,7 @@ const actAddMovie = (movie) => {
       //url: 'http://movie0706.cybersoft.edu.vn/api/quanlyphim/ThemPhimUploadHinh',
       method: 'POST',
       data: movie,
-      url: "http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/ThemPhim",
+      url: "https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/ThemPhim",
       data: movie,
       headers: {
         Authorization: `Bearer ${token}`,
@@ -66,10 +66,10 @@ const uploadImg = (imgUpload, movie) => {
     let formData = new FormData();
     formData.append("File", imgUpload, imgUpload.name);
     formData.append("tenphim", movie.tenPhim);
-    formData.append("manhom", "GP01");
+    formData.append("manhom", "GP05");
     Axios({
       method: "POST",
-      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/UploadHinhAnhPhim`,
+      url: `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/UploadHinhAnhPhim`,
       data: formData
     })
       .then(result => {

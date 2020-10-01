@@ -5,7 +5,7 @@ const actFetchLogin = (user, history) => {
   return dispatch => {
     dispatch(actLoginRequest());
     Axios({
-      url: "http://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/DangNhap",
+      url: "https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/DangNhap",
       method: "POST",
       data: user
     })
