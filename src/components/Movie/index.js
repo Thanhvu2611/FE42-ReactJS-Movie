@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import { actFetchMovieNow, actFetchMovieSoon } from "./module/action";
+import { actFetchMovieNow, actFetchMovieSoon } from "../../redux/action";
 import { connect } from "react-redux";
 
-export default function Movie(props) {
-  //ComponentDidMount
-  // useEffect(() => {
-  //   props.fetchNowMovie();
-  // }, []);
-
+function Movie(props) {
+  //ComponentDidMount;
+  useEffect(() => {
+    props.fetchNowMovie();
+  }, []);
+  console.log(props);
   return (
     <div>
       <section className="movieGalaxy">
@@ -262,21 +262,21 @@ export default function Movie(props) {
     </div>
   );
 }
-// const mapStateToProps = (state) => {
-//   return {
-//     nowMovie: state.nowMovieReducer.nowMovie,
-//     soonMovie: state.soonMovieReducer.soonMovie,
-//   };
-// };
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     fetchNowMovie: () => {
-//       dispatch(actFetchMovieNow());
-//     },
-//     fetchSoonMovie: () => {
-//       dispatch(actFetchMovieSoon());
-//     },
-//   };
-// };
+const mapStateToProps = (state) => {
+  return {
+    nowMovie: state.nowMovieReducer.nowMovie,
+    soonMovie: state.soonMovieReducer.soonMovie,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchNowMovie: () => {
+      dispatch(actFetchMovieNow());
+    },
+    fetchSoonMovie: () => {
+      dispatch(actFetchMovieSoon());
+    },
+  };
+};
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Movie);
+export default connect(mapStateToProps, mapDispatchToProps)(Movie);

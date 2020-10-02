@@ -12,11 +12,11 @@ const actFetchMovieNow = () => {
   return (dispatch) => {
     dispatch(actMovieNowRequest());
     Axios({
-      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=GP05&soTrang=1&soPhanTuTrenTrang=6`,
+      url: `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=GP05&soTrang=1&soPhanTuTrenTrang=6`,
       method: "GET",
     })
       .then((result) => {
-        console.log(result.data);
+        console.log(result.data.items);
         dispatch(actMovieNowSuccess(result.data.items));
       })
       .catch((err) => {
@@ -48,11 +48,11 @@ const actFetchMovieSoon = () => {
   return (dispatch) => {
     dispatch(actMovieSoonRequest());
     Axios({
-      url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=GP05&soTrang=2&soPhanTuTrenTrang=6`,
+      url: `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=GP05&soTrang=2&soPhanTuTrenTrang=6`,
       method: "GET",
     })
       .then((result) => {
-        console.log(result.data);
+        console.log(result.data.items);
         dispatch(actMovieSoonSuccess(result.data.items));
       })
       .catch((err) => {

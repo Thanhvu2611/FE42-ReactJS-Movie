@@ -6,14 +6,14 @@ import {
 
 let initialState = {
   loading: false,
-  soonMovie: {},
+  soonMovie: [],
   err: null,
 };
 const soonMovieReducer = (state = initialState, action) => {
   switch (action.type) {
     case MOVIE_SOON_REQUEST:
       state.loading = true;
-      state.soonMovie = {};
+      state.soonMovie = [];
       state.err = null;
       return { ...state };
     case MOVIE_SOON_SUCCESS:
@@ -23,7 +23,7 @@ const soonMovieReducer = (state = initialState, action) => {
       return { ...state };
     case MOVIE_SOON_FAILED:
       state.loading = false;
-      state.soonMovie = {};
+      state.soonMovie = [];
       state.err = action.err;
       return { ...state };
     default:

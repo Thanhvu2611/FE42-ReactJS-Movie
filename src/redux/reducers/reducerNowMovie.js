@@ -6,14 +6,14 @@ import {
 
 let initialState = {
   loading: false,
-  nowMovie: {},
+  nowMovie: [],
   err: null,
 };
 const nowMovieReducer = (state = initialState, action) => {
   switch (action.type) {
     case MOVIE_NOW_REQUEST:
       state.loading = true;
-      state.nowMovie = {};
+      state.nowMovie = [];
       state.err = null;
       return { ...state };
     case MOVIE_NOW_SUCCESS:
@@ -23,7 +23,7 @@ const nowMovieReducer = (state = initialState, action) => {
       return { ...state };
     case MOVIE_NOW_FAILED:
       state.loading = false;
-      state.nowMovie = {};
+      state.nowMovie = [];
       state.err = action.err;
       return { ...state };
     default:
