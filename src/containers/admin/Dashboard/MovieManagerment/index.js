@@ -1,5 +1,5 @@
 import React from "react";
-import Search from "./DetailListMovie/Search";
+import Search from "./DetailListMovie/search";
 import MovieList from "./DetailListMovie";
 
 import { Link } from "react-router-dom";

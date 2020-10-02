@@ -1,11 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { actFetchMovieSchedule } from "./module/action";
 import { connect } from "react-redux";
 import MovieSheduleItem from "../../components/movieSheduleItem";
 import MovieSheduleInput from "../../components/movieSheduleInput";
+import { Dropdown } from "react-bootstrap";
 
 
 function ListMovieShedule(props) {
+  const [cinemaSystem, setCinemaSystem] = useState({
+    cinemaSystemName: "Chọn Hệ Thống Rạp",
+    cinemaSystemId: "",
+  });
+
+  const [cinemaClus, setCinemaClus] = useState({
+    cinemaClusName: "Chọn Cụm Rạp",
+    cinemaClusId: "",
+  })
+
+  const [cinema, setCinema] = useState({
+    cinemaName: "Chọn Rạp",
+    cinemasId: "",
+  })
 
   useEffect(() => {
 
@@ -35,62 +50,164 @@ function ListMovieShedule(props) {
 
   };
 
-  const renderInputHTR = () => {
-    let index = 0;
-    const { movieShedule } = props;
-    if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
-      return movieShedule.heThongRapChieu.map((movieShowtime) => {
-        console.log(movieShedule);
-        index++;
-        return <option key={index} index={index}
-          movieShowtime={movieShowtime}>
-          {/* {which.tenHeThongRap || which.tenCumRap || which.tenRap} */}
-          {movieShowtime.maHeThongRap}
-        </option>
+  const { movieShedule } = props
 
+  const resetState = (value) => {
+    switch (value) {
+      case "cinemaSystem":
+        {
+          setCinemaSystem({ cinemaClusId: "", cinemaClusName: "Chọn Hệ Thống Rạp" })
+          setCinemaClus({ cinemaClusId: "", cinemaClusName: "Chọn Cụm Rạp" })
+          setCinema({ cinemasId: "", cinemaName: "Chọn Rạp" })
+        }
+
+        break;
+      case "cinemaClus":
+        {
+          setCinemaClus({ cinemaClusId: "", cinemaClusName: "Chọn Cụm Rạp" })
+          setCinema({ cinemasId: "", cinemaName: "Chọn Rạp" })
+        }
+
+        break;
+      case "cinema":
+        {
+          setCinema({ cinemasId: "", cinemaName: "Chọn Rạp" })
+        }
+
+        break;
+
+
+      default:
+        break;
+    }
+  }
+
+  const checkCinemaClus = () => {
+    if (cinemaSystem.cinemaSystemName === "Chọn Hệ Thống Rạp") {
+      return <Dropdown.Item>Hãy chọn hệ thống rạp</Dropdown.Item>;
+    } else {
+      return renderCinemaClus();
+    }
+  }
+
+  const checkCinema = () => {
+    if (cinemaSystem.cinemaSystemName === "Chọn Hệ Thống Rạp" || cinemaClus.cinemaClusName !== "Chọn Cụm Rạp") {
+      return <Dropdown.Item>Hãy chọn hệ thống rạp, Cụm rạp </Dropdown.Item>
+    } else {
+      return renderCinema();
+    }
+  }
+
+  const renderCinemaSystem = () => {
+    if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
+      return movieShedule.heThongRapChieu.map((cinemaSys, index) => {
+        return (
+          <Dropdown.Item
+            onSelect={() => {
+              setCinemaSystem({ cinemaSystemName: cinemaSys.tenHeThongRap, cinemaSystemId: cinemaSys.maHeThongRap });
+              resetState("cinemaSystem");
+            }}
+            key={index}>
+            {cinemaSys.tenHeThongRap}
+          </Dropdown.Item>
+        );
       });
     }
-  };
-  const renderInputCR = () => {
-    let index = 0;
-    const { movieShedule } = props;
-    if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
-      return movieShedule.heThongRapChieu.map((movieShowtime) => {
-        console.log(movieShedule);
-        return movieShowtime.cumRapChieu.map((showtime) => {
-          index++;
-          return <option key={index} index={index}
-            showtime={showtime}
-          >
-            {/* {which.tenHeThongRap || which.tenCumRap || which.tenRap} */}
-            {showtime.tenCumRap}
-          </option>
+  }
 
+  const renderCinemaClus = () => {
+
+    return movieShedule.heThongRapChieu.map((cinemaSys) => {
+      return cinemaSys.cumRapChieu.map((cinemaClust, index) => {
+        if (cinemaSys.maHeThongRap === cinemaSystem.cinemaSystemId) {
+          return (<Dropdown.Item onSelect={() => {
+            setCinemaClus({
+              cinemaClus: cinemaClust.tenCumRap, cinemaClusId: cinemaClust.maCumRap,
+            })
+            resetState("cinemaClus");
+          }} key={index}>{cinemaClust.tenCumRap}</Dropdown.Item>)
+        }
+      })
+    })
+
+  }
+
+  const renderCinema = () => {
+
+    return movieShedule.heThongRapChieu.map((cinemaSys) => {
+      return cinemaSys.cumRapChieu.map((cinemaClust) => {
+        return cinemaClust.lichChieuPhim.map((cinemaDetail, index) => {
+          if (cinemaSys.maHeThongRap === cinemaSystem.cinemaSystemId && cinemaClust.maCumRap === cinemaClus.setCinemaClusId) {
+            return (<Dropdown.Item onSelect={() => {
+              setCinema({
+                cinemaName: cinemaDetail.tenRap,
+                cinemasId: cinemaDetail.maRap
+              }); resetState("cinema");
+            }} key={index}>{cinemaDetail.tenRap}</Dropdown.Item>)
+          }
         })
-      });
-    }
-  };
-  const renderInputR = () => {
-    let index = 0;
-    const { movieShedule } = props;
-    if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
-      return movieShedule.heThongRapChieu.map((movieShowtime) => {
-        console.log(movieShedule);
-        return movieShowtime.cumRapChieu.map((showtime) => {
-          return showtime.lichChieuPhim.map((show) => {
-            index++;
-            return <option key={index} index={index}
+      })
+    })
 
-              show={show}
-            >
-              {/* {which.tenHeThongRap || which.tenCumRap || which.tenRap} */}
-              {show.tenRap}
-            </option>
-          })
-        })
-      });
-    }
-  };
+  }
+
+
+  // const renderInputHTR = () => {
+  //   let index = 0;
+  //   const { movieShedule } = props;
+  //   if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
+  //     return movieShedule.heThongRapChieu.map((movieShowtime) => {
+  //       console.log(movieShedule);
+  //       index++;
+  //       return <option key={index} index={index}
+  //         movieShowtime={movieShowtime}>
+  //         {/* {which.tenHeThongRap || which.tenCumRap || which.tenRap} */}
+  //         {movieShowtime.maHeThongRap}
+  //       </option>
+
+  //     });
+  //   }
+  // };
+  // const renderInputCR = () => {
+  //   let index = 0;
+  //   const { movieShedule } = props;
+  //   if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
+  //     return movieShedule.heThongRapChieu.map((movieShowtime) => {
+  //       console.log(movieShedule);
+  //       return movieShowtime.cumRapChieu.map((showtime) => {
+  //         index++;
+  //         return <option key={index} index={index}
+  //           showtime={showtime}
+  //         >
+  //           {/* {which.tenHeThongRap || which.tenCumRap || which.tenRap} */}
+  //           {showtime.tenCumRap}
+  //         </option>
+
+  //       })
+  //     });
+  //   }
+  // };
+  // const renderInputR = () => {
+  //   let index = 0;
+  //   const { movieShedule } = props;
+  //   if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
+  //     return movieShedule.heThongRapChieu.map((movieShowtime) => {
+  //       console.log(movieShedule);
+  //       return movieShowtime.cumRapChieu.map((showtime) => {
+  //         return showtime.lichChieuPhim.map((show) => {
+  //           index++;
+  //           return <option key={index} index={index}
+
+  //             show={show}
+  //           >
+  //             {/* {which.tenHeThongRap || which.tenCumRap || which.tenRap} */}
+  //             {show.tenRap}
+  //           </option>
+  //         })
+  //       })
+  //     });
+  //   }
+  // };
 
 
 
@@ -103,32 +220,29 @@ function ListMovieShedule(props) {
           <h5 className="title">Thông Tin Lịch Chiếu Phim Của The Flash</h5>
         </div>
         <div className="body">
-          <form>
-            <div className="row">
 
-              {/* {renderInput()} */}
+          <div className="row">
+
+            {/* {renderInput()} */}
 
 
-              <div className="col-5">
-                <div className="form-group">
-                  <label>Chọn Hệ Thống Rạp</label>
-                  <select className="form-control">
-                    {renderInputHTR()}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>Chọn Cụm rạp</label>
-                  <select className="form-control">
-                    {renderInputCR()}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>Chọn rạp</label>
-                  <select className="form-control">
-                    {renderInputR()}
-                  </select>
-                </div>
-              </div>
+            <div className="col-5">
+
+              <Dropdown>
+                <Dropdown.Toggle id="dropdown-cinemaSystem">{cinemaSystem.cinemaSystemName}</Dropdown.Toggle>
+                <Dropdown.Menu flip={false}>{renderCinemaSystem()}</Dropdown.Menu>
+              </Dropdown>
+              <Dropdown>
+                <Dropdown.Toggle id="dropdown-cinemaClus">{cinemaClus.cinemaClusName}</Dropdown.Toggle>
+                <Dropdown.Menu flip={false}>{checkCinemaClus()}</Dropdown.Menu>
+              </Dropdown>
+
+              <Dropdown>
+                <Dropdown.Toggle id="dropdown-cinema">{cinema.cinemaName}</Dropdown.Toggle>
+                <Dropdown.Menu flip={false}>{checkCinema()}</Dropdown.Menu>
+              </Dropdown>
+            </div>
+            <form>
               <div className="col-7">
                 <div className="form-group">
                   <label>Chọn ngày giờ chiếu</label>
@@ -152,8 +266,9 @@ function ListMovieShedule(props) {
                   </div>
                 </div>
               </div>
-            </div>
-            {/* <div>
+            </form>
+          </div>
+          {/* <div>
               <button type="submit" className="btn btn-success">
                 Submit
               </button>
@@ -161,7 +276,7 @@ function ListMovieShedule(props) {
                 Delete
               </button>
             </div> */}
-          </form>
+
           <div>
             <table className="table">
               <thead>
