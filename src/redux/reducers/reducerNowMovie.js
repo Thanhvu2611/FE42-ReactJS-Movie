@@ -18,7 +18,7 @@ const nowMovieReducer = (state = initialState, action) => {
       return { ...state };
     case MOVIE_NOW_SUCCESS:
       state.loading = false;
-      state.nowMovie = action.data.items;
+      state.nowMovie = action.data;
       state.err = null;
       return { ...state };
     case MOVIE_NOW_FAILED:

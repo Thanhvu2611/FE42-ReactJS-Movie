@@ -7,6 +7,7 @@ function Movie(props) {
   useEffect(() => {
     props.fetchNowMovie();
   }, []);
+
   console.log(props);
   return (
     <div>

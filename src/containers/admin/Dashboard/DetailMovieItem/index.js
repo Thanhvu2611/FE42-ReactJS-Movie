@@ -7,20 +7,7 @@ import { Dropdown } from "react-bootstrap";
 
 
 function ListMovieShedule(props) {
-  const [cinemaSystem, setCinemaSystem] = useState({
-    cinemaSystemName: "Chọn Hệ Thống Rạp",
-    cinemaSystemId: "",
-  });
 
-  const [cinemaClus, setCinemaClus] = useState({
-    cinemaClusName: "Chọn Cụm Rạp",
-    cinemaClusId: "",
-  })
-
-  const [cinema, setCinema] = useState({
-    cinemaName: "Chọn Rạp",
-    cinemasId: "",
-  })
 
   useEffect(() => {
 
@@ -30,6 +17,17 @@ function ListMovieShedule(props) {
 
   }, []);
 
+  const [cinemaSystem, setCinemaSystem] = useState({
+    cinemaSystemId: "",
+  });
+
+  const [cinemaClus, setCinemaClus] = useState({
+    cinemaClusId: "",
+  })
+
+  const [cinema, setCinema] = useState({
+    cinemaId: "",
+  })
   const renderTable = () => {
     const { movieShedule } = props;
 
@@ -51,27 +49,23 @@ function ListMovieShedule(props) {
   };
 
   const { movieShedule } = props
-
+  // console.log(movieShedule);
   const resetState = (value) => {
     switch (value) {
-      case "cinemaSystem":
-        {
-          setCinemaSystem({ cinemaClusId: "", cinemaClusName: "Chọn Hệ Thống Rạp" })
-          setCinemaClus({ cinemaClusId: "", cinemaClusName: "Chọn Cụm Rạp" })
-          setCinema({ cinemasId: "", cinemaName: "Chọn Rạp" })
-        }
+      // case "cinemaSystem":
+      //   return (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0 && movieShedule.heThongRapChieu.map((item)=>(<option value={item.maHeThongRap}></option>)))
 
-        break;
+      //   break;
       case "cinemaClus":
         {
           setCinemaClus({ cinemaClusId: "", cinemaClusName: "Chọn Cụm Rạp" })
-          setCinema({ cinemasId: "", cinemaName: "Chọn Rạp" })
+          setCinema({ cinemaId: "", cinemaName: "Chọn Rạp" })
         }
 
         break;
       case "cinema":
         {
-          setCinema({ cinemasId: "", cinemaName: "Chọn Rạp" })
+          setCinema({ cinemaId: "", cinemaName: "Chọn Rạp" })
         }
 
         break;
@@ -80,18 +74,18 @@ function ListMovieShedule(props) {
       default:
         break;
     }
-  }
+  };
 
   const checkCinemaClus = () => {
     if (cinemaSystem.cinemaSystemName === "Chọn Hệ Thống Rạp") {
-      return <Dropdown.Item>Hãy chọn hệ thống rạp</Dropdown.Item>;
+      return <option>Hãy chọn hệ thống rạp</option>;
     } else {
       return renderCinemaClus();
     }
   }
 
   const checkCinema = () => {
-    if (cinemaSystem.cinemaSystemName === "Chọn Hệ Thống Rạp" || cinemaClus.cinemaClusName !== "Chọn Cụm Rạp") {
+    if (cinemaSystem.cinemaSystemName === "Chọn Hệ Thống Rạp" || cinemaClus.cinemaClusName === "Chọn Cụm Rạp") {
       return <Dropdown.Item>Hãy chọn hệ thống rạp, Cụm rạp </Dropdown.Item>
     } else {
       return renderCinema();
@@ -102,14 +96,14 @@ function ListMovieShedule(props) {
     if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
       return movieShedule.heThongRapChieu.map((cinemaSys, index) => {
         return (
-          <Dropdown.Item
+          <option
             onSelect={() => {
               setCinemaSystem({ cinemaSystemName: cinemaSys.tenHeThongRap, cinemaSystemId: cinemaSys.maHeThongRap });
-              resetState("cinemaSystem");
+              // resetState("cinemaSystem");
             }}
             key={index}>
             {cinemaSys.tenHeThongRap}
-          </Dropdown.Item>
+          </option>
         );
       });
     }
@@ -120,12 +114,12 @@ function ListMovieShedule(props) {
     return movieShedule.heThongRapChieu.map((cinemaSys) => {
       return cinemaSys.cumRapChieu.map((cinemaClust, index) => {
         if (cinemaSys.maHeThongRap === cinemaSystem.cinemaSystemId) {
-          return (<Dropdown.Item onSelect={() => {
+          return (<option onSelect={() => {
             setCinemaClus({
               cinemaClus: cinemaClust.tenCumRap, cinemaClusId: cinemaClust.maCumRap,
             })
             resetState("cinemaClus");
-          }} key={index}>{cinemaClust.tenCumRap}</Dropdown.Item>)
+          }} key={index}>{cinemaClust.tenCumRap}</option>)
         }
       })
     })
@@ -137,13 +131,14 @@ function ListMovieShedule(props) {
     return movieShedule.heThongRapChieu.map((cinemaSys) => {
       return cinemaSys.cumRapChieu.map((cinemaClust) => {
         return cinemaClust.lichChieuPhim.map((cinemaDetail, index) => {
-          if (cinemaSys.maHeThongRap === cinemaSystem.cinemaSystemId && cinemaClust.maCumRap === cinemaClus.setCinemaClusId) {
-            return (<Dropdown.Item onSelect={() => {
+          console.log(cinemaClust.lichChieuPhim);
+          if (cinemaSys.maHeThongRap === cinemaSystem.cinemaSystemId && cinemaClust.maCumRap === cinemaClus.cinemaClusId) {
+            return (<option onSelect={() => {
               setCinema({
                 cinemaName: cinemaDetail.tenRap,
-                cinemasId: cinemaDetail.maRap
+                cinemaId: cinemaDetail.maRap,
               }); resetState("cinema");
-            }} key={index}>{cinemaDetail.tenRap}</Dropdown.Item>)
+            }} key={index}>{cinemaDetail.tenRap}</option>)
           }
         })
       })
@@ -228,19 +223,19 @@ function ListMovieShedule(props) {
 
             <div className="col-5">
 
-              <Dropdown>
-                <Dropdown.Toggle id="dropdown-cinemaSystem">{cinemaSystem.cinemaSystemName}</Dropdown.Toggle>
-                <Dropdown.Menu flip={false}>{renderCinemaSystem()}</Dropdown.Menu>
-              </Dropdown>
-              <Dropdown>
-                <Dropdown.Toggle id="dropdown-cinemaClus">{cinemaClus.cinemaClusName}</Dropdown.Toggle>
-                <Dropdown.Menu flip={false}>{checkCinemaClus()}</Dropdown.Menu>
-              </Dropdown>
+              <select>
+                <label>Chọn Hệ Thống Rạp</label>
+                <option>{renderCinemaSystem()}</option>
+              </select>
+              <select>
+                <label>Chọn Cụm Rạp </label>
+                <option>{renderCinemaSystem()}</option>
+              </select>
 
-              <Dropdown>
-                <Dropdown.Toggle id="dropdown-cinema">{cinema.cinemaName}</Dropdown.Toggle>
-                <Dropdown.Menu flip={false}>{checkCinema()}</Dropdown.Menu>
-              </Dropdown>
+              <select>
+                <label>Chọn Rạp</label>
+                <option>{renderCinemaSystem()}</option>
+              </select>
             </div>
             <form>
               <div className="col-7">
