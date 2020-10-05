@@ -28,7 +28,7 @@ html {
 body img,
 html img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
 }
 
@@ -446,7 +446,7 @@ header .buttonDangNhap {
   font-size: 1rem;
   font-weight: 500;
   color: #43464b;
-  line-height: 0;
+  /* line-height: 0; */
 }
 
 .movieGalaxy .movies-group .movies-item .movie-title .movie-name-trans {

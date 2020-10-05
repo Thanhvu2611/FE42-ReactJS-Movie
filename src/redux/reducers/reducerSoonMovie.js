@@ -18,7 +18,7 @@ const soonMovieReducer = (state = initialState, action) => {
       return { ...state };
     case MOVIE_SOON_SUCCESS:
       state.loading = false;
-      state.soonMovie = action.data.items;
+      state.soonMovie = action.data;
       state.err = null;
       return { ...state };
     case MOVIE_SOON_FAILED:

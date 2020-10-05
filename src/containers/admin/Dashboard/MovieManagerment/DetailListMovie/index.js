@@ -6,14 +6,11 @@ import Loading from "./../../../../../components/Loading";
 import { connect } from "react-redux";
 
 function MovieList(props) {
-
   useEffect(() => {
-
     props.fetchListMovie();
     // eslint-disable-next-line
     // console.log(props);
   }, []);
-
 
   let { listMovie, loading, keyword } = props;
   //console.log(props);
