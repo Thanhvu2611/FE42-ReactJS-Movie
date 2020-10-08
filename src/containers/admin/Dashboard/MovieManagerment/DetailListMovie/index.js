@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import MovieItem from "../../../components/movieItem";
-
 import { actFetchDetailListMovie } from "./modules/action";
 import Loading from "./../../../../../components/Loading";
 import { connect } from "react-redux";
@@ -11,7 +10,6 @@ function MovieList(props) {
     // eslint-disable-next-line
     // console.log(props);
   }, []);
-
   let { listMovie, loading, keyword } = props;
   //console.log(props);
   const renderTable = () => {
