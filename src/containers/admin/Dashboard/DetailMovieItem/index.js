@@ -16,16 +16,16 @@ function ListMovieShedule(props) {
 
   }, []);
   let [heThongRap, setHeThongRap] = useState([]);
-  useEffect(() => {
-    qLyPhimService
-      .layHeThongRap()
-      .then((result) => {
-        setHeThongRap(result.data);
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   qLyPhimService
+  //     .layHeThongRap()
+  //     .then((result) => {
+  //       setHeThongRap(result.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.response.data);
+  //     });
+  // }, []);
 
   const renderTable = () => {
     const { movieShedule } = props;
@@ -64,7 +64,7 @@ function ListMovieShedule(props) {
   let [maRap, setMaRap] = useState();
   const layMaRap = (event) => {
     let maRap = event.target.value;
-    setMaCumRap(maRap);
+    setMaRap(maRap);
   }
   let [cumRap, setCumRap] = useState([]);
   // useEffect(() => {
@@ -113,16 +113,18 @@ function ListMovieShedule(props) {
     const { movieShedule } = props;
     if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
       return movieShedule.heThongRapChieu.map((heThongRap) => {
+        if (maHeThongRap === heThongRap.maHeThongRap) {
 
-        return heThongRap.cumRapChieu.map((cumRap, index) => {
+          return heThongRap.cumRapChieu.map((cumRap, index) => {
 
-          return <option key={index} index={index}
-            value={cumRap.maCumRap}
-          >
-            {cumRap.tenCumRap}
-          </option>
+            return <option key={index} index={index}
+              value={cumRap.maCumRap}
+            >
+              {cumRap.tenCumRap}
+            </option>
 
-        })
+          })
+        }
       });
     };
   };
@@ -131,9 +133,9 @@ function ListMovieShedule(props) {
     const { movieShedule } = props;
     if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
       return movieShedule.heThongRapChieu.map((heThongRap) => {
-        if (maCumRap === heThongRap.maCumRap) {
-          return heThongRap.cumRapChieu.map((cumRap) => {
 
+        return heThongRap.cumRapChieu.map((cumRap) => {
+          if (maCumRap === cumRap.maCumRap) {
             return cumRap.lichChieuPhim.map((rap, index) => {
               return <option key={index} index={index}
                 value={rap.maRap}
@@ -141,9 +143,10 @@ function ListMovieShedule(props) {
                 {rap.tenRap}
               </option>
             })
+          }
 
-          })
-        }
+        })
+
       });
     };
   };
