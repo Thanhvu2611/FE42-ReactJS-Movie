@@ -1,5 +1,5 @@
 import axios from "axios";
-import { domain, groupID } from "../config/setting";
+import { domain, groupID } from "./config/setting";
 
 export class QuanLyPhimServices {
   layDanhSachPhim = () => {
@@ -12,8 +12,8 @@ export class QuanLyPhimServices {
     return axios({
       url: `${domain}/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${maPhim}`,
       method: "GET",
-    })
-  }
+    });
+  };
   layHeThongRap = () => {
     return axios({
       url: `${domain}/QuanLyRap/LayThongTinHeThongRap`,
@@ -25,7 +25,7 @@ export class QuanLyPhimServices {
       url: `${domain}/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=${groupID}`,
       method: "GET",
     });
-  }
+  };
   layThongTinCumRapTheoHeThong = (maHeThongRap) => {
     return axios({
       url: `${domain}/QuanLyRap/LayThongTinCumRapTheoHeThong?maHeThongRap=${maHeThongRap}`,
