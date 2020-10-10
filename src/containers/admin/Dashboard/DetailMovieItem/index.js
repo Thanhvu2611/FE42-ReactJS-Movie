@@ -4,18 +4,14 @@ import { connect } from "react-redux";
 import MovieSheduleItem from "../../components/movieSheduleItem";
 import { qLyPhimService } from "../../../../services/QuanLyPhimServices";
 
-
-
 function ListMovieShedule(props) {
-
   useEffect(() => {
-
     const id = props.match.params.id;
     props.fetchMovieSchedule(id);
     //console.log(props.fetchMovieSchedule(id));
 
   }, []);
-  let [heThongRap, setHeThongRap] = useState([]);
+  // let [heThongRap, setHeThongRap] = useState([]);
   // useEffect(() => {
   //   qLyPhimService
   //     .layHeThongRap()
@@ -30,21 +26,27 @@ function ListMovieShedule(props) {
   const renderTable = () => {
     const { movieShedule } = props;
 
-    if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
+    if (
+      movieShedule.heThongRapChieu &&
+      movieShedule.heThongRapChieu.length > 0
+    ) {
       //console.log(movieShedule.heThongRapChieu.cumRapChieu);
       return movieShedule.heThongRapChieu.map((movieShowtime) => {
         //console.log(movieShedule)
         return movieShowtime.cumRapChieu.map((showtime) => {
-
           return showtime.lichChieuPhim.map((show) => {
-            return <MovieSheduleItem show={show.maLichChieu} show={show} movieShowtime={movieShowtime} showtime={showtime} />
-          })
-        })
-
+            return (
+              <MovieSheduleItem
+                show={show.maLichChieu}
+                show={show}
+                movieShowtime={movieShowtime}
+                showtime={showtime}
+              />
+            );
+          });
+        });
       });
-
     }
-
   };
 
   var moment = require("moment");
@@ -59,25 +61,13 @@ function ListMovieShedule(props) {
   const layMaCumRap = (event) => {
     let maCumRap = event.target.value;
     setMaCumRap(maCumRap);
-  }
+  };
 
   let [maRap, setMaRap] = useState();
   const layMaRap = (event) => {
     let maRap = event.target.value;
     setMaRap(maRap);
   }
-  let [cumRap, setCumRap] = useState([]);
-  // useEffect(() => {
-  //   qLyPhimService
-  //     .layThongTinCumRapChieuTheoHeThong(maHeThongRap)
-  //     .then((result) => {
-  //       setCumRap(result.data);
-  //     })
-  //     .catch((err) => {
-  //       //console.log(err.response.data);
-  //     });
-  // }, [maHeThongRap]);
-
 
   let [gioChieu, setGioChieu] = useState();
   const layGioChieu = (event) => {
@@ -97,21 +87,27 @@ function ListMovieShedule(props) {
     setGiaVe(giaVe);
   };
 
-
   const renderHeThongRap = () => {
     const { movieShedule } = props;
-    if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
+    if (
+      movieShedule.heThongRapChieu &&
+      movieShedule.heThongRapChieu.length > 0
+    ) {
       return movieShedule.heThongRapChieu.map((heThongRap, index) => {
-        return <option key={index} index={index} value={heThongRap.maHeThongRap}>
-          {heThongRap.tenHeThongRap}
-        </option >
-
+        return (
+          <option key={index} index={index} value={heThongRap.maHeThongRap}>
+            {heThongRap.tenHeThongRap}
+          </option>
+        );
       });
     }
   };
   const renderCumRap = () => {
     const { movieShedule } = props;
-    if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
+    if (
+      movieShedule.heThongRapChieu &&
+      movieShedule.heThongRapChieu.length > 0
+    ) {
       return movieShedule.heThongRapChieu.map((heThongRap) => {
         if (maHeThongRap === heThongRap.maHeThongRap) {
 
@@ -126,12 +122,14 @@ function ListMovieShedule(props) {
           })
         }
       });
-    };
+    }
   };
   const renderRap = () => {
-
     const { movieShedule } = props;
-    if (movieShedule.heThongRapChieu && movieShedule.heThongRapChieu.length > 0) {
+    if (
+      movieShedule.heThongRapChieu &&
+      movieShedule.heThongRapChieu.length > 0
+    ) {
       return movieShedule.heThongRapChieu.map((heThongRap) => {
 
         return heThongRap.cumRapChieu.map((cumRap) => {
@@ -148,14 +146,11 @@ function ListMovieShedule(props) {
         })
 
       });
-    };
+    }
   };
-
-
 
   //let index = 0;
   return (
-
     <div>
       <div className="content">
         <div className="header">
@@ -164,18 +159,19 @@ function ListMovieShedule(props) {
         <div className="body">
           <form>
             <div className="row">
-
               <div className="col-5">
                 <div className="form-group">
-                  <select name="heThongRap" onChange={layMaHeThongRap} id="selection">
-
+                  <select
+                    name="heThongRap"
+                    onChange={layMaHeThongRap}
+                    id="selection"
+                  >
                     <option value="#">--Chọn Hệ Thống Rạp</option>
                     {renderHeThongRap()}
                   </select>
                 </div>
                 <div className="form-group">
                   <select name="cumRap" onChange={layMaCumRap} id="selection">
-
                     <option value="#">--Chọn Cụm Rạp</option>
                     {renderCumRap()}
                   </select>
@@ -183,7 +179,6 @@ function ListMovieShedule(props) {
 
                 <div className="form-group">
                   <select name="rap" onChange={layMaRap} id="selection">
-
                     <option value="#">--Chọn Rạp</option>
                     {renderRap()}
                   </select>
@@ -213,8 +208,6 @@ function ListMovieShedule(props) {
                   </div>
                 </div>
               </div>
-
-
             </div>
           </form>
           {/* <div>
@@ -244,9 +237,8 @@ function ListMovieShedule(props) {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
-
 }
 
 const mapStateToProps = (state) => {
