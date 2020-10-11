@@ -1,0 +1,69 @@
+// variable color
+$color-black-0:#555555; // default
+$color-white-0: #fff; //default
+$color-white-1:#e8e8e8;
+$color-gray-0: #7e7e7e;
+$color-black-bg:#222;
+$color-black-1:#333;
+$color-gray-1:#e1e1e1;
+$color-gray-2:#7d7d7d;
+$color-gray-3:#e9e9e9;
+$color-gray-4:#f5f5f5;
+$color-blue:#007791;
+
+
+
+$color-yellow: #f8b85d;
+$color-orange: #eb7633;
+
+$color-trans:transparent;
+
+
+
+// variable font-size
+$fs-0: 15px; //default
+$fs-1: 13px;
+$fs-2: 12px;
+$fs-3: 18px;
+$fs-4: 16px;
+$fs-5: 24px;
+$fs-6: 36px;
+//Còn 1 font-size: 36px;
+$fs-4: 40px;
+
+//variable margin
+$mg-0: 2px;
+$mg-1: 10px;
+$mg-2: 15px;
+$mg-3: 20px;
+$mf-4: 50px;
+
+//variable border-radius
+$border-radius: 4px;
+
+//variable padding
+$pd-0: 5px; //default
+$pd-1: 12px;
+$pd-2: 15px;
+$pd-3: 30px;
+$pd-4: 50px;
+$pd-5: 100px;
+
+//variable line-height
+$line-height-0: 1.5; //default
+
+
+//variable font-weight
+$fw-normal: normal;
+$fw-bold-0: 600;
+$fw-bold-1: 700;
+$fw-bold: bold;
+
+
+//break points
+$breakpoints:(
+    'extra-large': 1200px,
+    'large' : 992px,
+    'medium' : 768px,
+    'small' : 576px,
+)

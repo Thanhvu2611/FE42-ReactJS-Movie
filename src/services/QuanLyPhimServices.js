@@ -20,9 +20,9 @@ export class QuanLyPhimServices {
       method: "GET",
     });
   };
-  layCumRapTheoHeThong = () => {
+  layCumRapTheoHeThong = (maHeThongRap) => {
     return axios({
-      url: `${domain}/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=${groupID}`,
+      url: `${domain}/QuanLyRap/LayThongTinLichChieuHeThongRap?maHeThongRap=${maHeThongRap}&maNhom=${groupID}`,
       method: "GET",
     });
   };

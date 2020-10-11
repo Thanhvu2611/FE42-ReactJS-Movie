@@ -1,0 +1,106 @@
+@import './variables';
+
+@mixin styleText ($color, $fs, $fw){
+    color: $color;
+    font-size: $fs;
+    font-weight: $fw;
+}
+
+@mixin styleButton($bg-color,$border,$pd-y,$pd-x,$border-radius) {
+    background-color: $bg-color;
+    border: 1px solid $border;
+    padding: $pd-y $pd-x;
+    border-radius: $border-radius;
+}
+
+@mixin hoverButton($bg-hover,$bd-hover,$color-hover) {
+    background-color: $bg-hover;
+    border-color: $bd-hover;
+    color: $color-hover;   
+}
+
+@mixin styleForm($bg-color,$bd-color-focus) {
+    .input-group{
+        background-color: $bg-color;
+        border: 1px solid $bg-color;
+        .form-control{
+            background-color: transparent;
+            border-color: transparent;
+            box-shadow: none;
+            &:focus{
+                background-color: $color-white-0;
+                border-color: $bd-color-focus;
+                border-right-color: transparent;
+                
+            }
+            //lay cac the cung cap nam ben duoi input
+            &:focus + .input-group-append{
+                .input-group-text{
+                    background-color: $color-white-0;
+                    border-color: $bd-color-focus;
+                    border-left-color: transparent;
+                    &:hover{
+                        background-color: $color-red-0;
+                        color: $color-white-0;
+                    }
+                }
+            }
+        }
+        .input-group-text{
+            background-color: transparent;
+            border-color: transparent;
+            color: $color-red-0;
+            &:hover{
+                background-color: $color-red-0;
+                color: $color-white-0;
+            }
+        }
+    }  
+}
+
+@mixin styleTextTile ($fs){
+        color: #eb7633;
+        font-size: $fs;
+        letter-spacing: 2px;
+        margin-bottom: 40px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        position: relative;
+        &::after{
+            content: " ";
+            width: 160px;
+            height: 3px;
+            background: linear-gradient(to right, #f8b85d,#eb7633);
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+        }
+}
+
+
+@mixin responsive($screen) {
+    @if map-has-key($map:$breakpoints , $key:$screen) {
+        $value:map-get($map:$breakpoints , $key:$screen);
+        @media screen and (max-width:$value){
+            @content;
+        }
+    } @else{
+        @warn "Mời bạn nhập lại !!!";
+    }
+
+}
+@mixin reponsive_993_1199(){
+    @media  screen and (min-width: 993px) and (max-width: 1199px){
+        @content;
+    }
+}
+
+@mixin reponsive_769_991(){
+    @media  screen and (min-width: 769px) and (max-width: 991px){
+        @content;
+    }
+}
+@mixin reponsive_575_767(){
+    @media  screen and (min-width: 575px) and (max-width: 767px){
+        @content;
+    }
+}

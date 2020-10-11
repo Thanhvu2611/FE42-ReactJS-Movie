@@ -11,8 +11,8 @@ import EditMovieReducer from "../../containers/admin/Dashboard/MovieManagerment/
 //admin/user
 import userReducer from "../../containers/admin/Dashboard/UserManagerment/listUser/module/reducer";
 import addUserReducer from "../../containers/admin/Dashboard/UserManagerment/AddUser/module/reducer";
-import editUserReducer from "../../containers/admin/Dashboard/UserManagerment/AddUser/editmodule/reducer"
-
+import editUserReducer from "../../containers/admin/Dashboard/UserManagerment/AddUser/editmodule/reducer";
+import MovieHookReducer from "./MovieHookReducer";
 const rootReducers = combineReducers({
   //key: value
   nowMovieReducer,
@@ -24,9 +24,8 @@ const rootReducers = combineReducers({
   EditMovieReducer,
   userReducer,
   addUserReducer,
-  editUserReducer
-
-
+  editUserReducer,
+  MovieHookReducer,
 });
 
 export default rootReducers;
