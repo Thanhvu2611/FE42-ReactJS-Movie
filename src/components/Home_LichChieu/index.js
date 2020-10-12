@@ -137,43 +137,57 @@ export default function HomeLichChieu() {
                 aria-labelledby="list-home-list1"
               >
                 {Object.entries(danhSachPhim).map(([index, item]) => {
-                  return (
-                    <div className="cinemaMovie_item row">
-                      <div className="col-2  cinemaMovie_img">
-                        <img src={item.hinhAnh} className="img-fluid ml-2" />
+                  //console.log(item);
+                  if (
+                    moment(
+                      item.lstLichChieuTheoPhim[0].ngayChieuGioChieu
+                    ).format("DD.MM") == "01.01"
+                  ) {
+                    //console.log(item.lstLichChieuTheoPhim[0].ngayChieuGioChieu);
+                    return (
+                      <div className="cinemaMovie_item row">
+                        <div className="col-3  cinemaMovie_img">
+                          <img src={item.hinhAnh} className="img-fluid ml-2" />
+                        </div>
+                        <div className="col cinemaMovie_detail">
+                          <h3>{item.tenPhim}</h3>
+                          <p className="mr-lg-2">
+                            <i className="fa fa-clock" /> THỜI GIAN :{" "}
+                            <span>120 phút</span>
+                          </p>
+                          {Object.entries(item.lstLichChieuTheoPhim).map(
+                            ([index, item]) => {
+                              if (
+                                moment(item.ngayChieuGioChieu).format(
+                                  "DD.MM"
+                                ) == "01.01"
+                              ) {
+                                return (
+                                  <NavLink
+                                    to={`/booking/${item.maLichChieu}`}
+                                    className="button_ShowTime mb-2"
+                                  >
+                                    <span
+                                      className="text_Green"
+                                      style={{ fontSize: "13px" }}
+                                    >
+                                      {moment(item.ngayChieuGioChieu).format(
+                                        "DD.MM "
+                                      )}
+                                      ~
+                                    </span>{" "}
+                                    {moment(item.ngayChieuGioChieu).format(
+                                      "hh:mm A"
+                                    )}
+                                  </NavLink>
+                                );
+                              }
+                            }
+                          )}
+                        </div>
                       </div>
-                      <div className="col cinemaMovie_detail">
-                        <h3>{item.tenPhim}</h3>
-                        <p className="mr-lg-2">
-                          <i className="fa fa-clock" /> THỜI GIAN :{" "}
-                          <span>120 phút</span>
-                        </p>
-                        {Object.entries(item.lstLichChieuTheoPhim).map(
-                          ([index, item]) => {
-                            return (
-                              <NavLink
-                                to={`/booking/${item.maLichChieu}`}
-                                className="button_ShowTime mb-2"
-                              >
-                                <span
-                                  className="text_Green"
-                                  style={{ fontSize: "13px" }}
-                                >
-                                  {moment(item.ngayChieuGioChieu).format(
-                                    "DD.MM"
-                                  )}
-                                  ~
-                                </span>{" "}
-                                {moment(item.ngayChieuGioChieu).format(
-                                  "hh:mm a"
-                                )}
-                              </NavLink>
-                            );
-                          }
-                        )}
-                      </div>
-                    </div>
-                  );
+                    );
+                  }
                 })}
               </div>
             </div>
