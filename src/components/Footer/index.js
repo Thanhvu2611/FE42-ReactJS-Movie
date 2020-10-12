@@ -1,4 +1,5 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Footer() {
   return (
@@ -98,7 +99,8 @@ export default function Footer() {
               <ul className="list-unstyled contact-mxh">
                 <li>
                   <a href="#" id="facebook">
-                    <i className="fab fa-facebook" />
+                    <i class="fab fa-facebook-square"></i>
+                    <FontAwesomeIcon icon={["fab", "facebook"]} />
                   </a>
                 </li>
                 <li>

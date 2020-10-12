@@ -112,10 +112,13 @@ export default function HomeLichChieu() {
                             }}
                           >
                             <p>
-                              Tên rạp: <span>{item.tenCumRap}</span>
+                              Tên Rạp:{" "}
+                              <b>
+                                <span>{item.tenCumRap}</span>
+                              </b>
                             </p>
                             <p>
-                              Địa chỉ : <span>{item.diaChi}</span>
+                              Địa Chỉ : <span>{item.diaChi}</span>
                             </p>
                           </a>
                         );
@@ -138,6 +141,7 @@ export default function HomeLichChieu() {
               >
                 {Object.entries(danhSachPhim).map(([index, item]) => {
                   //console.log(item);
+
                   if (
                     moment(
                       item.lstLichChieuTheoPhim[0].ngayChieuGioChieu
@@ -164,6 +168,7 @@ export default function HomeLichChieu() {
                               ) {
                                 return (
                                   <NavLink
+                                    key={index}
                                     to={`/booking/${item.maLichChieu}`}
                                     className="button_ShowTime mb-2"
                                   >
@@ -176,9 +181,11 @@ export default function HomeLichChieu() {
                                       )}
                                       ~
                                     </span>{" "}
-                                    {moment(item.ngayChieuGioChieu).format(
-                                      "hh:mm A"
-                                    )}
+                                    <b>
+                                      {moment(item.ngayChieuGioChieu).format(
+                                        "hh:mm A"
+                                      )}
+                                    </b>
                                   </NavLink>
                                 );
                               }
