@@ -1,5 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Footer() {
   return (
@@ -99,8 +98,7 @@ export default function Footer() {
               <ul className="list-unstyled contact-mxh">
                 <li>
                   <a href="#" id="facebook">
-                    <i class="fab fa-facebook-square"></i>
-                    <FontAwesomeIcon icon={["fab", "facebook"]} />
+                    <i class="fab fa-facebook"></i>
                   </a>
                 </li>
                 <li>
@@ -133,13 +131,13 @@ export default function Footer() {
         <hr />
         <div className="container">
           <div className="copyright d-flex justify-content-center align-items-center">
-            <img src="./img/galaxy-logo-footer.png" alt />
             <i>
               <p id="tenCty">
-                Công Ty Cổ Phần Phim Thiên Ngân, Tầng 5, Toà Nhà Mặt Trời Sông
-                Hồng, 23 Phan Chu Trinh, P.Phan Chu Trinh, Q.Hoàn Kiếm, Hà Nội
+                <i class="fa fa-copyright"></i> Dự án cuối khóa CyberSoft của
+                Trần Thanh Vũ và Hồ Quốc Long
               </p>
             </i>
+            <img src="https://s3img.vcdn.vn/123phim/2020/03/d1e6bd560daa9e20131ea8a0f62e87f8.png" />
           </div>
         </div>
       </footer>

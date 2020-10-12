@@ -8,8 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "jquery/dist/jquery.min";
 import "popper.js/dist/popper-utils.min";
 import "bootstrap/dist/js/bootstrap.min";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+
 //SASS
 // import "./scss/style.scss";
 import thunk from "redux-thunk";

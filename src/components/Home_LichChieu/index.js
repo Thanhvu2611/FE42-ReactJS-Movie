@@ -112,7 +112,6 @@ export default function HomeLichChieu() {
                             }}
                           >
                             <p>
-                              Tên Rạp:{" "}
                               <b>
                                 <span>{item.tenCumRap}</span>
                               </b>
@@ -131,7 +130,7 @@ export default function HomeLichChieu() {
           </div>
 
           <div className="col cinemaMovie">
-            <h4 className="cinemaTitle">CHỌN SUẤT</h4>
+            <h4 className="cinemaTitle">CHỌN SUẤT CHIẾU</h4>
             <div className="tab-content" id="nav-tabContent">
               <div
                 className="cinemaMovie_content tab-pane fade show active"
@@ -155,8 +154,11 @@ export default function HomeLichChieu() {
                         </div>
                         <div className="col cinemaMovie_detail">
                           <h3>{item.tenPhim}</h3>
+                          <hr></hr>
                           <p className="mr-lg-2">
-                            <i className="fa fa-clock" /> THỜI GIAN :{" "}
+                            <b>
+                              <i class="fa fa-clock"></i> Thời lượng :{" "}
+                            </b>
                             <span>120 phút</span>
                           </p>
                           {Object.entries(item.lstLichChieuTheoPhim).map(
@@ -177,9 +179,9 @@ export default function HomeLichChieu() {
                                       style={{ fontSize: "13px" }}
                                     >
                                       {moment(item.ngayChieuGioChieu).format(
-                                        "DD.MM "
+                                        "DD/MM "
                                       )}
-                                      ~
+                                      <i class="fa fa-minus"></i>
                                     </span>{" "}
                                     <b>
                                       {moment(item.ngayChieuGioChieu).format(
