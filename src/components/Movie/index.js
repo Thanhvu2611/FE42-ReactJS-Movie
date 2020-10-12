@@ -50,7 +50,7 @@ function Movie(props) {
               <a href="./chitietphim.html">
                 <div className="overlay_movie">
                   <div className="overlay_content">
-                    <button className="btn btn-muave">MUA VÉ</button>
+                    <button className="btn btn-muave">CHI TIẾT</button>
                   </div>
                 </div>
               </a>

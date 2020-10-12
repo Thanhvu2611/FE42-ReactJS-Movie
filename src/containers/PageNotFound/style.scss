@@ -1,0 +1,25 @@
+@import "../../components/Helper_Sass/mixin";
+@import "../../components/Helper_Sass/variables";
+
+.title-404{
+    color: $color-black-bg;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.number-404{
+    font-size: 15rem;
+    font-weight: 800;
+    color: rgba(255, 99, 71, 0.717);
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.btn-trangchu{
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translateX(-50%);
+}

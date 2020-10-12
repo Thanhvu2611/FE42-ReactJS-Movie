@@ -52,7 +52,7 @@ export default function HomeLichChieu() {
       <div className="container">
         <div className="row">
           <div className="col-2 cinemaList">
-            <h4 className="cinemaTitle">CHỌN RẠP</h4>
+            <h4 className="cinemaTitle">RẠP</h4>
             <div
               className="cinemaList_content list-group"
               id="list-tab"
@@ -82,7 +82,7 @@ export default function HomeLichChieu() {
           </div>
 
           <div className="col-3 cinemaGroupList">
-            <h4 className="cinemaTitle">CHỌN CỤM RẠP</h4>
+            <h4 className="cinemaTitle">CỤM RẠP</h4>
             <div className="tab-content" id="nav-tabContent">
               <div
                 className="tab-pane fade show active"
@@ -130,7 +130,7 @@ export default function HomeLichChieu() {
           </div>
 
           <div className="col cinemaMovie">
-            <h4 className="cinemaTitle">CHỌN SUẤT CHIẾU</h4>
+            <h4 className="cinemaTitle">CÁC SUẤT CHIẾU</h4>
             <div className="tab-content" id="nav-tabContent">
               <div
                 className="cinemaMovie_content tab-pane fade show active"

@@ -29,13 +29,13 @@ export default function CarouselHome() {
             <img src="./img/Banner/2.jpg" alt="Ban1" />
           </div>
           <div>
-            <img src="./img/Banner/3.jpg" alt="Ban1" />
+            <img src="./img/Banner/B1.jpg" alt="Ban1" />
           </div>
           <div>
-            <img src="./img/Banner/4.jpg" alt="Ban1" />
+            <img src="./img/Banner/B2.jpg" alt="Ban1" />
           </div>
           <div>
-            <img src="./img/Banner/5.jpg" alt="Ban1" />
+            <img src="./img/Banner/B3.jpg" alt="Ban1" />
           </div>
           <div>
             <img src="./img/Banner/6.jpg" alt="Ban1" />
