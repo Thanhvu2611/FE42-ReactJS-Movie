@@ -20,16 +20,14 @@ function Movie(props) {
             key={movie.maPhim}
           >
             <div className="movie-home">
-              <img src={movie.hinhAnh} alt />
-              <a href="./chitietphim.html">
-                <div className="overlay_movie">
-                  <div className="overlay_content">
-                    <Link to={`/detailmovie/${movie.maPhim}`}>
-                      <button className="btn btn-muave">MUA VÉ</button>
-                    </Link>
-                  </div>
+              <img src={movie.hinhAnh} alt="hinhPhim" />
+              <div className="overlay_movie">
+                <div className="overlay_content">
+                  <Link to={`/detailmovie/${movie.maPhim}`}>
+                    <button className="btn btn-muave">MUA VÉ</button>
+                  </Link>
                 </div>
-              </a>
+              </div>
             </div>
             <div className="movie-title">
               <p className="movie-name">{movie.tenPhim}</p>

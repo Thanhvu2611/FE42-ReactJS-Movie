@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { qLyPhimService } from "../../services/QuanLyPhimServices";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function HomeDetailPhim(props) {
   let [phimduocchon, setphimduocchon] = useState({});
   let [danhsachphim, setdanhsachphim] = useState([]);
   let [danhsachphimsapchieu, setdanhsachphimsapchieu] = useState([]);
   let [lichchieutheophim, setlichchieutheophim] = useState([]);
+  const maCumRap = useSelector((state) => state.MovieHookReducer.maCumRap);
 
   useEffect(() => {
     let { match } = props;
@@ -29,7 +31,7 @@ export default function HomeDetailPhim(props) {
           setlichchieutheophim(lichchieu);
         })
         .catch((err) => {
-          console.log(err.response.data);
+          //console.log(err.response.data);
         });
     }
   }, []);
@@ -115,33 +117,83 @@ export default function HomeDetailPhim(props) {
       return item.cumRapChieu.map((itemcon, index) => {
         console.log(itemcon);
         if (itemcon.tenCumRap) {
-          return (
-            <div className="col-12 LichChieu_suatChieuItems" key={index}>
-              <h5 className="titleRap">
-                <img src={item.logo} alt="logoRap" />
-              </h5>
-              <div className="LichChieu_gioChieu">
-                <div className="row">
-                  <div className="col-4">
-                    <p>{itemcon.tenCumRap}</p>
-                  </div>
-                  <div className="col-8">
-                    {/* <a href="#">{itemcon.lichChieuPhim.ngayChieuGioChieu}</a> */}
-                    <a href="#">13:00</a>
-                    <a href="#">15:00</a>
-                    <a href="#">17:00</a>
-                    <a href="#">19:00</a>
-                    <a href="#">21:00</a>
+          return itemcon.lichChieuPhim.map((itemlichchieu, index) => {
+            console.log(itemlichchieu);
+            return (
+              <div className="col-12 LichChieu_suatChieuItems" key={index}>
+                <h5 className="titleRap">
+                  <img src={item.logo} alt="logoRap" />
+                </h5>
+                <div className="LichChieu_gioChieu">
+                  <div className="row">
+                    <div className="col-4">
+                      <p>{itemcon.tenCumRap}</p>
+                    </div>
+                    <div className="col-8">
+                      <a href="#">
+                        {" "}
+                        {moment(itemlichchieu.ngayChieuGioChieu).format(
+                          "hh:mm A"
+                        )}
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
+            );
+          });
         }
       });
     });
   };
-
+  const renderLichChieu1 = () => {
+    return lichchieutheophim.map((item, index) => {
+      //console.log(item);
+      return (
+        <div className="col-12 LichChieu_suatChieuItems" key={index}>
+          <h5 className="titleRap">
+            <img src={item.logo} alt="logoRap" />
+          </h5>
+          {Object.entries(item.cumRapChieu).map(([index, itemRap]) => {
+            console.log(itemRap);
+            return (
+              <div className="LichChieu_gioChieu">
+                <div className="row">
+                  <div className="col-3">
+                    <p>
+                      Chi nhánh: <b>{itemRap.tenCumRap}</b>
+                    </p>
+                  </div>{" "}
+                  <div className="col-9">
+                    {Object.entries(itemRap.lichChieuPhim).map(
+                      ([index, itemLich]) => {
+                        if (
+                          moment(itemLich.ngayChieuGioChieu).format("DD.MM") !=
+                          "41.01"
+                        ) {
+                          return (
+                            <a href="#" key={index}>
+                              {moment(itemLich.ngayChieuGioChieu).format(
+                                "DD/MM"
+                              )}
+                              {" ~ "}
+                              {moment(itemLich.ngayChieuGioChieu).format(
+                                "hh:mm A"
+                              )}
+                            </a>
+                          );
+                        }
+                      }
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      );
+    });
+  };
   return (
     <div>
       <section className="detailPhim">
@@ -217,7 +269,7 @@ export default function HomeDetailPhim(props) {
               <div className="LichChieu">
                 <h4>CÁC SUẤT CHIẾU</h4>
                 <div className="row LichChieu_suatChieu">
-                  {renderLichChieu()}
+                  {renderLichChieu1()}
                   {/* <div className="col-12 LichChieu_suatChieuItems">
                     <h5 className="titleRap">Galaxy Nguyễn Du</h5>
                     <div className="LichChieu_gioChieu">
