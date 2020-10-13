@@ -10,12 +10,18 @@ import AddMovie from "../containers/admin/Dashboard/MovieManagerment/AddMovie";
 import MovieManagerment from "../containers/admin/Dashboard/MovieManagerment";
 import UserManagerment from "../containers/admin/Dashboard/UserManagerment";
 import AddUser from "../containers/admin/Dashboard/UserManagerment/AddUser";
+import HomeDetailPhim from "../components/Home_DetailPhim";
 //Mảng chứa các route
 const routesHome = [
   {
     exact: true,
     path: "/",
     component: HomePage,
+  },
+  {
+    exact: false,
+    path: "/detailmovie/:id",
+    component: HomeDetailPhim,
   },
 ];
 

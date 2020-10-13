@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { actFetchMovieNow, actFetchMovieSoon } from "../../redux/action";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 function Movie(props) {
   //ComponentDidMount;
@@ -23,7 +24,9 @@ function Movie(props) {
               <a href="./chitietphim.html">
                 <div className="overlay_movie">
                   <div className="overlay_content">
-                    <button className="btn btn-muave">MUA VÉ</button>
+                    <Link to={`/detailmovie/${movie.maPhim}`}>
+                      <button className="btn btn-muave">MUA VÉ</button>
+                    </Link>
                   </div>
                 </div>
               </a>

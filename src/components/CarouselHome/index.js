@@ -41,7 +41,7 @@ export default function CarouselHome() {
             <img src="./img/Banner/6.jpg" alt="Ban1" />
           </div>
         </Slider>
-        <div
+        {/* <div
           className="carousel_muavenhanh wow animate__animated animate__tada"
           id="div-muavenhanh"
         >
@@ -205,7 +205,7 @@ export default function CarouselHome() {
         <div className="muavenhanh_mobile container" id="muavenhanh_mobile">
           <h2>MUA VÉ NHANH</h2>
           <br />
-          {/* Nav tabs */}
+         
           <ul className="nav nav-tabs" role="tablist">
             <li className="nav-item">
               <a
@@ -235,7 +235,7 @@ export default function CarouselHome() {
               </a>
             </li>
           </ul>
-          {/* Tab panes */}
+      
           <div className="tab-content">
             <div
               id="home-mobie"
@@ -363,7 +363,7 @@ export default function CarouselHome() {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
       </section>
     </div>
   );
