@@ -23,6 +23,11 @@ const routesHome = [
     path: "/detailmovie/:id",
     component: HomeDetailPhim,
   },
+  {
+    exact: false,
+    path: "/detailmovie1/:id",
+    component: HomeDetailPhim,
+  },
 ];
 
 const routesAdmin = [

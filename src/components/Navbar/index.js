@@ -1,5 +1,6 @@
 import React from "react";
 // import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
@@ -8,18 +9,9 @@ export default function Navbar() {
         <div className="header__navbar">
           <nav className="navbar navbar-expand-lg navbar-dark bg-light">
             <div className="col-3 logo wow animate__animated animate__fadeInLeftBig">
-              <a href="#A">
-                <img
-                  id="logo_website"
-                  src="./img/Logo-cyber.png"
-                  alt="logoBig"
-                />
-                <img
-                  id="logo_mobile"
-                  src="./img/Logo-cyber.png"
-                  alt="logoSmall"
-                />
-              </a>
+              <Link to={"/"}>
+                <a>CYBERSOFT CINEMA</a>
+              </Link>
             </div>
             <button
               className="navbar-toggler"

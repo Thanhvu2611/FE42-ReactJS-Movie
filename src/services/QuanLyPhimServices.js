@@ -38,6 +38,18 @@ export class QuanLyPhimServices {
       method: "GET",
     });
   };
+  layThongTinPhimTheoTrang = (sotrang, sophantu) => {
+    return axios({
+      url: `${domain}/QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=${groupID}&soTrang=${sotrang}&soPhanTuTrenTrang=${sophantu}`,
+      method: "GET",
+    });
+  };
+  layLichChieuTheoPhim = (maPhim) => {
+    return axios({
+      url: `${domain}/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${maPhim}`,
+      method: "GET",
+    });
+  };
 }
 
 export const qLyPhimService = new QuanLyPhimServices();

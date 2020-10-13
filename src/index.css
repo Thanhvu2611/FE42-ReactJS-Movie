@@ -59,10 +59,12 @@ header .logo {
 }
 
 header .logo a {
-  display: block;
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
+  color: tomato;
+  font-size: x-large;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: 'Staatliches', cursive;
+  font-size: 3rem;
 }
 
 header .logo a #logo_website {
@@ -723,6 +725,10 @@ footer .footer-items li a:hover {
 .detailPhim .titlePhim {
   color: gray;
 }
+.detailPhim .titlePhim .danhgia{
+  position: absolute;
+  right: 0;
+}
 
 .detailPhim .titlePhim .fa-star {
   color: tomato;
@@ -828,12 +834,14 @@ footer .footer-items li a:hover {
 }
 
 .detailPhim .contentPhim .LichChieu .LichChieu_suatChieu .LichChieu_suatChieuItems .titleRap {
-  background-color: #f26b38;
-  width: 30%;
-  height: 40%;
+  background: linear-gradient(to right, rgb(246, 104, 79), white);;
+  width: 120px;
   padding: 10px 10px 10px 20px;
   margin-bottom: 0;
-  color: white;
+  /* color: white; */
+}
+.detailPhim .contentPhim .LichChieu .LichChieu_suatChieu .LichChieu_suatChieuItems .titleRap img {
+  width: 50px;
 }
 
 .detailPhim .contentPhim .LichChieu .LichChieu_suatChieu .LichChieu_suatChieuItems .LichChieu_gioChieu {
@@ -866,11 +874,11 @@ footer .footer-items li a:hover {
   margin-top: 30px;
 }
 
-.detailPhim .contentPhim .NoiDungPhim h4 {
+.detailPhim .contentPhim h4 {
   text-transform: uppercase;
 }
 
-.detailPhim .contentPhim .NoiDungPhim h4::after {
+.detailPhim .contentPhim h4::after {
   content: "";
   height: 2px;
   width: 100px;

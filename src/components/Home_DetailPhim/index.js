@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { qLyPhimService } from "../../services/QuanLyPhimServices";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 export default function HomeDetailPhim(props) {
   let [phimduocchon, setphimduocchon] = useState({});
+  let [danhsachphim, setdanhsachphim] = useState([]);
+  let [danhsachphimsapchieu, setdanhsachphimsapchieu] = useState([]);
+  let [lichchieutheophim, setlichchieutheophim] = useState([]);
+
   useEffect(() => {
     let { match } = props;
     if (match) {
@@ -13,14 +18,129 @@ export default function HomeDetailPhim(props) {
         .then((res) => {
           let phim = res.data;
           setphimduocchon(phim);
-          // console.log(phim);
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+        });
+      qLyPhimService
+        .layLichChieuTheoPhim(id)
+        .then((res) => {
+          let lichchieu = res.data.heThongRapChieu;
+          setlichchieutheophim(lichchieu);
         })
         .catch((err) => {
           console.log(err.response.data);
         });
     }
-  });
-  console.log(phimduocchon);
+  }, []);
+  console.log(lichchieutheophim);
+  useEffect(() => {
+    qLyPhimService
+      .layThongTinPhimTheoTrang(1, 3)
+      .then((res) => {
+        let lstPhim = res.data.items;
+        setdanhsachphim(lstPhim);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+    qLyPhimService
+      .layThongTinPhimTheoTrang(4, 3)
+      .then((res) => {
+        let lstPhimSC = res.data.items;
+        setdanhsachphimsapchieu(lstPhimSC);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  }, []);
+
+  const renderPhimDeXuat = () => {
+    return danhsachphim.map((item, index) => {
+      //console.log(item);
+      return (
+        <div
+          className="col-md-12 col-sm-12 col-xs-12 movies-item mb-1"
+          key={index}
+        >
+          <div className="movie-home">
+            <img src={item.hinhAnh} alt />
+
+            <div className="overlay_movie">
+              <div className="overlay_content">
+                <h2 className="movie-name text-white">{item.tenPhim}</h2>
+                <Link
+                  className="btn btn-muave"
+                  to={`/detailmovie/${item.maPhim}`}
+                >
+                  XEM CHI TIẾT
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    });
+  };
+  const renderPhimSapChieu = () => {
+    return danhsachphimsapchieu.map((item, index) => {
+      // console.log(item);
+      return (
+        <div
+          className="col-md-12 col-sm-12 col-xs-12 movies-item mb-1"
+          key={index}
+        >
+          <div className="movie-home">
+            <img src={item.hinhAnh} alt="hinhPhim" />
+
+            <div className="overlay_movie">
+              <div className="overlay_content">
+                <h2 className="movie-name text-white">{item.tenPhim}</h2>
+                <Link
+                  className="btn btn-muave"
+                  to={`/detailmovie/${item.maPhim}`}
+                >
+                  XEM CHI TIẾT
+                </Link>{" "}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    });
+  };
+  const renderLichChieu = () => {
+    return lichchieutheophim.map((item, index) => {
+      console.log(item);
+      return item.cumRapChieu.map((itemcon, index) => {
+        console.log(itemcon);
+        if (itemcon.tenCumRap) {
+          return (
+            <div className="col-12 LichChieu_suatChieuItems" key={index}>
+              <h5 className="titleRap">
+                <img src={item.logo} alt="logoRap" />
+              </h5>
+              <div className="LichChieu_gioChieu">
+                <div className="row">
+                  <div className="col-4">
+                    <p>{itemcon.tenCumRap}</p>
+                  </div>
+                  <div className="col-8">
+                    {/* <a href="#">{itemcon.lichChieuPhim.ngayChieuGioChieu}</a> */}
+                    <a href="#">13:00</a>
+                    <a href="#">15:00</a>
+                    <a href="#">17:00</a>
+                    <a href="#">19:00</a>
+                    <a href="#">21:00</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }
+      });
+    });
+  };
 
   return (
     <div>
@@ -29,7 +149,7 @@ export default function HomeDetailPhim(props) {
           <nav aria-label="breadcrumb" className=" text-decoration-none">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
-                <a href="#">Trang Chủ</a>
+                <Link to={"/"}>Trang Chủ</Link>
               </li>
               <li className="breadcrumb-item">
                 <a href="#">Phim Đang Chiếu</a>
@@ -44,28 +164,32 @@ export default function HomeDetailPhim(props) {
               <div className="row">
                 <div className="col-12 col-sm-5 img-Phim">
                   <img src={phimduocchon.hinhAnh} alt />
-                  <a
-                    href={phimduocchon.trailer}
+                  <Link
+                    to={phimduocchon.trailer}
                     className="btn-playVideo"
                     data-toggle="modal"
                     data-target="#trailerPhim"
                   >
                     <i className="fa fa-play" />
-                  </a>
+                  </Link>
                 </div>
                 <div className="col-12 col-sm-7 titlePhim">
-                  <h2 className="active">{phimduocchon.tenPhim}</h2>
+                  <div className="row justify-content-center">
+                    <h1 className="active">{phimduocchon.tenPhim}</h1>
 
-                  <p>
-                    <i className="fa fa-star" />
-                    <span className="active">{phimduocchon.danhGia}</span>
-                    <span> / 10 </span>
-                    <button className="btn-danhgia btn btn-warning">
+                    <p className="danhgia">
+                      <i className="fa fa-star" />{" "}
+                      <span className="active fa-2x">
+                        {phimduocchon.danhGia}
+                      </span>
+                      <span> / 10 </span>
+                      {/* <button className="btn-danhgia btn btn-warning">
                       Đánh Giá
-                    </button>
-                  </p>
+                    </button> */}
+                    </p>
+                  </div>
 
-                  <div className="detail-info">
+                  <div className="detail-info mt-4">
                     <p>
                       Diễn Viên: <a href="#">Diễn viên A</a>
                     </p>
@@ -91,32 +215,10 @@ export default function HomeDetailPhim(props) {
                 <p>{phimduocchon.moTa}</p>
               </div>
               <div className="LichChieu">
-                <div className="row">
-                  <div className="col-4">
-                    <select className="form-control" name id>
-                      <option value disabled selected>
-                        Cả Nước
-                      </option>
-                      <option value>TP. Hồ Chí Minh</option>
-                      <option value>Hà Nội</option>
-                    </select>
-                  </div>
-                  <div className="col-4">
-                    <input className="form-control" type="date" name id />
-                  </div>
-                  <div className="col-4">
-                    <select className="form-control" name id>
-                      <option value disabled selected>
-                        Tất Cả Các Rạp
-                      </option>
-                      <option value>Galaxy Nguyễn Du</option>
-                      <option value>Galaxy Kinh Dương Vương</option>
-                      <option value>Galaxy Quang Trung</option>
-                    </select>
-                  </div>
-                </div>
+                <h4>CÁC SUẤT CHIẾU</h4>
                 <div className="row LichChieu_suatChieu">
-                  <div className="col-12 LichChieu_suatChieuItems">
+                  {renderLichChieu()}
+                  {/* <div className="col-12 LichChieu_suatChieuItems">
                     <h5 className="titleRap">Galaxy Nguyễn Du</h5>
                     <div className="LichChieu_gioChieu">
                       <div className="row">
@@ -166,7 +268,7 @@ export default function HomeDetailPhim(props) {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div>*/}
                 </div>
               </div>
             </div>
@@ -205,92 +307,7 @@ export default function HomeDetailPhim(props) {
                     >
                       <br />
                       <div className="row movies-group animated fadeInUp">
-                        <div className="col-md-12 col-sm-12 col-xs-12 movies-item">
-                          <div className="movie-home">
-                            <img src="./img/movie1.jpg" alt />
-                            <a href="./chitietphim.html">
-                              <div className="overlay_movie">
-                                <div className="overlay_content">
-                                  <button className="btn btn-muave">
-                                    MUA VÉ
-                                  </button>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                          <div className="movie-title">
-                            <p className="movie-name">SKYTOUR</p>
-                            <p className="movie-name-trans">
-                              SKY TOUR NHỮNG ĐIỀU GIỜ MỚI KỂ
-                            </p>
-                          </div>
-                        </div>
-                        <div className="col-md-12 col-sm-12 col-xs-12 movies-item">
-                          <div className="movie-home">
-                            <img src="./img/movie2.jpg" alt />
-                            <a href="./chitietphim.html">
-                              <div className="overlay_movie">
-                                <div className="overlay_content">
-                                  <button className="btn btn-muave">
-                                    MUA VÉ
-                                  </button>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                          <div className="movie-title">
-                            <p className="movie-name">THE SONATA</p>
-                            <p className="movie-name-trans">
-                              Bản Giao Hưởng Máu
-                            </p>
-                          </div>
-                        </div>
-                        <div className="col-md-12 col-sm-12 col-xs-12 movies-item">
-                          <div className="movie-home">
-                            <img src="./img/movie3.jpg" alt />
-                            <a href="#">
-                              <div className="overlay_movie">
-                                <div className="overlay_content">
-                                  <button className="btn btn-muave">
-                                    MUA VÉ
-                                  </button>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                          <div className="movie-title">
-                            <p className="movie-name">Fukushima 50</p>
-                            <p className="movie-name-trans">
-                              Fukushima 50: Thảm Họa Kép
-                            </p>
-                          </div>
-                        </div>
-                        <div className="col-md-12 col-sm-12 col-xs-12 movies-item">
-                          <div className="movie-home">
-                            <img src="./img/movie4.jpg" alt />
-                            <a href="#">
-                              <div className="overlay_movie">
-                                <div className="overlay_content">
-                                  <button className="btn btn-muave">
-                                    MUA VÉ
-                                  </button>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                          <div className="movie-title">
-                            <p className="movie-name">Inheritance </p>
-                            <p className="movie-name-trans">Gia Tài Tội Lỗi</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-12 col-sm-12 col-xs-12 pull-right">
-                          <a href="#" className="btn-xemthem btn float-right">
-                            Xem thêm{" "}
-                            <i className="fa fa-long-arrow-alt-right" />
-                          </a>
-                        </div>
+                        {renderPhimDeXuat()}
                       </div>
                     </div>
                     <div
@@ -299,93 +316,15 @@ export default function HomeDetailPhim(props) {
                     >
                       <br />
                       <div className="row movies-group animated fadeInUp">
-                        <div className="col-md-12 col-sm-12 col-xs-12 movies-item">
-                          <div className="movie-home">
-                            <img src="./img/movie7.jpg" alt />
-                            <a href="#">
-                              <div className="overlay_movie">
-                                <div className="overlay_content">
-                                  <button className="btn btn-muave">
-                                    MUA VÉ
-                                  </button>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                          <div className="movie-title">
-                            <p className="movie-name">Classic Again</p>
-                            <p className="movie-name-trans">Cơn Mưa Tình Đầu</p>
-                          </div>
-                        </div>
-                        <div className="col-md-12 col-sm-12 col-xs-12 movies-item">
-                          <div className="movie-home">
-                            <img src="./img/movie8.jpg" alt />
-                            <a href="#">
-                              <div className="overlay_movie">
-                                <div className="overlay_content">
-                                  <button className="btn btn-muave">
-                                    MUA VÉ
-                                  </button>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                          <div className="movie-title">
-                            <p className="movie-name">The Wretched</p>
-                            <p className="movie-name-trans">Mẹ Quỷ</p>
-                          </div>
-                        </div>
-                        <div className="col-md-12 col-sm-12 col-xs-12 movies-item">
-                          <div className="movie-home">
-                            <img src="./img/movie9.jpg" alt />
-                            <a href="#">
-                              <div className="overlay_movie">
-                                <div className="overlay_content">
-                                  <button className="btn btn-muave">
-                                    MUA VÉ
-                                  </button>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                          <div className="movie-title">
-                            <p className="movie-name">Stare</p>
-                            <p className="movie-name-trans">
-                              Lời Nguyền Shirai
-                            </p>
-                          </div>
-                        </div>
-                        <div className="col-md-12 col-sm-12 col-xs-12 movies-item">
-                          <div className="movie-home">
-                            <img src="./img/movie10.jpg" alt />
-                            <a href="#">
-                              <div className="overlay_movie">
-                                <div className="overlay_content">
-                                  <button className="btn btn-muave">
-                                    MUA VÉ
-                                  </button>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                          <div className="movie-title">
-                            <p className="movie-name">
-                              Latte &amp; The Magic Waterstone
-                            </p>
-                            <p className="movie-name-trans">
-                              Nhím, Sóc Và Viên Đá Thần Kỳ
-                            </p>
-                          </div>
-                        </div>
+                        {renderPhimSapChieu()}
                       </div>
-                      <div className="row">
-                        <div className="col-md-12 col-sm-12 col-xs-12 pull-right">
-                          <a href="#" className="btn-xemthem btn float-right">
-                            Xem thêm{" "}
-                            <i className="fa fa-long-arrow-alt-right" />
-                          </a>
-                        </div>
-                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-12 col-sm-12 col-xs-12 pull-right">
+                      <a href="#" className="btn-xemthem btn float-right">
+                        Xem thêm <i className="fa fa-long-arrow-alt-right" />
+                      </a>
                     </div>
                   </div>
                 </div>

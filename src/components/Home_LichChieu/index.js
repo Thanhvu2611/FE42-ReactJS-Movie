@@ -25,7 +25,7 @@ export default function HomeLichChieu() {
       .catch((err) => {
         console.log(err.response.data);
       });
-  });
+  }, []);
   useEffect(() => {
     qLyPhimService
       .layCumRapTheoHeThong(maHeThongRap)
