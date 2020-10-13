@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { qLyPhimService } from "../../services/QuanLyPhimServices";
-import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function HomeDetailPhim(props) {
   let [phimduocchon, setphimduocchon] = useState({});
   let [danhsachphim, setdanhsachphim] = useState([]);
   let [danhsachphimsapchieu, setdanhsachphimsapchieu] = useState([]);
   let [lichchieutheophim, setlichchieutheophim] = useState([]);
-  const maCumRap = useSelector((state) => state.MovieHookReducer.maCumRap);
 
   useEffect(() => {
     let { match } = props;
@@ -31,14 +29,14 @@ export default function HomeDetailPhim(props) {
           setlichchieutheophim(lichchieu);
         })
         .catch((err) => {
-          //console.log(err.response.data);
+          console.log(err.response.data);
         });
     }
   }, []);
   console.log(lichchieutheophim);
   useEffect(() => {
     qLyPhimService
-      .layThongTinPhimTheoTrang(1, 3)
+      .layThongTinPhimTheoTrang(1, 6)
       .then((res) => {
         let lstPhim = res.data.items;
         setdanhsachphim(lstPhim);
@@ -47,7 +45,7 @@ export default function HomeDetailPhim(props) {
         console.log(err.response.data);
       });
     qLyPhimService
-      .layThongTinPhimTheoTrang(4, 3)
+      .layThongTinPhimTheoTrang(4, 6)
       .then((res) => {
         let lstPhimSC = res.data.items;
         setdanhsachphimsapchieu(lstPhimSC);
@@ -62,7 +60,7 @@ export default function HomeDetailPhim(props) {
       //console.log(item);
       return (
         <div
-          className="col-md-12 col-sm-12 col-xs-12 movies-item mb-1"
+          className="col-md-12 col-sm-12 col-xs-12 movies-item mb-3"
           key={index}
         >
           <div className="movie-home">
@@ -111,42 +109,8 @@ export default function HomeDetailPhim(props) {
       );
     });
   };
+
   const renderLichChieu = () => {
-    return lichchieutheophim.map((item, index) => {
-      console.log(item);
-      return item.cumRapChieu.map((itemcon, index) => {
-        console.log(itemcon);
-        if (itemcon.tenCumRap) {
-          return itemcon.lichChieuPhim.map((itemlichchieu, index) => {
-            console.log(itemlichchieu);
-            return (
-              <div className="col-12 LichChieu_suatChieuItems" key={index}>
-                <h5 className="titleRap">
-                  <img src={item.logo} alt="logoRap" />
-                </h5>
-                <div className="LichChieu_gioChieu">
-                  <div className="row">
-                    <div className="col-4">
-                      <p>{itemcon.tenCumRap}</p>
-                    </div>
-                    <div className="col-8">
-                      <a href="#">
-                        {" "}
-                        {moment(itemlichchieu.ngayChieuGioChieu).format(
-                          "hh:mm A"
-                        )}
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          });
-        }
-      });
-    });
-  };
-  const renderLichChieu1 = () => {
     return lichchieutheophim.map((item, index) => {
       //console.log(item);
       return (
@@ -269,58 +233,7 @@ export default function HomeDetailPhim(props) {
               <div className="LichChieu">
                 <h4>CÁC SUẤT CHIẾU</h4>
                 <div className="row LichChieu_suatChieu">
-                  {renderLichChieu1()}
-                  {/* <div className="col-12 LichChieu_suatChieuItems">
-                    <h5 className="titleRap">Galaxy Nguyễn Du</h5>
-                    <div className="LichChieu_gioChieu">
-                      <div className="row">
-                        <div className="col-4">
-                          <p>2D - Phụ Đề</p>
-                        </div>
-                        <div className="col-8">
-                          <a href="#">13:00</a>
-                          <a href="#">15:00</a>
-                          <a href="#">17:00</a>
-                          <a href="#">19:00</a>
-                          <a href="#">21:00</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-12 LichChieu_suatChieuItems">
-                    <h5 className="titleRap">Galaxy Kinh Dương Vương</h5>
-                    <div className="LichChieu_gioChieu">
-                      <div className="row">
-                        <div className="col-4">
-                          <p>2D - Phụ Đề</p>
-                        </div>
-                        <div className="col-8">
-                          <a href="#">13:00</a>
-                          <a href="#">15:00</a>
-                          <a href="#">17:00</a>
-                          <a href="#">19:00</a>
-                          <a href="#">21:00</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-12 LichChieu_suatChieuItems">
-                    <h5 className="titleRap">Galaxy Quang Trung</h5>
-                    <div className="LichChieu_gioChieu">
-                      <div className="row">
-                        <div className="col-4">
-                          <p>2D - Phụ Đề</p>
-                        </div>
-                        <div className="col-8">
-                          <a href="#">13:00</a>
-                          <a href="#">15:00</a>
-                          <a href="#">17:00</a>
-                          <a href="#">19:00</a>
-                          <a href="#">21:00</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>*/}
+                  {renderLichChieu()}
                 </div>
               </div>
             </div>
@@ -372,7 +285,7 @@ export default function HomeDetailPhim(props) {
                       </div>
                     </div>
                   </div>
-                  <div className="row">
+                  <div className="row mt-3">
                     <div className="col-md-12 col-sm-12 col-xs-12 pull-right">
                       <a href="#" className="btn-xemthem btn float-right">
                         Xem thêm <i className="fa fa-long-arrow-alt-right" />
