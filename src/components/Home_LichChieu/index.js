@@ -130,7 +130,7 @@ export default function HomeLichChieu() {
           </div>
 
           <div className="col cinemaMovie">
-            <h4 className="cinemaTitle">CÁC SUẤT CHIẾU</h4>
+            <h4 className="cinemaTitle">CÁC SUẤT CHIẾU HÔM NAY</h4>
             <div className="tab-content" id="nav-tabContent">
               <div
                 className="cinemaMovie_content tab-pane fade show active"
@@ -174,20 +174,19 @@ export default function HomeLichChieu() {
                                     to={`/booking/${item.maLichChieu}`}
                                     className="button_ShowTime mb-2"
                                   >
-                                    <span
-                                      className="text_Green"
-                                      style={{ fontSize: "13px" }}
-                                    >
-                                      {moment(item.ngayChieuGioChieu).format(
-                                        "DD/MM "
-                                      )}
-                                      <i class="fa fa-minus"></i>
-                                    </span>{" "}
-                                    <b>
-                                      {moment(item.ngayChieuGioChieu).format(
-                                        "hh:mm A"
-                                      )}
-                                    </b>
+                                    <span className="text_Green">
+                                      <b>
+                                        {moment(item.ngayChieuGioChieu).format(
+                                          "hh:mm A"
+                                        )}
+                                      </b>
+                                    </span>
+                                    {"~"}
+                                    <span style={{ fontSize: "12px" }}>
+                                      {moment(item.ngayChieuGioChieu)
+                                        .add(2, "hours")
+                                        .format("hh:mm A")}
+                                    </span>
                                   </NavLink>
                                 );
                               }
