@@ -36,3 +36,18 @@ export const FETCH_MOVIE = "FETCH_MOVIE";
 export const FETCH_CREDENTIALS = "FETCH_CREDENTIALS";
 export const FETCH_CINEMA = "FETCH_CINEMA";
 export const FETCH_CINEMA_GROUP = "FETCH_CINEMA_GROUP";
+
+export const FETCH_TICKET_ROOM_REQUEST =
+  "BookingTicket/FETCH_TICKET_ROOM_REQUEST";
+export const FETCH_TICKET_ROOM_SUCCESS =
+  "BookingTicket/FETCH_TICKET_ROOM_SUCCESS";
+export const FETCH_TICKET_ROOM_FAILURE =
+  "BookingTicket/FETCH_TICKET_ROOM_FAILURE";
+
+export const PUSH_SEAT = "BookingTicket/PUSH_SEAT";
+
+export const CHANGE_COMBO_NUMBER = "BookingTicket/CHANGE_COMBO_NUMBER";
+
+export const BOOK_TICKET_REQUEST = "BookingTicket/BOOK_TICKET_REQUEST";
+export const BOOK_TICKET_SUCCESS = "BookingTicket/BOOK_TICKET_SUCCESS";
+export const BOOK_TICKET_FAIL = "BookingTicket/BOOK_TICKET_FAIL";

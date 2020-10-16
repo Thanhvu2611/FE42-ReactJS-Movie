@@ -1,0 +1,38 @@
+[
+  {
+    "comboID": 1,
+    "comboName": "COMBO A",
+    "image": "/img/Combo/cgv_combo_mr_2020.jpg",
+    "description": "1 bắp vừa + 1 nước siêu lớn. Nhận trong ngày xem phim.",
+    "note": "** Miễn phí đổi vị bắp Dâu, Phô mai và Caramel.",
+    "price": 50000,
+    "number": 0
+  },
+  {
+    "comboID": 2,
+    "comboName": "COMBO B",
+    "image": "/img/Combo/my_snack_mr_2020.jpg",
+    "description": "1 Bắp Vừa + 1 Nước Siêu Lớn + 1 Snack. Nhận trong ngày xem phim.",
+    "note": "** Miễn phí đổi vị bắp Dâu, Phô mai và Caramel.",
+    "price": 80000,
+    "number": 0
+  },
+  {
+    "comboID": 3,
+    "comboName": "COMBO C",
+    "image": "/img/Combo/combo-DB-1.png",
+    "description": "1 ly Shin-chan kèm nước + 1 bắp ngọt lớn. Nhận trong ngày xem phim.",
+    "note": "** Miễn phí đổi vị bắp Dâu, Phô mai và Caramel.",
+    "price": 100000,
+    "number": 0
+  },
+  {
+    "comboID": 4,
+    "comboName": "COMBO D",
+    "image": "/img/Combo/combo-DB-2.png",
+    "description": "1 bình Jungle Brown + 1 nước + 1 bắp. Nhận trong ngày xem phim.",
+    "note": "Miễn phí đổi vị bắp Dâu, Phô mai và Caramel.",
+    "price": 200000,
+    "number": 0
+  }
+]

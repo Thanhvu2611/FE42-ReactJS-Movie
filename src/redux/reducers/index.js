@@ -13,6 +13,7 @@ import userReducer from "../../containers/admin/Dashboard/UserManagerment/listUs
 import addUserReducer from "../../containers/admin/Dashboard/UserManagerment/AddUser/module/reducer";
 import editUserReducer from "../../containers/admin/Dashboard/UserManagerment/AddUser/editmodule/reducer";
 import MovieHookReducer from "./MovieHookReducer";
+import BookingTicket from "./BookingTicket";
 const rootReducers = combineReducers({
   //key: value
   nowMovieReducer,
@@ -26,6 +27,7 @@ const rootReducers = combineReducers({
   addUserReducer,
   editUserReducer,
   MovieHookReducer,
+  BookingTicket,
 });
 
 export default rootReducers;

@@ -1,5 +1,5 @@
 import React from "react";
-import Search from "./DetailListMovie/search";
+import Search from "./DetailListMovie/Search";
 import MovieList from "./DetailListMovie";
 
 import { Link } from "react-router-dom";
@@ -18,10 +18,12 @@ function MovieManagerment(props) {
               }}
             >
               ADD MOVIE
-        </button>
+            </button>
           </Link>
         </div>
-        <div className="col-7"> <Search />
+        <div className="col-7">
+          {" "}
+          <Search />
         </div>
       </div>
 
