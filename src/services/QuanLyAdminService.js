@@ -1,5 +1,5 @@
 import axios from "axios";
-import { domain, token, groupID } from "../config/setting";
+import { domain, token, groupID } from "./config/setting";
 export class QuanLyAdmin {
   layDanhSachNguoiDung = () => {
     return axios({
