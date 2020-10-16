@@ -148,7 +148,7 @@ export default function HomeLichChieu() {
                   ) {
                     //console.log(item.lstLichChieuTheoPhim[0].ngayChieuGioChieu);
                     return (
-                      <div className="cinemaMovie_item row">
+                      <div className="cinemaMovie_item row animated fadeInUp">
                         <div className="col-3  cinemaMovie_img">
                           <img src={item.hinhAnh} className="img-fluid ml-2" />
                         </div>

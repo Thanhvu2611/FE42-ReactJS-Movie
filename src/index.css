@@ -82,6 +82,9 @@ header .logo a #logo_mobile {
   header .logo a #logo_website {
     display: none;
   }
+  .bookingTicket{
+    display: none;
+  }
 }
 
 header .header__content .header__right {
@@ -150,6 +153,13 @@ header .buttonDangNhap {
   background-color: white;
   border: 1px solid tomato;
   padding: 15px 30px;
+}
+@media screen and (max-width: 992px) {
+  header .buttonDangNhap{
+    margin-right: 0;
+    font-size: 1rem;
+    padding: 10px 10px;
+  }
 }
 
 .buttonDangNhap:hover {
@@ -265,6 +275,10 @@ header .buttonDangNhap {
   100% {
     color: green;
   }
+}
+.navbar-dark .navbar-toggler-icon{
+  background-color: tomato;
+  border-radius: 5px;
 }
 
 .carouselGalaxy {

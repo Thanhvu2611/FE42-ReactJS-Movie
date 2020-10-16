@@ -25,7 +25,7 @@ export default function Navbar() {
               <span className="navbar-toggler-icon" />
             </button>
             <div
-              className="col-9 collapse navbar-collapse justify-content-center"
+              className="col-xs-12 col-sm-9 collapse navbar-collapse justify-content-center"
               id="navbarSupportedContent"
             >
               <ul className="nav justify-content-center">
