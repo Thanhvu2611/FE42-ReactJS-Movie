@@ -8,17 +8,23 @@ import { connect } from "react-redux";
 function MovieManagerment(props) {
   return (
     <div>
-      <Link to="/admin/addmovie">
-        <button
-          className="btn btn-success"
-          onClick={() => {
-            props.addMovie();
-          }}
-        >
-          ADD MOVIE
+      <div className="row">
+        <div className="col-5">
+          <Link to="/admin/addmovie">
+            <button
+              className="btn btn-success"
+              onClick={() => {
+                props.addMovie();
+              }}
+            >
+              ADD MOVIE
         </button>
-      </Link>
-      <Search />
+          </Link>
+        </div>
+        <div className="col-7"> <Search />
+        </div>
+      </div>
+
       <MovieList />
     </div>
   );

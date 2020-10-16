@@ -14,11 +14,6 @@ class Search extends Component {
             this.props.getKeyWordListMovie(event.target.value);
           }}
         />
-        <div className="input-group-append">
-          <button className="btn btn-success" type="submit">
-            Search
-          </button>
-        </div>
       </div>
     );
   }

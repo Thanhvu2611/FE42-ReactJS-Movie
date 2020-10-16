@@ -8,8 +8,14 @@ import { connect } from "react-redux";
 function UserManagerment(props) {
   return (
     <div>
-      <Link to="/admin/adduser"><button className="btn btn-success" onClick={() => { props.addUser() }}>Thêm Người Dùng</button></Link>
-      <Search />
+      <div className="row">
+        <div className="col-5">
+          <Link to="/admin/adduser">
+            <button className="btn btn-success" onClick={() => { props.addUser() }}>Thêm Người Dùng</button></Link>
+        </div>
+        <div className="col-7"><Search />
+        </div>
+      </div>
       <ListUser />
     </div>
   )

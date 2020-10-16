@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   appBar: {
+    zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -48,6 +49,25 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
+    whiteSpace: "nowrap"
+  },
+  drawerOpen: {
+    width: drawerWidth,
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerClose: {
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: "hidden",
+    width: theme.spacing(7) + 1,
+    [theme.breakpoints.up("sm")]: {
+      width: theme.spacing(9) + 1,
+    },
   },
   drawerPaper: {
     width: drawerWidth,
@@ -97,7 +117,9 @@ function AdminLayout(props) {
           position="fixed"
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
-          })}
+          })} style={{
+            zIndex: "100",
+          }}
         >
           <Toolbar style={{ backgroundColor: "rgba(50,50,50,0.9)", }}>
             <IconButton
@@ -111,8 +133,8 @@ function AdminLayout(props) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap>
-              <NavLink to="/admin/movie" className="logo" style={{ textDecoration: "none" }} >
+            <Typography variant="h7" noWrap>
+              <NavLink to="/admin/movie" className="logo" style={{ textDecoration: "none", }} >
                 <img src="https://i0.wp.com/thegamehaus.com/wp-content/uploads/2020/05/Volibear_Emote.png?resize=256%2C256&ssl=1"
                   alt="logo"
                   style={{ width: 45, height: 45 }} />
@@ -166,7 +188,7 @@ function AdminLayout(props) {
             </ListItem>
           </NavLink>
         </Drawer>
-        <main className={classes.content} style={{ padding: "0px" }}>
+        <main className={classes.content} style={{ padding: "0px", paddingTop: "100px", paddingLeft: "250px" }}>
           <div className={classes.toolbar} />
           <Typography paragraph>{props.children}</Typography>
         </main>

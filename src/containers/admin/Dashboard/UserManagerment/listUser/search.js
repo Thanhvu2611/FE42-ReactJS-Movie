@@ -8,9 +8,6 @@ class Search extends Component {
 
       <div className="input-group mb-3" >
         <input type="text" className="form-control" placeholder="Search" onChange={event => { this.props.searchUser(event.target.value) }} />
-        <div className="input-group-append">
-          <button className="btn btn-success" type="submit">Search</button>
-        </div>
       </div>
 
     )
