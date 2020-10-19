@@ -98,6 +98,7 @@
 // export default connect(mapStateToProps, mapDispatchToProps)(MovieList);
 
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -124,29 +125,6 @@ import { qLyPhimService } from "../../../../../services/QuanLyPhimServices";
 import swal from "sweetalert";
 
 var moment = require("moment");
-
-function createData(maPhim, tenPhim, hinhAnh, moTa, maNhom, ngayKhoiChieu, taoLichChieu) {
-  return { maPhim, tenPhim, hinhAnh, moTa, maNhom, ngayKhoiChieu, taoLichChieu };
-}
-function Movie() {
-
-}
-
-const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0)
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -175,7 +153,7 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: 'maPhim', numeric: false, disablePadding: true, label: 'Mã Phim' },
+  { id: 'maPhim', numeric: false, disablePadding: true, label: 'Mã Phim', },
   { id: 'tenPhim', numeric: true, disablePadding: false, label: 'Tên Phim' },
   { id: 'hinhAnh', numeric: true, disablePadding: false, label: 'Hình Ảnh' },
   { id: 'moTa', numeric: true, disablePadding: false, label: 'Mô Tả' },
@@ -198,7 +176,7 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+            align={headCell.numeric ? 'center' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -233,7 +211,7 @@ EnhancedTableHead.propTypes = {
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
-    paddingLeft: theme.spacing(2),
+    paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
   },
   highlight:
@@ -261,29 +239,9 @@ const EnhancedTableToolbar = (props) => {
         [classes.highlight]: numSelected > 0,
       })}
     >
-      {/* {numSelected > 0 ? (
-        <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-          {numSelected} selected
-        </Typography>
-      ) : ( */}
       <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
         Danh Sách Phim
           </Typography>
-      {/* )} */}
-
-      {/* {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-          <Tooltip title="Filter list">
-            <IconButton aria-label="filter list">
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
-        )} */}
     </Toolbar>
   );
 };
@@ -298,7 +256,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     width: '100%',
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   table: {
     minWidth: 750,
@@ -311,7 +269,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     padding: 0,
     position: 'absolute',
-    top: 20,
+    top: 10,
     width: 1,
   },
 }));
@@ -329,32 +287,6 @@ export default function EnhancedTable() {
         console.log(err.reponse.data);
       })
   }, []);
-  const renderDSPhim = () => {
-    return danhSachPhim
-      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-      .map((phim, index) => {
-        return (
-          <TableRow hover role="checkbox" tabIndex={-1} key={phim.maPhim}>
-            <TableCell>{phim.maPhim}</TableCell>
-            <TableCell>{phim.tenPhim}</TableCell>
-            <TableCell><img style={{ width: 70, height: 90 }} src={phim.hinhAnh} alt={phim.hinhAnh}></img></TableCell>
-            <TableCell>{phim.moTa}</TableCell>
-            <TableCell>{moment(phim.ngayKhoiChieu).format("DD/MM/YY")}</TableCell>
-            <TableCell>{phim.maPhim}</TableCell>
-            <TableCell>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <div><i className="fa fa-file-movie" />
-                </div>
-                <div><i className="fa fa-edit" />
-                </div>
-                <div><i className="fa fa-trash-alt" />
-                </div>
-              </div>
-            </TableCell>
-          </TableRow>
-        )
-      })
-  }
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('tenPhim');
@@ -367,15 +299,6 @@ export default function EnhancedTable() {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
-  };
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
   };
 
   const handleClick = (event, name) => {
@@ -413,7 +336,7 @@ export default function EnhancedTable() {
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, danhSachPhim.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -433,7 +356,7 @@ export default function EnhancedTable() {
               orderBy={orderBy}
               //onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={danhSachPhim.length}
             />
             <TableBody>
               {stableSort(danhSachPhim, getComparator(order, orderBy))
@@ -453,27 +376,60 @@ export default function EnhancedTable() {
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
-                        {/* <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        /> */}
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         {phim.maPhim}
                       </TableCell>
-                      <TableCell align="right">{phim.tenPhim}</TableCell>
+                      <TableCell align="left">{phim.tenPhim}</TableCell>
                       <TableCell><img style={{ width: 70, height: 90 }} src={phim.hinhAnh} alt={phim.hinhAnh}></img></TableCell>
-                      <TableCell align="right">{phim.moTa}</TableCell>
-                      <TableCell align="right">{phim.maNhom}</TableCell>
+                      <TableCell align="left">{phim.moTa}</TableCell>
+                      <TableCell align="left">{phim.maNhom}</TableCell>
                       <TableCell>{moment(phim.ngayKhoiChieu).format("DD/MM/YY")}</TableCell>
                       <TableCell>
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
-                          <div><i className="fa fa-file-movie" />
-                          </div>
-                          <div><i className="fa fa-edit" />
-                          </div>
-                          <div><i className="fa fa-trash-alt" />
-                          </div>
+                          <Tooltip title="Tạo Lịch Chiếu"><Link to={`/admin/detail/${phim.maPhim}`}><i class="fas fa-video" />
+                          </Link></Tooltip>
+                          <Tooltip title="Sửa Phim"><Link to={`/admin/addmovie/${phim.maPhim}`}><i className="fa fa-edit" />
+                          </Link></Tooltip>
+                          <Tooltip title="Xóa Phim"><div><i style={{ cursor: "pointer", color: "#fb4226" }} className="fa fa-trash-alt"
+                            onClick={() => {
+                              swal({
+                                title: "Bạn chắc chứ?",
+                                text: `Xóa phim ${phim.tenPhim}`,
+                                icon: "warning",
+                                buttons: true,
+                                dangerMode: true,
+                              }).then((willDelete) => {
+                                if (willDelete) {
+                                  qLyAdminService
+                                    .xoaPhim(phim.maPhim)
+                                    .then((res) => {
+                                      swal({
+                                        title: "Xóa phim thành công",
+                                        icon: "success",
+                                        buttons: "OK",
+                                      });
+
+                                      qLyPhimService
+                                        .layDanhSachPhim()
+                                        .then((result) => {
+                                          setDanhSachPhim(result.data);
+                                        })
+                                        .catch((err) => {
+                                          console.log(err.response.data);
+                                        });
+                                    })
+                                    .catch((err) => {
+                                      swal({
+                                        title: "Xóa Phim không thành công",
+                                        icon: "warning",
+                                        buttons: "OK",
+                                      })
+                                    });
+                                }
+                              });
+                            }} />
+                          </div></Tooltip>
                         </div>
                       </TableCell>
                     </TableRow>
