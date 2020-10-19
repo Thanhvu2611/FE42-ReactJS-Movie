@@ -153,7 +153,7 @@ class AddUser extends Component {
 
     return (
       <div className="container">
-        <h3>{this.props.editUser ? "EDIT USER" : "ADD USER"}</h3>
+        <h3>{this.props.updateUser ? "EDIT USER" : "ADD USER"}</h3>
         <form>
           <div className="row">
             <div className="col-6">

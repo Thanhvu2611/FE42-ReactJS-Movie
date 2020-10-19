@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => {
     addUser: () => {
       let action = {
         type: "EditUserReducer/EDIT_USER_SUCCESS",
-        user: null
+        editUser: null
       };
       dispatch(action);
     }

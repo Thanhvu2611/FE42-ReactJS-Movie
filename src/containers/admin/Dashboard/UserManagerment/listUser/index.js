@@ -89,7 +89,7 @@ import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { qLyAdminService } from "../../../../../services/QuanLyAdminService";
-
+import { connect } from "react-redux";
 import swal from "sweetalert";
 
 function descendingComparator(a, b, orderBy) {
@@ -240,7 +240,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EnhancedTable() {
+export default function EnhancedTable(props) {
   let [listNguoiDung, setListNguoiDung] = useState([]);
   useEffect(() => {
     qLyAdminService
@@ -352,34 +352,32 @@ export default function EnhancedTable() {
                       <TableCell align="left">{user.email}</TableCell>
                       <TableCell align="left">{user.soDt}</TableCell>
                       <TableCell>
-                        {/* <div style={{ display: "flex", justifyContent: "space-between" }}>
-                          <Tooltip title="Tạo Lịch Chiếu"><Link to={`/admin/detail/${phim.maPhim}`}><i class="fas fa-video" />
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                          <Tooltip title="Cập Nhật Thông Tin Người Dùng"><Link to={`/admin/adduser/${user.taiKhoan}`}><i className="fa fa-edit" />
                           </Link></Tooltip>
-                          <Tooltip title="Sửa Phim"><Link to={`/admin/addmovie/${phim.maPhim}`}><i className="fa fa-edit" />
-                          </Link></Tooltip>
-                          <Tooltip title="Xóa Phim"><div><i style={{ cursor: "pointer", color: "#fb4226" }} className="fa fa-trash-alt"
+                          <Tooltip title="Xóa Người Dùng"><div><i style={{ cursor: "pointer", color: "#fb4226" }} className="fa fa-trash-alt"
                             onClick={() => {
                               swal({
                                 title: "Bạn chắc chứ?",
-                                text: `Xóa phim ${phim.tenPhim}`,
+                                text: `Xóa ${user.taiKhoan}`,
                                 icon: "warning",
                                 buttons: true,
                                 dangerMode: true,
                               }).then((willDelete) => {
                                 if (willDelete) {
                                   qLyAdminService
-                                    .xoaPhim(phim.maPhim)
+                                    .xoaNguoiDung(user.taiKhoan)
                                     .then((res) => {
                                       swal({
-                                        title: "Xóa phim thành công",
+                                        title: `Xóa ${user.taiKhoan} thành công`,
                                         icon: "success",
                                         buttons: "OK",
                                       });
 
-                                      qLyPhimService
-                                        .layDanhSachPhim()
+                                      qLyAdminService
+                                        .layDanhSachNguoiDung()
                                         .then((result) => {
-                                          setDanhSachPhim(result.data);
+                                          setListNguoiDung(result.data);
                                         })
                                         .catch((err) => {
                                           console.log(err.response.data);
@@ -387,7 +385,7 @@ export default function EnhancedTable() {
                                     })
                                     .catch((err) => {
                                       swal({
-                                        title: "Xóa Phim không thành công",
+                                        title: `Xóa ${user.taiKhoan} không thành công`,
                                         icon: "warning",
                                         buttons: "OK",
                                       })
@@ -396,7 +394,7 @@ export default function EnhancedTable() {
                               });
                             }} />
                           </div></Tooltip>
-                        </div> */}
+                        </div>
                       </TableCell>
                     </TableRow>
                   );
