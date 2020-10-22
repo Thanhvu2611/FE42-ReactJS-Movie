@@ -1,4 +1,4 @@
-import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILED } from "./constants";
+import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILED, FECTH_SIGN_OUT } from "./constants";
 
 let initialState = {
   loading: false,
@@ -23,6 +23,12 @@ const authReducer = (state = initialState, action) => {
       state.user = {};
       state.err = action.err;
       return { ...state };
+    case FECTH_SIGN_OUT: {
+      localStorage.removeItem("userLogin");
+      state.user = "";
+      window.location.reload();
+      return { ...state };
+    }
 
     default:
       return { ...state };

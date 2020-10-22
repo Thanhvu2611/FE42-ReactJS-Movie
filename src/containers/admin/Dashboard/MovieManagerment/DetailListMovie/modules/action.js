@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { DETAIL_LISTMOVIE_REQUEST, DETAIL_LISTMOVIE_SUCCESS, DETAIL_LISTMOVIE_FAILED, GET_KEYWORD_LISTMOVIE, DELETE_MOVIE } from "./constans";
+import { DETAIL_LISTMOVIE_REQUEST, DETAIL_LISTMOVIE_SUCCESS, DETAIL_LISTMOVIE_FAILED, DELETE_MOVIE } from "./constans";
 
 const actFetchDetailListMovie = () => {
   return dispatch => {
@@ -38,6 +38,27 @@ const actDetailListMovieFailed = (err) => {
   }
 };
 //DELETE
+const actFetchDeleteMovie = (id) => {
+  let token = "";
+  if (localStorage.getItem("userAdmin")) {
+    token = JSON.parse(localStorage.getItem("userAdmin")).accessToken;
+  }
+  return dispatch => {
+    Axios({
+      url: `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/XoaPhim?MaPhim=${id}`,
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
+      .then((result) => {
+        dispatch(actFetchDetailListMovie(result.data));
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+}
 
 
-export { actFetchDetailListMovie, };
+export { actFetchDetailListMovie, actFetchDeleteMovie };

@@ -1,4 +1,4 @@
-import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILED } from "./constants";
+import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILED, FECTH_SIGN_OUT } from "./constants";
 import Axios from "axios";
 
 const actFetchLogin = (user, history) => {
@@ -50,3 +50,7 @@ const actLoginFailed = (err) => {
 };
 
 export { actFetchLogin };
+
+export const dangXuatAction = () => {
+  return { type: FECTH_SIGN_OUT }
+}

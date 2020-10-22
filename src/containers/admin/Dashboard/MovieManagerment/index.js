@@ -10,9 +10,6 @@ export default function MovieManagerment(props) {
           <Link to="/admin/addmovie">
             <button
               className="btn btn-success"
-              onClick={() => {
-                props.addMovie();
-              }}
             >
               ADD MOVIE
             </button>

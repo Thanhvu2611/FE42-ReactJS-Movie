@@ -289,51 +289,51 @@
 //                       <TableCell align="left">{phim.maNhom}</TableCell>
 //                       <TableCell>{moment(phim.ngayKhoiChieu).format("DD/MM/YY")}</TableCell>
 //                       <TableCell>
-//                         <div style={{ display: "flex", justifyContent: "space-between" }}>
-//                           <Tooltip title="Tạo Lịch Chiếu"><Link to={`/admin/detail/${phim.maPhim}`}><i class="fas fa-video" />
-//                           </Link></Tooltip>
-//                           <Tooltip title="Sửa Phim"><Link to={`/admin/addmovie/${phim.maPhim}`}><i className="fa fa-edit" />
-//                           </Link></Tooltip>
-//                           <Tooltip title="Xóa Phim"><div><i style={{ cursor: "pointer", color: "#fb4226" }} className="fa fa-trash-alt"
-//                             onClick={() => {
-//                               swal({
-//                                 title: "Bạn chắc chứ?",
-//                                 text: `Xóa phim ${phim.tenPhim}`,
-//                                 icon: "warning",
-//                                 buttons: true,
-//                                 dangerMode: true,
-//                               }).then((willDelete) => {
-//                                 if (willDelete) {
-//                                   qLyAdminService
-//                                     .xoaPhim(phim.maPhim)
-//                                     .then((res) => {
-//                                       swal({
-//                                         title: "Xóa phim thành công",
-//                                         icon: "success",
-//                                         buttons: "OK",
-//                                       });
+// <div style={{ display: "flex", justifyContent: "space-between" }}>
+//   <Tooltip title="Tạo Lịch Chiếu"><Link to={`/admin/detail/${phim.maPhim}`}><i class="fas fa-video" />
+//   </Link></Tooltip>
+//   <Tooltip title="Sửa Phim"><Link to={`/admin/addmovie/${phim.maPhim}`}><i className="fa fa-edit" />
+//   </Link></Tooltip>
+//   <Tooltip title="Xóa Phim"><div><i style={{ cursor: "pointer", color: "#fb4226" }} className="fa fa-trash-alt"
+//     onClick={() => {
+//       swal({
+//         title: "Bạn chắc chứ?",
+//         text: `Xóa phim ${phim.tenPhim}`,
+//         icon: "warning",
+//         buttons: true,
+//         dangerMode: true,
+//       }).then((willDelete) => {
+//         if (willDelete) {
+//           qLyAdminService
+//             .xoaPhim(phim.maPhim)
+//             .then((res) => {
+//               swal({
+//                 title: "Xóa phim thành công",
+//                 icon: "success",
+//                 buttons: "OK",
+//               });
 
-//                                       qLyPhimService
-//                                         .layDanhSachPhim()
-//                                         .then((result) => {
-//                                           setDanhSachPhim(result.data);
-//                                         })
-//                                         .catch((err) => {
-//                                           console.log(err.response.data);
-//                                         });
-//                                     })
-//                                     .catch((err) => {
-//                                       swal({
-//                                         title: "Xóa Phim không thành công",
-//                                         icon: "warning",
-//                                         buttons: "OK",
-//                                       })
-//                                     });
-//                                 }
-//                               });
-//                             }} />
-//                           </div></Tooltip>
-//                         </div>
+//               qLyPhimService
+//                 .layDanhSachPhim()
+//                 .then((result) => {
+//                   setDanhSachPhim(result.data);
+//                 })
+//                 .catch((err) => {
+//                   console.log(err.response.data);
+//                 });
+//             })
+//             .catch((err) => {
+//               swal({
+//                 title: "Xóa Phim không thành công",
+//                 icon: "warning",
+//                 buttons: "OK",
+//               })
+//             });
+//         }
+//       });
+//     }} />
+//   </div></Tooltip>
+// </div>
 //                       </TableCell>
 //                     </TableRow>
 //                   );
@@ -365,10 +365,18 @@
 // }
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
+import Paper from '@material-ui/core/Paper';
 import { qLyAdminService } from "../../../../../services/QuanLyAdminService";
 import { qLyPhimService } from "../../../../../services/QuanLyPhimServices";
 import { showVideo } from "../../../../../assets/js/main";
 import ModalVideo from "../../../../../components/Modal/Video";
+import Tooltip from '@material-ui/core/Tooltip';
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { actFetchDeleteMovie } from "./modules/action";
+import swal from "sweetalert";
+
+
 export default function MovieList() {
 
   let [danhSachPhim, setDanhSachPhim] = useState([]);
@@ -380,7 +388,7 @@ export default function MovieList() {
       .layDanhSachPhim()
       .then((result) => {
         setDanhSachPhim(result.data);
-        console.log(result.data);
+        // console.log(result.data);
       })
       .catch(err => {
         console.log(err.reponse.data);
@@ -409,10 +417,65 @@ export default function MovieList() {
           moTa: <span>{moTa}</span>,
           ngayKhoiChieu: (
             <span>{new Date(ngayKhoiChieu).toLocaleDateString("en-GB")}</span>
+          ),
+          taoLichChieu: (
+            <>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <Tooltip title="Tạo Lịch Chiếu"><Link to={`/admin/detail/${maPhim}`}><i class="fas fa-video" />
+                </Link></Tooltip>
+                <Tooltip title="Sửa Phim"><Link to={`/admin/addmovie/${maPhim}`}><i className="fa fa-edit" />
+                </Link></Tooltip>
+                <Tooltip title="Xóa Phim"><div><i style={{ cursor: "pointer", color: "#fb4226" }} className="fa fa-trash-alt"
+                  onClick={() => {
+                    swal({
+                      title: "Bạn chắc chứ?",
+                      text: `Xóa phim ${tenPhim}`,
+                      icon: "warning",
+                      buttons: true,
+                      dangerMode: true,
+                    }).then((willDelete) => {
+                      if (willDelete) {
+                        handleDelete(maPhim);
+                      }
+                    });
+                  }} />
+                </div></Tooltip>
+              </div>
+            </>
           )
         }
       })
     }
+  }
+  const dispatch = useDispatch();
+  const handleDelete = (maPhim) => {
+    dispatch(actFetchDeleteMovie(maPhim))
+    qLyAdminService
+      .xoaPhim(maPhim)
+      .then((res) => {
+        swal({
+          title: "Xóa phim thành công",
+          icon: "success",
+          buttons: "OK",
+        });
+
+        qLyPhimService
+          .layDanhSachPhim()
+          .then((result) => {
+            setDanhSachPhim(result.data);
+          })
+          .catch((err) => {
+            console.log(err.response.data);
+          });
+      })
+      .catch((err) => {
+        swal({
+          title: "Xóa Phim không thành công",
+          icon: "warning",
+          buttons: "OK",
+        })
+      });
+
   }
 
   return (
@@ -420,18 +483,18 @@ export default function MovieList() {
       <MaterialTable
         title="Quản Lý Phim"
         columns={[
-          { title: 'Mã Phim', field: 'maPhim' },
-          { title: 'Tên Phim', field: 'tenPhim' },
+          { title: 'Mã Phim', field: 'maPhim', width: 103 },
+          { title: 'Tên Phim', field: 'tenPhim', width: 103 },
           {
-            title: 'Hình Ảnh', field: 'hinhAnh',
+            title: 'Hình Ảnh', field: 'hinhAnh', width: 103,
             //render: rowData => (
             // <img style={{ height: 36, width: 50 }} src={rowData.hinhAnh} />
             //)
           },
-          { title: 'Mô Tả', field: 'moTa' },
-          { title: 'Trailer', field: 'trailer' },
-          { title: 'Ngày Khởi Chiếu', field: 'ngayKhoiChieu' },
-          { title: 'Tạo Lịch Chiếu', field: 'taoLichChieu' },
+          { title: 'Mô Tả', field: 'moTa', width: 103 },
+          { title: 'Trailer', field: 'trailer', width: 103 },
+          { title: 'Ngày Khởi Chiếu', field: 'ngayKhoiChieu', width: 103 },
+          { title: 'Tạo Lịch Chiếu', field: 'taoLichChieu', width: 103 },
 
         ]}
         data={renderMovie()

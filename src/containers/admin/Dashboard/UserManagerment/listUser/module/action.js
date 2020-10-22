@@ -1,6 +1,7 @@
 import { DETAIL_USER_REQUEST, DETAIL_USER_SUCCESS, DETAIL_USER_FAILED, } from "./constans";
 import Axios from "axios";
 
+
 //GET USER
 const actFetchUser = () => {
   return dispatch => {

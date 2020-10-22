@@ -30,6 +30,9 @@ const movieReducer = (state = initialState, action) => {
       state.err = action.err;
 
       return { ...state };
+    case DELETE_MOVIE:
+      state.movie = action.movie;
+      return { ...state };
 
     default:
       return { ...state };

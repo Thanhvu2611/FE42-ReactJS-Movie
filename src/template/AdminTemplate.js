@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { NavLink, Route, Redirect } from 'react-router-dom';
-import Dashboard from './../containers/admin/Dashboard';
+import { useSelector, useDispatch } from "react-redux";
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -19,6 +19,16 @@ import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import LocalMoviesIcon from "@material-ui/icons/LocalMovies";
 import ListItemText from "@material-ui/core/ListItemText";
+import { userLogin } from "../services/config/setting";
+import { dangXuatAction } from "../containers/admin/auth/modules/actions";
+import { FormatBoldRounded } from '@material-ui/icons';
+import Popper from "@material-ui/core/Popper";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import { MenuList } from '@material-ui/core';
+import MenuItem from "@material-ui/core/MenuItem";
+
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -97,10 +107,31 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
   },
 }));
+
 function AdminLayout(props) {
+
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  }
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+    setOpen(false);
+  }
+
+  function handleListKeyDown(event) {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      setOpen(false);
+    }
+  }
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -109,6 +140,70 @@ function AdminLayout(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  //Avatar
+  const user = useSelector((state) => state.authReducer.user);
+  const dispatch = useDispatch();
+
+  const LogOut = () => {
+    dispatch(dangXuatAction());
+  };
+
+  const renderLogin = () => {
+    if (user.taiKhoan) {
+      return (
+        <Fragment>
+          <div className="login_link"
+            ref={anchorRef}
+            aria-controls={open ? "menu-list-grow" : undefined}
+            aria-haspopup="true"
+            onClick={handleToggle}
+            style={{ cursor: "pointer" }}>
+            <img src="https://i.ibb.co/PCjW83Y/avt.png" alt="user" />
+            <span className="login__text">{user.taiKhoan}</span>
+          </div>
+          <Popper
+            open={open}
+            anchorEl={anchorRef.current}
+            role={undefined}
+            transition
+            disablePortal>
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                style={{
+                  transformOrigin:
+                    placement === "bottom" ? "center top" : "center bottom",
+                }}
+              >
+                <Paper>
+                  <ClickAwayListener onClickAway={handleClose}>
+                    <MenuList autoFocusItem={open}
+                      id="menu-list-grow"
+                      onKeyDown={handleListKeyDown}>
+                      <MenuItem onClick={handleClose}>
+                        <NavLink to="/profile">
+                          <i className="fa fa-user mr-1"></i>
+                          Profile
+                        </NavLink>
+                      </MenuItem>
+                      <MenuItem onClick={LogOut}>
+                        <i className="fa fa-sign-out-alt mr-1">Logout</i>
+                      </MenuItem>
+
+                    </MenuList>
+                  </ClickAwayListener>
+
+                </Paper>
+
+              </Grow>
+            )}
+          </Popper>
+        </Fragment>
+      )
+    }
+  }
+
   return (
     <Fragment>
       <div className={classes.root}>
@@ -140,6 +235,9 @@ function AdminLayout(props) {
                   style={{ width: 45, height: 45 }} />
                 <span style={{ fontFamily: '"Metal Mania",cursive', color: "#60c5ef" }}>Cyber Admin</span>
               </NavLink>
+            </Typography>
+            <Typography>
+              {renderLogin()}
             </Typography>
           </Toolbar>
         </AppBar>
@@ -200,6 +298,8 @@ function AdminLayout(props) {
 };
 
 export default function AdminTemplate({ Component, ...props }) {
+
+
   return (
     <Route
       {...props}
