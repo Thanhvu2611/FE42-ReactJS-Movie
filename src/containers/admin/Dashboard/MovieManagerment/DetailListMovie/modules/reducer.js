@@ -6,7 +6,6 @@ let initialState = {
   loading: false,
   listMovie: [],
   err: null,
-  keyword: "",
 };
 
 
@@ -32,23 +31,9 @@ const movieReducer = (state = initialState, action) => {
 
       return { ...state };
 
-    case DELETE_MOVIE:
-      let index = state.listMovie.findIndex((item) => {
-        return item.id === action.id;
-      })
-      if (index !== -1) {
-        let listMovie = [...state.listMovie];
-        listMovie.splice(index, 1);
-        state.listMovie = [...listMovie];
-      }
-      console.log(state, "store");
-      return { ...state };
-
-    case GET_KEYWORD_LISTMOVIE:
-      state.keyword = action.keyword;
-      return { ...state };
     default:
       return { ...state };
+
   }
 }
 export default movieReducer;

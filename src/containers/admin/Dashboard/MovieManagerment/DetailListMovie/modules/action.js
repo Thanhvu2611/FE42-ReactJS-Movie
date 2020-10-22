@@ -37,51 +37,7 @@ const actDetailListMovieFailed = (err) => {
     err
   }
 };
-
-//Key Word
-
-const actGetKeyWordListMovie = (keyword) => {
-  return {
-    type: GET_KEYWORD_LISTMOVIE,
-    keyword
-  }
-}
-
-
-
-
 //DELETE
 
-const actFetchDeleteMovie = (id) => {
-  let token = "";
-  if (localStorage.getItem("userAdmin")) {
-    token = JSON.parse(localStorage.getItem("userAdmin")).accessToken;
-  }
-  // console.log(token);
-  // console.log(id);
-  return dispatch => {
-    Axios({
-      url: `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/XoaPhim?MaPhim=${id}`,
-      method: "DELETE",
-      data: null,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    })
-      .then((result) => {
-        dispatch(actFetchDetailListMovie(result.data));
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }
-};
-// const actDeleteMovie = (id) => {
-//   return {
-//     type: DELETE_MOVIE,
-//     id
-//   }
-// }
 
-
-export { actFetchDetailListMovie, actGetKeyWordListMovie, actFetchDeleteMovie };
+export { actFetchDetailListMovie, };

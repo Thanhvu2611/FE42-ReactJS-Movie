@@ -1,4 +1,4 @@
-import { DETAIL_USER_REQUEST, DETAIL_USER_SUCCESS, DETAIL_USER_FAILED, GET_KEYWORD_USER } from "./constans";
+import { DETAIL_USER_REQUEST, DETAIL_USER_SUCCESS, DETAIL_USER_FAILED, } from "./constans";
 import Axios from "axios";
 
 //GET USER
@@ -65,27 +65,5 @@ const actFetchDeleteUser = (id) => {
 
 //SEARCH
 
-// const actSearchUserRequest = (user) => {
-//   return dispatch => {
-//     Axios({
-//       url: `http://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP05&tuKhoa=${user}`,
-//       method: "GET",
-//     })
-//       .then((result) => {
-//         dispatch(actSearchUserSucess(result.data));
-//         //console.log(result.data);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       })
-//   }
-// }
 
-const actSearchUserSucess = (keyword) => {
-  return {
-    type: GET_KEYWORD_USER,
-    keyword
-  }
-}
-
-export { actFetchUser, actSearchUserSucess, actFetchDeleteUser };
+export { actFetchUser, actFetchDeleteUser };

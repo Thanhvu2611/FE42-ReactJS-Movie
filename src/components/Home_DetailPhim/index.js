@@ -18,6 +18,7 @@ export default function HomeDetailPhim(props) {
         .then((res) => {
           let phim = res.data;
           setphimduocchon(phim);
+
         })
         .catch((err) => {
           console.log(err.response.data);

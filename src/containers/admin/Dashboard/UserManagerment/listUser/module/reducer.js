@@ -1,10 +1,11 @@
-import { DETAIL_USER_REQUEST, DETAIL_USER_SUCCESS, DETAIL_USER_FAILED, GET_KEYWORD_USER, DELETE_USER } from "./constans";
+import { DETAIL_USER_REQUEST, DETAIL_USER_SUCCESS, DETAIL_USER_FAILED, DELETE_USER } from "./constans";
 
 let initialState = {
   loading: false,
   user: [],
   err: null,
   keyword: "",
+  searchUser: [],
 }
 
 const userReducer = (state = initialState, action) => {
@@ -26,9 +27,6 @@ const userReducer = (state = initialState, action) => {
       state.user = [];
       state.err = action.err;
 
-      return { ...state };
-    case GET_KEYWORD_USER:
-      state.keyword = action.keyword;
       return { ...state };
     case DELETE_USER:
       state.user = action.user;

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { actSearchUserRequest, actSearchUserSucess } from "./module/action";
 
-class Search extends Component {
+
+export default class Search extends Component {
   render() {
     return (
 
@@ -14,13 +14,3 @@ class Search extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    searchUser: (keyword) => {
-      dispatch(actSearchUserSucess(keyword));
-      console.log(1);
-    }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Search);
