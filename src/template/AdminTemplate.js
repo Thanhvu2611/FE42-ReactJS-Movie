@@ -26,7 +26,7 @@ import Popper from "@material-ui/core/Popper";
 import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import { MenuList } from '@material-ui/core';
+import { Button, MenuList } from '@material-ui/core';
 import MenuItem from "@material-ui/core/MenuItem";
 
 
@@ -106,6 +106,7 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+
 }));
 
 function AdminLayout(props) {
@@ -143,6 +144,7 @@ function AdminLayout(props) {
 
   //Avatar
   const user = useSelector((state) => state.authReducer.user);
+  console.log(user);
   const dispatch = useDispatch();
 
   const LogOut = () => {
@@ -159,7 +161,7 @@ function AdminLayout(props) {
             aria-haspopup="true"
             onClick={handleToggle}
             style={{ cursor: "pointer" }}>
-            <img src="https://i.ibb.co/PCjW83Y/avt.png" alt="user" />
+            <img src="https://i.ibb.co/PCjW83Y/avt.png" alt="user" style={{ width: 45, height: 45, borderRadius: 50 }} />
             <span className="login__text">{user.taiKhoan}</span>
           </div>
           <Popper
@@ -236,7 +238,7 @@ function AdminLayout(props) {
                 <span style={{ fontFamily: '"Metal Mania",cursive', color: "#60c5ef" }}>Cyber Admin</span>
               </NavLink>
             </Typography>
-            <Typography>
+            <Typography style={{ align: "right" }}>
               {renderLogin()}
             </Typography>
           </Toolbar>

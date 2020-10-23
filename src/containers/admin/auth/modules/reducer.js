@@ -1,10 +1,12 @@
 import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILED, FECTH_SIGN_OUT } from "./constants";
+import { createBrowserHistory } from 'history';
 
 let initialState = {
   loading: false,
   user: {},
   err: null
 }
+const history = createBrowserHistory();
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -26,6 +28,7 @@ const authReducer = (state = initialState, action) => {
     case FECTH_SIGN_OUT: {
       localStorage.removeItem("userLogin");
       state.user = "";
+      history.push('/');
       window.location.reload();
       return { ...state };
     }
