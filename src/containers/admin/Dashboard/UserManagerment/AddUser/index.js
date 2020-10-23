@@ -27,7 +27,7 @@ class AddUser extends Component {
         maNhom: "",
         maLoaiNguoiDung: "",
         hoTen: ""
-      }
+      },
     }
 
   }
@@ -153,7 +153,7 @@ class AddUser extends Component {
 
     return (
       <div className="container">
-        <h3>{this.props.updateUser ? "EDIT USER" : "ADD USER"}</h3>
+        <h3>{this.props.match.params.id ? "EDIT USER" : "ADD USER"}</h3>
         <form>
           <div className="row">
             <div className="col-6">

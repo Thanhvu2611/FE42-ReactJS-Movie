@@ -111,20 +111,22 @@ const useStyles = makeStyles((theme) => ({
 
 function AdminLayout(props) {
 
+  let userName = JSON.parse(localStorage.getItem("userName"));
+  console.log(userName);
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
   const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
+    setOpen1((prevOpen) => !prevOpen);
   }
 
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-    setOpen(false);
+    setOpen1(false);
   }
 
   function handleListKeyDown(event) {
@@ -143,6 +145,7 @@ function AdminLayout(props) {
   };
 
   //Avatar
+  const [open1, setOpen1] = React.useState(false);
   const user = useSelector((state) => state.authReducer.user);
   console.log(user);
   const dispatch = useDispatch();
@@ -151,21 +154,22 @@ function AdminLayout(props) {
     dispatch(dangXuatAction());
   };
 
+
   const renderLogin = () => {
-    if (user.taiKhoan) {
+    if (userName) {
       return (
         <Fragment>
           <div className="login_link"
             ref={anchorRef}
-            aria-controls={open ? "menu-list-grow" : undefined}
+            aria-controls={open1 ? "menu-list-grow" : undefined}
             aria-haspopup="true"
             onClick={handleToggle}
-            style={{ cursor: "pointer" }}>
+            style={{ cursor: "pointer", zIndex: "1000000", position: "absolute", top: 0, right: 5 }}>
             <img src="https://i.ibb.co/PCjW83Y/avt.png" alt="user" style={{ width: 45, height: 45, borderRadius: 50 }} />
-            <span className="login__text">{user.taiKhoan}</span>
+            <span className="login__text">{userName}</span>
           </div>
           <Popper
-            open={open}
+            open={open1}
             anchorEl={anchorRef.current}
             role={undefined}
             transition
@@ -180,7 +184,7 @@ function AdminLayout(props) {
               >
                 <Paper>
                   <ClickAwayListener onClickAway={handleClose}>
-                    <MenuList autoFocusItem={open}
+                    <MenuList autoFocusItem={open1}
                       id="menu-list-grow"
                       onKeyDown={handleListKeyDown}>
                       <MenuItem onClick={handleClose}>

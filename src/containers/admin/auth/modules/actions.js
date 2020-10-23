@@ -16,6 +16,7 @@ const actFetchLogin = (user, history) => {
         if (result.data.maLoaiNguoiDung === "QuanTri") {
 
           localStorage.setItem("userAdmin", JSON.stringify(result.data));
+          localStorage.setItem('userName', JSON.stringify(result.data.taiKhoan));
           //Chuyển hướng qua trang Dashboard
           history.push("/admin/movie");
         } else {

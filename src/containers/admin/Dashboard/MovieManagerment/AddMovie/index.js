@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { actAddMovie, } from "../AddMovie/modules/action";
 import { actFetchEditMovie, actUpdateMovieRequest, } from "./editmodules/action";
+import Loading from '../../../../../components/Loading';
 
-
-import Loading from "../../../../../components/Loading";
 
 class AddMovie extends Component {
   constructor(props) {
@@ -34,6 +33,7 @@ class AddMovie extends Component {
         danhGia: ""
 
       },
+      loading: false,
     };
     //console.log("Contrustor");
   }
@@ -44,10 +44,15 @@ class AddMovie extends Component {
     if (match) {
       const id = match.params.id;
       this.props.fetchEditMovie(id);
+      if (id) {
+        this.setState({ loading: true })
+      }
+
       //console.log(this.props.fetchEditMovie(id));
     }
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
+
 
     if (nextProps && nextProps.editMovie) {
       //console.log(nextProps.editMovie.hinhAnh)
@@ -63,7 +68,8 @@ class AddMovie extends Component {
           maNhom: nextProps.editMovie.maNhom,
           ngayKhoiChieu: nextProps.editMovie.ngayKhoiChieu,
           danhGia: nextProps.editMovie.danhGia
-        }
+        },
+        loading: false,
       });
 
     }
@@ -170,7 +176,7 @@ class AddMovie extends Component {
     return errorMessage;
   };
   render() {
-    const { loading } = this.props;
+    const { loading } = this.state;
     if (loading) return <Loading />
     console.log(this.state);
     return (
@@ -178,7 +184,7 @@ class AddMovie extends Component {
         <form
         //  onSubmit={this.handleSubmit}
         >
-          <h3>{this.props.editMovie ? "EDIT MOVIE" : "ADD MOVIE"}</h3>
+          <h3>{this.props.match.params.id ? "EDIT MOVIE" : "ADD MOVIE"}</h3>
           <div className="row">
             <div className="col-6">
               {/* <div className="form-group">

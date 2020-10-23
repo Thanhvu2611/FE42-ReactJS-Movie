@@ -1,11 +1,13 @@
 import React from 'react';
-
+import { useDispatch } from "react-redux";
 import ListUser from './listUser';
 
 import { Link } from "react-router-dom";
 
 
+
 export default function UserManagerment(props) {
+
   return (
     <div>
       <div className="row">
@@ -19,5 +21,4 @@ export default function UserManagerment(props) {
     </div>
   )
 }
-
 

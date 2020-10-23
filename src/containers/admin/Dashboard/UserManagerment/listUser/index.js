@@ -425,16 +425,24 @@ import { Link } from 'react-router-dom';
 import swal from "sweetalert";
 import { useDispatch } from "react-redux";
 import { actFetchDeleteUser } from "./module/action";
+import { actGetUsers } from "../AddUser/editmodule/action";
+import Loading from "./../../../../../components/Loading";
+//import state from 'sweetalert/typings/modules/state';
 
 
 export default function UserList() {
 
   let [danhSachNguoiDung, setDanhSachNguoiDung] = useState([]);
+  const dispatch = useDispatch();
+  const editUser = (danhSachNguoiDung) => dispatch(actGetUsers(danhSachNguoiDung));
+  const [loading, setLoading] = useState({ loading: true });
+
   useEffect(() => {
     qLyAdminService
       .layDanhSachNguoiDung()
       .then((result) => {
         setDanhSachNguoiDung(result.data);
+        setLoading(false);
       })
       .catch(err => {
         console.log(err.reponse.data);
@@ -464,7 +472,7 @@ export default function UserList() {
           thaoTac: (
             <>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Tooltip title="Cập Nhật Thông Tin Người Dùng"><Link to={`/admin/adduser/${taiKhoan}`}><i className="fa fa-edit" />
+                <Tooltip title="Cập Nhật Thông Tin Người Dùng"><Link to={`/admin/adduser/${taiKhoan}`}><i className="fa fa-edit" onClick={editUser(danhSachNguoiDung)} />
                 </Link></Tooltip>
                 <Tooltip title="Xóa Người Dùng"><div><i style={{ cursor: "pointer", color: "#fb4226" }} className="fa fa-trash-alt"
                   onClick={() => {
@@ -489,7 +497,6 @@ export default function UserList() {
       })
     }
   }
-  const dispatch = useDispatch();
   const handleDelete = (taiKhoan) => {
     dispatch(actFetchDeleteUser(taiKhoan))
     qLyAdminService
@@ -517,6 +524,9 @@ export default function UserList() {
           buttons: "OK",
         });
       });
+  }
+  if (loading) {
+    return <Loading />
   }
   return (
     <>

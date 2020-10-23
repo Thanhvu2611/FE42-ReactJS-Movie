@@ -1,4 +1,4 @@
-import { EDIT_USER_SUCCESS, UPDATE_USER_SUCCESS } from "./constans";
+import { EDIT_USER_SUCCESS, UPDATE_USER_SUCCESS, USER_EDIT } from "./constans";
 let initialState = {
   editUser: null,
 

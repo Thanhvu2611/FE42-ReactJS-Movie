@@ -375,11 +375,13 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { actFetchDeleteMovie } from "./modules/action";
 import swal from "sweetalert";
+import Loading from "../../../../../components/Loading";
 
 
 export default function MovieList() {
 
   let [danhSachPhim, setDanhSachPhim] = useState([]);
+  const [loading, setLoading] = useState({ loading: true });
   useEffect(() => {
     showVideo();
   }, [danhSachPhim])
@@ -388,6 +390,7 @@ export default function MovieList() {
       .layDanhSachPhim()
       .then((result) => {
         setDanhSachPhim(result.data);
+        setLoading(false);
         // console.log(result.data);
       })
       .catch(err => {
@@ -395,6 +398,7 @@ export default function MovieList() {
       })
   }, []);
   const renderMovie = () => {
+
     if (danhSachPhim && danhSachPhim.length > 0) {
       return danhSachPhim.map((item) => {
         const {
@@ -478,6 +482,9 @@ export default function MovieList() {
 
   }
 
+  if (loading) {
+    return <Loading />
+  }
   return (
     <>
       <MaterialTable

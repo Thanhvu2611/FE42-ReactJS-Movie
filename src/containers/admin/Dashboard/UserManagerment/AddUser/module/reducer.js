@@ -1,6 +1,6 @@
 import { ADD_USER } from "./constans";
 let initialState = {
-  user: {}
+  user: {},
 }
 
 
