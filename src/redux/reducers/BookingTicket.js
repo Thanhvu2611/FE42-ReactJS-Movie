@@ -1,7 +1,7 @@
 import {
   FETCH_TICKET_ROOM_REQUEST,
   FETCH_TICKET_ROOM_SUCCESS,
-  FETCH_TICKET_ROOM_FAILURE,
+  FETCH_TICKET_ROOM_FAIL,
   PUSH_SEAT,
   CHANGE_COMBO_NUMBER,
   BOOK_TICKET_REQUEST,
@@ -41,7 +41,7 @@ const BookingTicket = (state = initialState, action) => {
       state.comboList = comboListData;
       return { ...state };
 
-    case FETCH_TICKET_ROOM_FAILURE:
+    case FETCH_TICKET_ROOM_FAIL:
       state.ticketRoom = {};
       state.ticketRoomLoading = false;
       state.ticketRoomError = action.err;

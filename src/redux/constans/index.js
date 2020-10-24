@@ -41,8 +41,8 @@ export const FETCH_TICKET_ROOM_REQUEST =
   "BookingTicket/FETCH_TICKET_ROOM_REQUEST";
 export const FETCH_TICKET_ROOM_SUCCESS =
   "BookingTicket/FETCH_TICKET_ROOM_SUCCESS";
-export const FETCH_TICKET_ROOM_FAILURE =
-  "BookingTicket/FETCH_TICKET_ROOM_FAILURE";
+export const FETCH_TICKET_ROOM_FAIL =
+  "BookingTicket/FETCH_TICKET_ROOM_FAIL";
 
 export const PUSH_SEAT = "BookingTicket/PUSH_SEAT";
 

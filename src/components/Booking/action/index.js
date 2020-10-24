@@ -7,9 +7,14 @@ import {
   PUSH_SEAT,
   CHANGE_COMBO_NUMBER,
   BOOK_TICKET_REQUEST,
-  BOOK_TICKET_FAILURE,
+  BOOK_TICKET_FAIL,
   BOOK_TICKET_SUCCESS,
 } from "../../../redux/constans";
+
+import {
+  alertGeneralErrAPI,
+  alertSuccessfulBooking,
+} from "../../../assets/js/main";
 
 export const actFetchTicketRoomAPI = (maLichChieu) => (dispatch) => {
   dispatch(actFetchTicketRoomRequest());
@@ -73,7 +78,7 @@ export const actBookTicketSuccess = (data) => ({
 });
 
 export const actBookTicketFailure = (err) => ({
-  type: BOOK_TICKET_FAILURE,
+  type: BOOK_TICKET_FAIL,
   err,
 });
 

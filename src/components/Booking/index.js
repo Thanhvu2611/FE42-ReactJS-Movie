@@ -3,16 +3,16 @@ import { connect } from "react-redux";
 import "./_booking.scss";
 import { actFetchTicketRoomAPI, actBookTicketAPI } from "./action";
 
-// import {
-//   countdownTimer,
-//   toggleComboDetails,
-//   BookingTimer,
-//   alertFailedBooking,
-// } from "../../../assets/js/main";
+import {
+  countdownTimer,
+  toggleComboDetails,
+  BookingTimer,
+  alertFailedBooking,
+} from "../../assets/js/main";
 
 import BookingSeat from "./Seat";
-//import BookingComboList from "./Combo/List";
-import { Loading } from "../Loading/index";
+import BookingComboList from "./Combo/List";
+import Loading1  from "../Loading/index";
 
 function Booking({
   fetchData,
@@ -60,7 +60,7 @@ function Booking({
        * (lần đầu khi useEffect chạy, ticketRoom đang [])
        * --> Kết hợp điều kiện if với useEffect tham số để kiểm soát và chạy lại hàm khi tham số  thay đổi
        */
-      countdownTimer(40, () => {
+      countdownTimer(400, () => {
         alertFailedBooking(() => {
           fetchData(match.params.id);
         });
@@ -143,18 +143,18 @@ function Booking({
     bookTicket(state, userInfo.accessToken, history);
   };
 
-  if (ticketRoomLoading) {
-    return (
-      <div className="loading-wrap screen-center">
-        <Loading />
-      </div>
-    );
-  }
+  // if (ticketRoomLoading) {
+  //   return (
+  //     <div className="loading-wrap screen-center">
+  //       <Loading1 />
+  //     </div>
+  //   );
+  // }
 
   return (
     <>
       <div className="loading-wrap screen-center close">
-        <Loading />
+        {/* <Loading1 /> */}
       </div>
       <section className="booking">
         <div className="row ml-0 mr-0">
@@ -165,7 +165,7 @@ function Booking({
                   <div className="row align-items-center cinema__wrap">
                     <div className="cinema__img col-2 pr-0">
                       <img
-                        src={`/assets/img/logo/${thongTinPhim.tenCumRap
+                        src={`/img/logo/${thongTinPhim.tenCumRap
                           .split("-")[0]
                           .replace(/\s/g, "")}.png`}
                         alt="img"
@@ -194,7 +194,7 @@ function Booking({
               </div>
               <div className="booking__left-room">
                 <div className="booking__left-screen col-12">
-                  <img src="/assets/img/others/screen.png" alt="img" />
+                  <img src="/img/others/screen.png" alt="img" />
                 </div>
                 <div className="booking__left-seat">
                   {/* // ! START seat item */}
@@ -250,7 +250,7 @@ function Booking({
               >
                 <div className="col-6 pl-0 combo-img">
                   <i className="fas fa-angle-left" />
-                  <img src="/assets/img/icon/popcorn.png" alt="img" />
+                  <img src="/img/icon/popcorn.png" alt="img" />
                   Chọn combo
                 </div>
                 <p className="combo-price col-6 text-right">
@@ -279,7 +279,7 @@ function Booking({
             <div className="booking__right__bottom">
               <div className="booking__right-attention text-center">
                 <img
-                  src="/assets/img/icon/exclamation.png"
+                  src="/img/icon/exclamation.png"
                   alt="img"
                   style={{ width: 20 }}
                 />
@@ -309,13 +309,13 @@ function Booking({
 }
 
 const mapStateToProps = (state) => ({
-  ticketRoom: state.bookingReducer.ticketRoom,
-  ticketRoomLoading: state.bookingReducer.ticketRoomLoading,
+  ticketRoom: state.BookingTicket.ticketRoom,
+  ticketRoomLoading: state.BookingTicket.ticketRoomLoading,
 
-  seatList: state.bookingReducer.seatList,
-  comboList: state.bookingReducer.comboList,
+  seatList: state.BookingTicket.seatList,
+  comboList: state.BookingTicket.comboList,
 
-  bookingLoading: state.bookingReducer.bookingLoading,
+  bookingLoading: state.BookingTicket.bookingLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

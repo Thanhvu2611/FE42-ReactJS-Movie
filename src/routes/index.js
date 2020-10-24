@@ -11,6 +11,7 @@ import MovieManagerment from "../containers/admin/Dashboard/MovieManagerment";
 import UserManagerment from "../containers/admin/Dashboard/UserManagerment";
 import AddUser from "../containers/admin/Dashboard/UserManagerment/AddUser";
 import HomeDetailPhim from "../components/Home_DetailPhim";
+import Booking from "../components/Booking";
 //Mảng chứa các route
 const routesHome = [
   {
@@ -27,6 +28,11 @@ const routesHome = [
     exact: false,
     path: "/detailmovie1/:id",
     component: HomeDetailPhim,
+  },
+  {
+    path: "/booking/:id",
+    exact: false,
+    component: Booking,
   },
 ];
 
