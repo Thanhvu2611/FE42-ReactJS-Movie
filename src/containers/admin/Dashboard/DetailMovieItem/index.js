@@ -57,7 +57,6 @@ function ListMovieShedule(props) {
 
     }
   }, [maHeThongRap])
-
   const renderTable = () => {
 
 
@@ -66,7 +65,7 @@ function ListMovieShedule(props) {
       movieShedule.heThongRapChieu.length > 0
     ) {
       return movieShedule.heThongRapChieu.map((heThong) => (
-        <Showtime heThong={heThong} />
+        < Showtime heThong={heThong} />
       )
 
       )
