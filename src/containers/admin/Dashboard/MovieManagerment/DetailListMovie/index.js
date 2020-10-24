@@ -410,15 +410,15 @@ export default function MovieList() {
           ngayKhoiChieu
         } = item;
         return {
-          hinhAnh: <img src={hinhAnh} alt="img" style={{ width: 250, height: 150 }} />,
+          hinhAnh: <div style={{ width: 100, height: 50 }}><img src={hinhAnh} alt="img" style={{ width: "100%" }} /></div>,
           maPhim: <span>{maPhim}</span>,
           tenPhim: tenPhim,
           trailer: (
-            <a className="video-popup" data-toggle="modal" data-src={trailer} href="#modalVideo"><span className="mb-2 d-inline-block">{trailer}</span>
-              <br /><i className="fa fa-play-circle" />
+            <a className="video-popup" data-toggle="modal" data-src={trailer} href="#modalVideo"><span className="mb-2 d-inline-block"><br /><i className="fa fa-play-circle" /></span>
+
             </a>
           ),
-          moTa: <span>{moTa}</span>,
+          moTa: <div style={{ width: 400, }}>{moTa}</div>,
           ngayKhoiChieu: (
             <span>{new Date(ngayKhoiChieu).toLocaleDateString("en-GB")}</span>
           ),

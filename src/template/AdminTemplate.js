@@ -112,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
 function AdminLayout(props) {
 
   let userName = JSON.parse(localStorage.getItem("userName"));
-  console.log(userName);
+  //console.log(userName);
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -147,7 +147,7 @@ function AdminLayout(props) {
   //Avatar
   const [open1, setOpen1] = React.useState(false);
   const user = useSelector((state) => state.authReducer.user);
-  console.log(user);
+  //console.log(user);
   const dispatch = useDispatch();
 
   const LogOut = () => {

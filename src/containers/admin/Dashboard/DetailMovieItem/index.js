@@ -3,14 +3,35 @@ import { actFetchMovieSchedule } from "./module/action";
 import { connect } from "react-redux";
 import MovieSheduleItem from "../../components/movieSheduleItem";
 import { qLyPhimService } from "../../../../services/QuanLyPhimServices";
+import Showtime from "./showtime";
+import { qLyAdminService } from "../../../../services/QuanLyAdminService";
+import swal from "sweetalert";
 
 function ListMovieShedule(props) {
+  const [state, setState] = useState({
+    maRap: null,
+    ngayChieu: '',
+    gioChieu: '',
+    giaVe: null,
+    maPhim: props.match.params.id,
+  })
+  const [danhSachHeThongRap, setDanhSachHeThongRap] = useState([])
+  const [danhSachCumRap, setDanhSachCumRap] = useState([])
+
+  const { movieShedule } = props;
   useEffect(() => {
     const id = props.match.params.id;
     props.fetchMovieSchedule(id);
+    qLyPhimService
+      .layHeThongRap()
+      .then(result => {
+        setDanhSachHeThongRap(result.data)
+      })
+
     //console.log(props.fetchMovieSchedule(id));
 
   }, []);
+
   // let [heThongRap, setHeThongRap] = useState([]);
   // useEffect(() => {
   //   qLyPhimService
@@ -22,80 +43,78 @@ function ListMovieShedule(props) {
   //       console.log(err.response.data);
   //     });
   // }, []);
+  const [maHeThongRap, setMaHeThongRap] = useState();
+  useEffect(() => {
+    if (maHeThongRap) {
+      qLyPhimService
+        .layThongTinCumRapTheoHeThong(maHeThongRap)
+        .then((result) => {
+          setDanhSachCumRap(result.data);
+          //console.log(result.data);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+
+    }
+  }, [maHeThongRap])
 
   const renderTable = () => {
-    const { movieShedule } = props;
+
 
     if (
       movieShedule.heThongRapChieu &&
       movieShedule.heThongRapChieu.length > 0
     ) {
       //console.log(movieShedule.heThongRapChieu.cumRapChieu);
-      return movieShedule.heThongRapChieu.map((movieShowtime) => {
-        //console.log(movieShedule)
-        return movieShowtime.cumRapChieu.map((showtime) => {
-          return showtime.lichChieuPhim.map((show) => {
-            return (
-              <MovieSheduleItem
-                show={show.maLichChieu}
-                show={show}
-                movieShowtime={movieShowtime}
-                showtime={showtime}
-              />
-            );
-          });
-        });
-      });
+      return <Showtime movieShowtime={movieShedule} />
+      //movieShedule.heThongRapChieu.map((movieShowtime) => {
+      //console.log(movieShedule)
+      // return movieShowtime.cumRapChieu.map((showtime) => {
+      //   return showtime.lichChieuPhim.map((show) => {
+      //     return (
+      //       <Showtime
+      //         show={show.maLichChieu}
+      //         show={show}
+      //         movieShowtime={movieShowtime}
+      //         showtime={showtime}
+      //       />
+      //     );
+      //   });
+      // });
+      //});
     }
   };
 
-  var moment = require("moment");
 
-  let [maHeThongRap, setMaHeThongRap] = useState();
   const layMaHeThongRap = (event) => {
     let maHeThongRap = event.target.value;
     setMaHeThongRap(maHeThongRap);
   };
-
-  let [maCumRap, setMaCumRap] = useState();
-  const layMaCumRap = (event) => {
+  const [danhSachRap, setDanhSachRap] = useState([])
+  const layDanhSachRap = (event) => {
     let maCumRap = event.target.value;
-    setMaCumRap(maCumRap);
-  };
+    if (danhSachCumRap && danhSachCumRap.length > 0) {
+      let cumRapTimDuoc = danhSachCumRap.find(cumRap => cumRap.maCumRap === maCumRap)
+      console.log(cumRapTimDuoc);
 
-  let [maRap, setMaRap] = useState();
-  const layMaRap = (event) => {
-    let maRap = event.target.value;
-    setMaRap(maRap);
-  }
-
-  let [gioChieu, setGioChieu] = useState();
-  const layGioChieu = (event) => {
-    let gioChieu = event.target.value;
-    setGioChieu(gioChieu);
-  };
-  let [ngayChieu, setNgayChieu] = useState();
-  const layNgayChieu = (event) => {
-    let ngayChieu = moment(event.target.value).format("DD/MM/yyyy");
-    setNgayChieu(ngayChieu);
-  };
-  let ngayChieuGioChieu = `${ngayChieu} ${gioChieu}`;
-
-  let [giaVe, setGiaVe] = useState();
-  const layGiaVe = (event) => {
-    let giaVe = parseInt(event.target.value);
-    setGiaVe(giaVe);
+      if (cumRapTimDuoc) {
+        if (danhSachRap.length > 0) {
+          setDanhSachRap([])
+        }
+        setDanhSachRap(cumRapTimDuoc.danhSachRap)
+      }
+    }
   };
 
   const renderHeThongRap = () => {
-    const { movieShedule } = props;
     if (
-      movieShedule.heThongRapChieu &&
-      movieShedule.heThongRapChieu.length > 0
+      danhSachHeThongRap &&
+      danhSachHeThongRap.length > 0
     ) {
-      return movieShedule.heThongRapChieu.map((heThongRap, index) => {
+      return danhSachHeThongRap.map((heThongRap, index) => {
         return (
-          <option key={index} index={index} value={heThongRap.maHeThongRap}>
+          <option key={heThongRap.maHeThongRap} value={heThongRap.maHeThongRap}>
             {heThongRap.tenHeThongRap}
           </option>
         );
@@ -103,82 +122,113 @@ function ListMovieShedule(props) {
     }
   };
   const renderCumRap = () => {
-    const { movieShedule } = props;
     if (
-      movieShedule.heThongRapChieu &&
-      movieShedule.heThongRapChieu.length > 0
+      danhSachCumRap &&
+      danhSachCumRap.length > 0
     ) {
-      return movieShedule.heThongRapChieu.map((heThongRap) => {
-        if (maHeThongRap === heThongRap.maHeThongRap) {
-
-          return heThongRap.cumRapChieu.map((cumRap, index) => {
-
-            return <option key={index} index={index}
-              value={cumRap.maCumRap}
-            >
-              {cumRap.tenCumRap}
-            </option>
-
-          })
-        }
+      return danhSachCumRap.map((cumRap) => {
+        return <option key={cumRap.maCumRap}
+          value={cumRap.maCumRap}
+        >
+          {cumRap.tenCumRap}
+        </option>
       });
     }
   };
   const renderRap = () => {
-    const { movieShedule } = props;
-    if (
-      movieShedule.heThongRapChieu &&
-      movieShedule.heThongRapChieu.length > 0
-    ) {
-      return movieShedule.heThongRapChieu.map((heThongRap) => {
-
-        return heThongRap.cumRapChieu.map((cumRap) => {
-          if (maCumRap === cumRap.maCumRap) {
-            return cumRap.lichChieuPhim.map((rap, index) => {
-              return <option key={index} index={index}
-                value={rap.maRap}
-              >
-                {rap.tenRap}
-              </option>
-            })
-          }
-
-        })
-
-      });
+    if (danhSachRap && danhSachRap.length > 0) {
+      return danhSachRap.map((rap) => {
+        return <option key={rap.maRap} value={rap.maRap}>{rap.tenRap}</option>
+      })
     }
+
+    // if (
+    //   movieShedule.heThongRapChieu &&
+    //   movieShedule.heThongRapChieu.length > 0
+    // ) {
+    //   return movieShedule.heThongRapChieu.map((heThongRap) => {
+
+    //     return heThongRap.cumRapChieu.map((cumRap) => {
+    //       if (maCumRap === cumRap.maCumRap) {
+    //         return cumRap.lichChieuPhim.map((rap, index) => {
+    //           return <option key={index} index={index}
+    //             value={rap.maRap}
+    //           >
+    //             {rap.tenRap}
+    //           </option>
+    //         })
+    //       }
+
+    //     })
+
+    //   });
+    // }
   };
+
+  const handeChange = (e) => {
+    const { name, value } = e.target;
+    setState({
+      ...state,
+      [name]: value,
+    })
+  }
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { maPhim, maRap, giaVe, ngayChieu, gioChieu } = state;
+    const thongtin = {
+      maPhim: parseInt(maPhim),
+      maRap: parseInt(maRap),
+      giaVe: parseInt(giaVe),
+      ngayChieuGioChieu: `${ngayChieu} ${gioChieu}`
+    }
+    console.log('thongtin', thongtin);
+    qLyAdminService
+      .taoLichChieu(thongtin)
+      .then(result => {
+        console.log("thanh cong");
+        console.log(result.data);
+      })
+      .catch(err => {
+        console.log("that bai");
+        console.log(err.response.data);
+        alert("Hãy Nhập Thông Tin Đúng Định Dạng dd/mm/yyy 00:00:00")
+      })
+
+
+  }
+  console.log(state);
 
   //let index = 0;
   return (
     <div>
       <div className="content">
         <div className="header">
-          <h5 className="title">Thông Tin Lịch Chiếu Phim Của The Flash</h5>
+          <h5 className="title">Thông Tin Lịch Chiếu Phim Của The {movieShedule.tenPhim}</h5>
         </div>
         <div className="body">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-5">
                 <div className="form-group">
                   <select
                     name="heThongRap"
                     onChange={layMaHeThongRap}
-                    id="selection"
                   >
                     <option value="#">--Chọn Hệ Thống Rạp</option>
                     {renderHeThongRap()}
                   </select>
                 </div>
                 <div className="form-group">
-                  <select name="cumRap" onChange={layMaCumRap} id="selection">
+                  <select name="cumRap" onChange={layDanhSachRap}>
                     <option value="#">--Chọn Cụm Rạp</option>
                     {renderCumRap()}
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <select name="rap" onChange={layMaRap} id="selection">
+                  <select name="maRap" onChange={handeChange}>
                     <option value="#">--Chọn Rạp</option>
                     {renderRap()}
                   </select>
@@ -187,26 +237,23 @@ function ListMovieShedule(props) {
 
               <div className="col-7">
                 <div className="form-group">
-                  <label>Chọn ngày giờ chiếu</label>
-                  <input type="date" className="form-control" />
+                  <label>Chọn ngày chiếu</label>
+                  <input name="ngayChieu" type="text" className="form-control" onChange={handeChange} />
                 </div>
                 <div className="form-group">
-                  <label>Chọn Thời lượn phim</label>
-                  <input type="time" className="form-control" />
-                </div>
-                <div className="form-group">
-                  <label>Mã nhóm mặc định</label>
-                  <input type="text" disabled className="form-control" />
+                  <label>Chọn giờ chiếu</label>
+                  <input name="gioChieu" type="text" className="form-control" onChange={handeChange} />
                 </div>
                 <div className="form-group">
                   <label>Giá vé</label>
                   <div className="input-group">
-                    <input type="number" className="form-control" />
+                    <input name="giaVe" type="number" className="form-control" onChange={handeChange} />
                     <div className="input-group-append">
                       <span className="input-group-text">VNĐ</span>
                     </div>
                   </div>
                 </div>
+                <button type="submit" className="btn btn-success">Tạo Lịch Chiếu</button>
               </div>
             </div>
           </form>
@@ -220,26 +267,17 @@ function ListMovieShedule(props) {
             </div> */}
 
           <div>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Mã Lịch Chiếu</th>
-                  <th>Hệ Thống</th>
-                  <th>Cụm Rạp</th>
-                  <th>Ngày Giờ Chiếu</th>
-                  <th>Giá</th>
-                  <th>Thời Lượng</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>{renderTable()}</tbody>
-            </table>
+
+            {renderTable()}
+
           </div>
         </div>
       </div>
     </div>
   );
 }
+
+
 
 const mapStateToProps = (state) => {
   return {
