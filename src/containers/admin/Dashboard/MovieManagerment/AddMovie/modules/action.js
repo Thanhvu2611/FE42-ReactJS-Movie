@@ -4,15 +4,16 @@ import {
   ADD_DETAIL_LISTMOVIE_FAILED,
 } from "./constans";
 import Axios from "axios";
+import swal from "sweetalert";
 
-const actAddMovie = (movie) => {
-  movie.maNhom = "GP05"
-  let imgUpload = "";
-  if (movie.hinhAnh) {
-    imgUpload = movie.hinhAnh[0];
-  }
+const actAddMovie = (form_data) => {
+  // movie.maNhom = "GP05"
+  // let imgUpload = "";
+  // if (movie.hinhAnh) {
+  //   imgUpload = movie.hinhAnh[0];
+  // }
 
-  movie.hinhAnh = `https://movie0706.cybersoft.edu.vn/hinhanh/0_gp01.jpg`;
+  // movie.hinhAnh = `https://movie0706.cybersoft.edu.vn/hinhanh/0_gp05.jpg`;
   let token = "";
   if (localStorage.getItem("userAdmin")) {
     token = JSON.parse(localStorage.getItem("userAdmin")).accessToken;
@@ -22,18 +23,20 @@ const actAddMovie = (movie) => {
     dispatch(actAddListMovieRequest());
     Axios({
       //url: 'http://movie0706.cybersoft.edu.vn/api/quanlyphim/ThemPhimUploadHinh',
-      method: 'POST',
-      data: movie,
-      url: "https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/ThemPhim",
-      data: movie,
+      method: "POST",
+      // data: movie,
+      // url: "https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/ThemPhim",
+      data: form_data,
+      url: "https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/ThemPhimUploadHinh",
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((result) => {
+
         dispatch(actAddListMovieSuccess(result.data));
         //history.push("/admin/movie");
-        uploadImg(imgUpload, movie);
+        //uploadImg(imgUpload, movie);
       })
       .catch((err) => {
         dispatch(actAddListMovieFailed(err));
@@ -47,10 +50,10 @@ const actAddListMovieRequest = () => {
   };
 };
 
-const actAddListMovieSuccess = (movie) => {
+const actAddListMovieSuccess = (form_data) => {
   return {
     type: ADD_DETAIL_LISTMOVIE_SUCCESS,
-    movie
+    form_data
   };
 };
 
@@ -61,26 +64,26 @@ const actAddListMovieFailed = (err) => {
   };
 };
 
-const uploadImg = (imgUpload, movie) => {
-  if (imgUpload.name) {
-    let formData = new FormData();
-    formData.append("File", imgUpload, imgUpload.name);
-    formData.append("tenphim", movie.tenPhim);
-    formData.append("manhom", "GP05");
-    Axios({
-      method: "POST",
-      url: `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/UploadHinhAnhPhim`,
-      data: formData
-    })
-      .then(result => {
-        console.log(result.data);
-      })
-      .catch(err => {
-        console.log(err.reponse.data);
-      })
-  }
-  console.log(imgUpload);
-}
+// const uploadImg = (imgUpload, movie) => {
+//   if (imgUpload.name) {
+//     let formData = new FormData();
+//     formData.append("File", imgUpload, imgUpload.name);
+//     formData.append("tenphim", movie.tenPhim);
+//     formData.append("manhom", "GP05");
+//     Axios({
+//       method: "POST",
+//       url: `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/UploadHinhAnhPhim`,
+//       data: formData
+//     })
+//       .then(result => {
+//         console.log(result.data);
+//       })
+//       .catch(err => {
+//         console.log(err.reponse.data);
+//       })
+//   }
+//   console.log(imgUpload);
+// }
 
 
 export { actAddMovie };

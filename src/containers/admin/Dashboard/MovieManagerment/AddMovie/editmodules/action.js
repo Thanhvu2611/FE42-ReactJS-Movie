@@ -1,5 +1,6 @@
 import { EDIT_MOVIE_SUCCESS, UPDATE_MOVIE_SUCCESS } from "./constans";
 import Axios from 'axios';
+import swal from "sweetalert";
 
 //GET MOVIE
 
@@ -55,13 +56,23 @@ export const actUpdateMovieRequest = (form_data) => {
       },
     })
       .then((result) => {
+        swal({
+          title: "Cập Nhật Phim Thành Công",
+          icon: "success",
+          button: "OK",
+        })
         // debugger
         //console.log(result.data)
         dispatch(actUpdateMovie(result.data));
         // uploadImg(imgUpload, editmovie);
       })
       .catch(err => {
-        console.log(err);
+        swal({
+          //title: err.response.data,
+          text: "Cập nhật phim không thành công",
+          icon: "warning",
+          button: "OK",
+        })
       })
   }
 };

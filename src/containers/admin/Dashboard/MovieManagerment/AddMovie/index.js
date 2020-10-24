@@ -16,7 +16,7 @@ class AddMovie extends Component {
         biDanh: "",
         trailer: "",
         moTa: "",
-        maNhom: "GP01",
+        maNhom: "GP05",
         ngayKhoiChieu: "",
         danhGia: ""
 
@@ -66,7 +66,7 @@ class AddMovie extends Component {
           hinhAnh: nextProps.editMovie.hinhAnh,
           moTa: nextProps.editMovie.moTa,
           maNhom: nextProps.editMovie.maNhom,
-          ngayKhoiChieu: nextProps.editMovie.ngayKhoiChieu,
+          ngayKhoiChieu: new Date(nextProps.editMovie.ngayKhoiChieu).toLocaleDateString("en-GB"),
           danhGia: nextProps.editMovie.danhGia
         },
         loading: false,
@@ -101,25 +101,33 @@ class AddMovie extends Component {
     });
   };
   handleSubmit = (event) => {
+    //console.log("ok");
     event.preventDefault();
-
+    var { history } = this.props
+    var form_data = new FormData();
     let isValid = true;
-    for (var key in this.state.values) {
+    for (let key in this.state.values) {
 
       const errorMessage = this.validate(key, this.state.values[key]);
       if (errorMessage) {
         isValid = false;
       }
-      this.setState((state) => {
-        return {
-          errors: {
-            ...state.errors,
-            [key]: errorMessage,
-          },
-        };
-      });
+      form_data.append(key, this.state.values[key]);
+      // this.setState((state) => {
+      //   return {
+      //     errors: {
+      //       ...state.errors,
+      //       [key]: errorMessage,
+      //     },
+      //   };
+      // });
     }
     if (!isValid) return;
+    if (this.state.values.maPhim) {
+      this.props.fetchUpdateMovie(form_data);
+    } else {
+      this.props.fetchAddListMovie(form_data);
+    }
     // var form_data = new FormData();
     // for (var key in this.state.values) {
 
@@ -127,25 +135,30 @@ class AddMovie extends Component {
     //   form_data.append(key, this.state.values[key]);
 
     // }
-    if (this.state.values.maPhim) {
-      this.props.fetchUpdateMovie(this.state.values);
-    } else {
+    // if (this.state.values.maPhim) {
+    //this.props.fetchUpdateMovie(this.state.values);
+    // } else {
 
-      this.props.fetchAddListMovie(this.state.values);
-    }
-    // history.goBack()
+    //this.props.fetchAddListMovie(this.state.values);
+    //}
+    history.goBack()
   };
-  handleSave = (event) => {
-    event.preventDefault();
-    var form_data = new FormData();
-    for (var key in this.state.values) {
+  // handleSave = (event) => {
+  //   event.preventDefault();
+  //   let isValid = true;
+  //   var form_data = new FormData();
+  //   for (var key in this.state.values) {
+  //     const errorMessage = this.validate(key, this.state.values[key]);
+  //     if (errorMessage) {
+  //       isValid = false;
+  //     }
 
+  //     form_data.append(key, this.state.values[key]);
 
-      form_data.append(key, this.state.values[key]);
-
-    }
-    this.props.fetchUpdateMovie(form_data);
-  }
+  //   }
+  //   if (!isValid) return;
+  //   this.props.fetchUpdateMovie(form_data);
+  // }
 
   //Validate
   validate = (name, value) => {
@@ -181,10 +194,9 @@ class AddMovie extends Component {
     console.log(this.state);
     return (
       <div className="container">
-        <form
-        //  onSubmit={this.handleSubmit}
-        >
-          <h3>{this.props.match.params.id ? "EDIT MOVIE" : "ADD MOVIE"}</h3>
+        <h3>{this.props.match.params.id ? "EDIT MOVIE" : "ADD MOVIE"}</h3>
+        <form onSubmit={this.handleSubmit}>
+
           <div className="row">
             <div className="col-6">
               {/* <div className="form-group">
@@ -326,14 +338,12 @@ class AddMovie extends Component {
           <div>
             <button
               type="submit"
-              className="btn btn-success"
-              onClick={this.handleSubmit}
-            >
+              className="btn btn-success">
               Submit
             </button>
-            <button type="submit" className="btn btn-info" onClick={this.handleSave}>
+            {/* <button type="submit" className="btn btn-info" onClick={this.handleSave}>
               Save
-            </button>
+            </button> */}
           </div>
         </form>
       </div>
@@ -350,8 +360,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAddListMovie: (movie) => {
-      dispatch(actAddMovie(movie));
+    fetchAddListMovie: (form_data) => {
+      dispatch(actAddMovie(form_data));
       //console.log(actAddMovie(form_data));
     },
     fetchEditMovie: (movie) => {

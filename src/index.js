@@ -10,6 +10,7 @@ import "popper.js/dist/popper-utils.min";
 import "bootstrap/dist/js/bootstrap.min";
 
 //SASS
+import "./assets/sass/main.scss";
 // import "./scss/style.scss";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware, compose } from "redux";

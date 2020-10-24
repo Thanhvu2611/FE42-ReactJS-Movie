@@ -1,0 +1,138 @@
+.bookingTicket {
+  background-color: white;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.bookingTicket .cinemaTitle {
+  margin-bottom: 10px !important;
+}
+
+.bookingTicket .cinemaList h4 {
+  color: #eb7633;
+  background-color: white;
+  text-align: center;
+  padding: 5px 0;
+  margin-bottom: 0;
+}
+
+.bookingTicket .cinemaList .cinemaList_content {
+  border-radius: 0;
+  border-color: #7d7d7d;
+}
+
+.bookingTicket .cinemaList .cinemaList_content .cinemaList_item {
+  text-align: center;
+  opacity: 0.5;
+}
+
+.bookingTicket .cinemaList .cinemaList_content .cinemaList_item img {
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+}
+
+.bookingTicket .cinemaList .cinemaList_content .cinemaList_item:hover {
+  opacity: 1;
+  background-color: #e9e9e9;
+}
+
+.bookingTicket .cinemaList .cinemaList_content .active {
+  opacity: 1;
+  background-color: #f5f5f5;
+  border-color: #e9e9e9;
+}
+
+.bookingTicket .cinemaGroupList h4 {
+  margin-bottom: 0;
+  color: #eb7633;
+  background-color: white;
+  text-align: center;
+  padding: 5px 0;
+}
+
+.bookingTicket .cinemaGroupList .cinemaGroupList_content {
+  border-radius: 0px;
+  border-color: #7d7d7d;
+  font-size: 0.9rem;
+}
+
+.bookingTicket .cinemaGroupList .cinemaGroupList_content .cinemaGroupList_item {
+  opacity: 0.5;
+  color: #555555;
+}
+
+.bookingTicket .cinemaGroupList .cinemaGroupList_content .cinemaGroupList_item:hover {
+  opacity: 1;
+  background-color: #e9e9e9;
+}
+
+.bookingTicket .cinemaGroupList .cinemaGroupList_content .active {
+  opacity: 1;
+  background-color: #f5f5f5;
+  border-color: #e9e9e9;
+}
+
+.bookingTicket .cinemaMovie h4 {
+  margin-bottom: 0;
+  color: #eb7633;
+  background-color: white;
+  text-align: center;
+  padding: 5px 0;
+}
+
+.bookingTicket .cinemaMovie .cinemaMovie_content {
+  border: 0.5px solid #e9e9e9;
+}
+
+.bookingTicket .cinemaMovie .cinemaMovie_content .cinemaMovie_item {
+  color: #222;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  position: relative;
+}
+
+.bookingTicket .cinemaMovie .cinemaMovie_content .cinemaMovie_item .cinemaMovie_detail a {
+  text-decoration: none;
+  margin-right: 5px;
+}
+
+.bookingTicket .cinemaMovie .cinemaMovie_content .cinemaMovie_item::after {
+  content: "";
+  width: 90%;
+  height: 1px;
+  background: -webkit-gradient(linear, left top, right top, from(#7e7e7e), to(#e1e1e1));
+  background: linear-gradient(to right, #7e7e7e, #e1e1e1);
+  display: block;
+  position: absolute;
+  left: 5%;
+  bottom: -10px;
+}
+
+.button_ShowTime {
+  height: 35px;
+  width: 150px;
+  text-align: center;
+  line-height: 35px;
+  display: inline-block;
+  border: 1px solid #eb7633;
+  background-color: transparent;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  border-radius: 5px;
+  color: #eb7633;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.button_ShowTime:hover {
+  background-color: #eb7633;
+  color: white;
+}
+
+.button_ShowTime:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+/*# sourceMappingURL=style.css.map */

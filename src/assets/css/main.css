@@ -1,0 +1,23 @@
+.modal-video .modal {
+  padding: 98px 15px !important;
+}
+
+.modal-video .modal.fafe .modal-dialog {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.modal-video .modal-content {
+  -webkit-box-shadow: 0 5px 15px rgbd(0, 0, 0, 0.5);
+          box-shadow: 0 5px 15px rgbd(0, 0, 0, 0.5);
+}
+
+.modal-video .modal-body {
+  position: relative;
+  padding: 0;
+}
+
+.modal-video iframe {
+  background-color: #4a4a4a;
+}
+/*# sourceMappingURL=main.css.map */

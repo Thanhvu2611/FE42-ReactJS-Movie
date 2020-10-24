@@ -1,5 +1,6 @@
 import { ADD_USER } from "./constans";
 import Axios from "axios";
+import swal from "sweetalert";
 
 const actAddUser = (user) => {
   let token = "";
@@ -17,10 +18,19 @@ const actAddUser = (user) => {
       },
     })
       .then((result) => {
+        swal({
+          title: "Tạo Tài Khoản Thành Công",
+          icon: "success",
+          button: "OK",
+        })
         dispatch(actAddUserSuccess(result.data));
       })
       .catch(err => {
-        console.log(err);
+        swal({
+          title: "Điền lại thông tin",
+          icon: "warning",
+          button: "OK",
+        })
       })
   }
 }

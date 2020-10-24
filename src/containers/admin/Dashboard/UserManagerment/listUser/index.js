@@ -480,7 +480,7 @@ export default function UserList() {
                       title: "Bạn chắc chứ?",
                       text: `Xóa ${taiKhoan}`,
                       icon: "warning",
-                      buttons: true,
+                      button: true,
                       dangerMode: true,
                     }).then((willDelete) => {
                       if (willDelete) {
@@ -505,7 +505,7 @@ export default function UserList() {
         swal({
           title: `Xóa ${taiKhoan} thành công`,
           icon: "success",
-          buttons: "OK",
+          button: "OK",
         });
         qLyAdminService
           .layDanhSachNguoiDung()
@@ -518,10 +518,10 @@ export default function UserList() {
       })
       .catch((err) => {
         swal({
-          title: err.reponse.data,
+          title: err.response.data,
           text: "Xóa không thành công!",
           icon: "warning",
-          buttons: "OK",
+          button: "OK",
         });
       });
   }

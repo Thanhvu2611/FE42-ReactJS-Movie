@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "ACAA,AACE,YADU,CACV,MAAM,CAAA;EACJ,OAAO,EAAC,oBAAoB;CAC7B;;AAHH,AAIE,YAJU,CAIV,MAAM,AAAA,KAAK,CAAC,aAAa,CAAA;EACvB,SAAS,EAAE,MAAM;EACjB,MAAM,EAAE,MAAM;CACf;;AAPH,AAQE,YARU,CAQV,cAAc,CAAA;EACZ,UAAU,EAAE,CAAC,CAAC,GAAG,CAAC,IAAI,CAAC,kBAAe;CACvC;;AAVH,AAWE,YAXU,CAWV,WAAW,CAAA;EACT,QAAQ,EAAE,QAAQ;EAClB,OAAO,EAAE,CAAC;CACX;;AAdH,AAeE,YAfU,CAeV,MAAM,CAAA;EACJ,gBAAgB,EAAE,OAAO;CAC1B",
+    "sources": [
+        "../sass/main.scss",
+        "../sass/components/_modal-video.scss"
+    ],
+    "names": [],
+    "file": "main.css"
+}

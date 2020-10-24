@@ -1,5 +1,6 @@
 import { EDIT_USER_SUCCESS, UPDATE_USER_SUCCESS } from "./constans";
 import Axios from 'axios';
+import swal from "sweetalert";
 
 //GET USER DETAIL
 export const actGetUsers = (id) => {
@@ -42,11 +43,21 @@ export const fectUpdateUserRequest = (editUser) => {
 
     })
       .then((result) => {
+        swal({
+          title: "Cập Nhật Thông Tin Thành Công",
+          icon: "success",
+          button: "OK",
+        });
 
         dispatch(actUpdateUserSuccess(result.data));
       })
       .catch(err => {
-        console.log(err);
+        swal({
+          title: err.response.data,
+          text: "Cập Nhật Thông Tin Thất bại",
+          icon: "warning",
+          button: "OK",
+        });
       })
   }
 }

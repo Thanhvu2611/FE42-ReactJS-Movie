@@ -88,6 +88,7 @@ class AddUser extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    var { history } = this.props;
     let isValid = true;
     for (let key in this.state.values) {
       const errorMessage = this.validate(key, this.state.values[key]);
@@ -104,17 +105,20 @@ class AddUser extends Component {
       });
     };
     if (!isValid) return;
-    this.props.fetchAddUser(this.state.values);
+    if (this.state.values.taiKhoan) { this.props.updateUser(this.state.values) } else {
+      this.props.fetchAddUser(this.state.values);
+    }
+    history.goBack()
     //console.log(this.props);
   }
 
   //UPDATE USER
-  handleSave = (event) => {
-    event.preventDefault();
-    //console.log("1");
-    this.props.updateUser(this.state.values);
+  // handleSave = (event) => {
+  //   event.preventDefault();
+  //   //console.log("1");
+  //   this.props.updateUser(this.state.values);
 
-  }
+  // }
 
   ///VALIDATION
   validate = (name, value) => {
@@ -154,7 +158,7 @@ class AddUser extends Component {
     return (
       <div className="container">
         <h3>{this.props.match.params.id ? "EDIT USER" : "ADD USER"}</h3>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <div className="row">
             <div className="col-6">
               <div className="form-group">
@@ -251,8 +255,8 @@ class AddUser extends Component {
                 </select>
               </div>
             </div>
-            <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Thêm</button>
-            <button type="submit" className="btn btn-success" onClick={this.handleSave}>Lưu</button>
+            <button type="submit" className="btn btn-success">Submit</button>
+            {/* <button type="submit" className="btn btn-success" onClick={this.handleSave}>Lưu</button> */}
           </div>
         </form>
       </div >

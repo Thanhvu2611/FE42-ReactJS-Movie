@@ -1,7 +1,6 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { actFetchMovieSchedule } from "./module/action";
 import { connect } from "react-redux";
-import MovieSheduleItem from "../../components/movieSheduleItem";
 import { qLyPhimService } from "../../../../services/QuanLyPhimServices";
 import Showtime from "./showtime";
 import { qLyAdminService } from "../../../../services/QuanLyAdminService";
@@ -187,13 +186,19 @@ function ListMovieShedule(props) {
     qLyAdminService
       .taoLichChieu(thongtin)
       .then(result => {
-        console.log("thanh cong");
-        console.log(result.data);
+        swal({
+          title: "Tạo Lịch Chiếu Phim thành Công",
+          icon: "success",
+          button: "OK"
+        })
       })
-      .catch(err => {
-        console.log("that bai");
-        console.log(err.response.data);
-        alert("Hãy Nhập Thông Tin Đúng Định Dạng dd/mm/yyy 00:00:00")
+      .catch((err) => {
+        swal({
+          title: err.response.data,
+          text: "Không đúng định dạng ngày giờ (dd/mm/yyy 00:00:00)",
+          icon: "warning",
+          button: "OK",
+        });
       })
 
 
@@ -233,6 +238,9 @@ function ListMovieShedule(props) {
                     {renderRap()}
                   </select>
                 </div>
+                <div className="float-right" style={{ width: 250, height: 150 }}>
+                  <img src={movieShedule.hinhAnh} style={{ width: "100 %" }} />
+                </div>
               </div>
 
               <div className="col-7">
@@ -267,6 +275,7 @@ function ListMovieShedule(props) {
             </div> */}
 
           <div>
+            <hr />
 
             {renderTable()}
 
