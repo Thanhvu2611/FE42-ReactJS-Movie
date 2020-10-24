@@ -9,10 +9,11 @@ export default function HomeDetailPhim(props) {
   let [danhsachphimsapchieu, setdanhsachphimsapchieu] = useState([]);
   let [lichchieutheophim, setlichchieutheophim] = useState([]);
 
+  const { match } = props;
+  const id = match.params.id;
+
   useEffect(() => {
-    let { match } = props;
     if (match) {
-      const id = match.params.id;
       qLyPhimService
         .layThongTinPhim(id)
         .then((res) => {
@@ -33,7 +34,7 @@ export default function HomeDetailPhim(props) {
           console.log(err.response.data);
         });
     }
-  }, []);
+  }, [id]);
   console.log(lichchieutheophim);
   useEffect(() => {
     qLyPhimService
