@@ -65,8 +65,13 @@ function ListMovieShedule(props) {
       movieShedule.heThongRapChieu &&
       movieShedule.heThongRapChieu.length > 0
     ) {
+      return movieShedule.heThongRapChieu.map((heThong) => (
+        <Showtime heThong={heThong} />
+      )
+
+      )
       //console.log(movieShedule.heThongRapChieu.cumRapChieu);
-      return <Showtime movieShowtime={movieShedule} />
+
       //movieShedule.heThongRapChieu.map((movieShowtime) => {
       //console.log(movieShedule)
       // return movieShowtime.cumRapChieu.map((showtime) => {
@@ -203,7 +208,7 @@ function ListMovieShedule(props) {
 
 
   }
-  console.log(state);
+  //console.log(state);
 
   //let index = 0;
   return (

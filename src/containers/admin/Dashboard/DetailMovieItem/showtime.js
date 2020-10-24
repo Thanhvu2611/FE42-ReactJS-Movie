@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 
 export default function Showtime(props) {
   const classes = useStyles();
-  const { movieShowtime } = props;
+  const { heThong } = props;
   //console.log(movieShowtime);
   let tongSoRow = null;
 
@@ -59,7 +59,7 @@ export default function Showtime(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {movieShowtime.heThongRapChieu.map((heThong) => (
+          {
             heThong.cumRapChieu.map((cumrap) => (
               cumrap.lichChieuPhim.map((lichchieu) => (
                 <StyledTableRow key={lichchieu.maLichChieu}>
@@ -77,7 +77,7 @@ export default function Showtime(props) {
 
             )
 
-          ))}
+          }
         </TableBody>
         {/* <TableFooter>
           <TableRow>
