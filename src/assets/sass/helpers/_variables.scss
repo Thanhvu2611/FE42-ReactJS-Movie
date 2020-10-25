@@ -1,0 +1,111 @@
+/*
+ * ========== COLOR ==========
+ */
+ $color-black-default: #000000;
+ $dl-color-black-0: #4a4a4a;
+ $dl-color-black-1: #222222;
+ $dl-color-black-2: #1f2e46;
+ $dl-color-black-3: #0a2029;
+ $dl-color-black-4: #3e515d;
+ $dl-color-black-5: #333333;
+ 
+ $dl-color-white-0: #ffffff;
+ 
+ $dl-color-gray-0: #949494;
+ $dl-color-gray-1: #9b9b9b;
+ $dl-color-gray-2: #bbb;
+ $dl-color-gray-3: #e4e4e4;
+ $dl-color-gray-4: #ebebec;
+ $dl-color-gray-5: #e9e9e9;
+ $dl-color-gray-6: #f3f3f3;
+ $dl-color-gray-7: #6e7781;
+ 
+ $dl-color-trans-0: rgba(246, 246, 246, 0.5);
+ $dl-color-trans-1: rgba(12, 27, 54, 0.8);
+ 
+ $dl-color-organge-0: #ca4137;
+ $dl-color-organge-1: #fa5238;
+ $dl-color-organge-2: #fb4226;
+ $dl-color-organge-3: #e71a0f;
+ 
+ $dl-color-yellow-1: #f7b500;
+ 
+ $dl-color-blue-1: #0069d9;
+ $dl-color-blue-2: #42a5f5;
+ $dl-color-blue-3: #179fb4;
+ 
+ $dl-color-indigo-1: #4051b5;
+ $dl-color-indigo-2: #293fb6;
+ 
+ $dl-color-green-0: #108f3e;
+ $dl-color-green-1: #00ac4d;
+ $dl-color-green-2: #7ed321;
+ $dl-color-green-3: #44c020;
+ 
+ $box-shadow-blue: 0 0 0 2px #179fb454;
+ $box-shadow-indigo: 0 0 0 2px #4052b57c;
+ 
+ /*
+  * ========== FONT SIZE ==========
+  */
+ $fs-default: 16px;
+ $dl-fs-0: 24px;
+ $dl-fs-1: 18px;
+ $dl-fs-2: 15px;
+ $dl-fs-3: 13px;
+ $dl-fs-4: 14px;
+ 
+ /*
+  * ========== FONT WEIGHT ==========
+  */
+ $fw-default: 400;
+ $fw-bold: 700;
+ $fw-light: 300;
+ 
+ /*
+  * ========== BORDER RADIUS ==========
+  */
+ $dl-bdr-default: 4px;
+ 
+ /*
+  * ========== BREAK POINTS ==========
+  */
+ $breakpoints: (
+   "1236": 1236px,
+   "1227": 1227px,
+   "1200": 1200px,
+   "1199": 1199px,
+   "1135": 1135px,
+   "1096": 1096px,
+   "1064": 1064px,
+   "1024": 1024px,
+   "1003": 1003px,
+   "992": 992px,
+   "991": 991px,
+   "929": 929px,
+   "928": 928px,
+   "921": 921px,
+   "920": 920px,
+   "881": 881px,
+   "783": 783px,
+   "767": 767px,
+   "770": 770px,
+   "738": 738px,
+   "736": 736px,
+   "720": 720px,
+   "689": 689px,
+   "650": 650px,
+   "648": 648px,
+   "615": 615px,
+   "582": 582px,
+   "578": 578px,
+   "575": 575px,
+   "535": 535px,
+   "499": 499px,
+   "481": 481px,
+   "414": 414px,
+   "375": 375px,
+   "374": 374px,
+   "320": 320px,
+ );
+ 

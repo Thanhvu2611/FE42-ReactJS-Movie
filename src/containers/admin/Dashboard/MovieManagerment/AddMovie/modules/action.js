@@ -33,12 +33,22 @@ const actAddMovie = (form_data) => {
       },
     })
       .then((result) => {
+        swal({
+          title: "Thêm Phim Thành công",
+          icon: "success",
+          button: "OK"
+        })
 
         dispatch(actAddListMovieSuccess(result.data));
         //history.push("/admin/movie");
         //uploadImg(imgUpload, movie);
       })
       .catch((err) => {
+        swal({
+          title: "Thêm Phim Không Thành Công",
+          icon: "warning",
+          button: "OK"
+        })
         dispatch(actAddListMovieFailed(err));
       });
   };

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { qLyPhimService } from "../../../../services/QuanLyPhimServices";
 import Showtime from "./showtime";
 import { qLyAdminService } from "../../../../services/QuanLyAdminService";
+import Paper from "@material-ui/core/Paper";
 import swal from "sweetalert";
 
 function ListMovieShedule(props) {
@@ -211,17 +212,20 @@ function ListMovieShedule(props) {
 
   //let index = 0;
   return (
-    <div>
-      <div className="content">
-        <div className="header">
-          <h5 className="title">Thông Tin Lịch Chiếu Phim Của The {movieShedule.tenPhim}</h5>
+    <Paper>
+      <div className="container">
+        <div className="header py-1">
+          <h4 className="title" style={{ color: "green" }}>Thông Tin Lịch Chiếu Phim Của Phim {movieShedule.tenPhim}</h4>
         </div>
         <div className="body">
           <form onSubmit={handleSubmit}>
             <div className="row">
-              <div className="col-5">
+              <div className="col-4">
+                <img className="img-thumbnail" src={movieShedule.hinhAnh} style={{ width: "100 %", height: 300, backgroundColor: "black" }} />
+              </div>
+              <div className="col-3">
                 <div className="form-group">
-                  <select
+                  <select style={{ width: 200 }}
                     name="heThongRap"
                     onChange={layMaHeThongRap}
                   >
@@ -230,24 +234,22 @@ function ListMovieShedule(props) {
                   </select>
                 </div>
                 <div className="form-group">
-                  <select name="cumRap" onChange={layDanhSachRap}>
+                  <select style={{ width: 200 }} name="cumRap" onChange={layDanhSachRap}>
                     <option value="#">--Chọn Cụm Rạp</option>
                     {renderCumRap()}
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <select name="maRap" onChange={handeChange}>
+                  <select style={{ width: 200 }} name="maRap" onChange={handeChange}>
                     <option value="#">--Chọn Rạp</option>
                     {renderRap()}
                   </select>
                 </div>
-                <div className="float-right" style={{ width: 250, height: 150 }}>
-                  <img src={movieShedule.hinhAnh} style={{ width: "100 %" }} />
-                </div>
+
               </div>
 
-              <div className="col-7">
+              <div className="col-5">
                 <div className="form-group">
                   <label>Chọn ngày chiếu</label>
                   <input name="ngayChieu" type="text" className="form-control" onChange={handeChange} />
@@ -286,7 +288,7 @@ function ListMovieShedule(props) {
           </div>
         </div>
       </div>
-    </div>
+    </Paper>
   );
 }
 

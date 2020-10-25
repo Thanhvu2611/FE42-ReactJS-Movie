@@ -1,19 +1,24 @@
-.modal-video{
-  .modal{
-    padding:98px 15px !important;
+.modal-video {
+  .modal {
+    padding: 98px 15px !important;
   }
-  .modal.fafe .modal-dialog{
+  .modal.fade .modal-dialog {
     max-width: 1000px;
     margin: 0 auto;
   }
-  .modal-content{
-    box-shadow: 0 5px 15px rgbd(0,0,0,0.5);
+  .modal-content {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   }
-  .modal-body{
+  .modal-body {
     position: relative;
     padding: 0;
+    background-color: black;
+    .movie-btn--close{
+      width: 30px;
+      height: 30px;
+    }
   }
-  iframe{
-    background-color: #4a4a4a;
+  iframe {
+    background-color: $dl-color-black-0;
   }
 }

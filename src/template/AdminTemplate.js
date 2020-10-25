@@ -63,10 +63,12 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerOpen: {
     width: drawerWidth,
+
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+
   },
   drawerClose: {
     transition: theme.transitions.create("width", {
@@ -106,7 +108,6 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
-
 }));
 
 function AdminLayout(props) {
@@ -164,9 +165,9 @@ function AdminLayout(props) {
             aria-controls={open1 ? "menu-list-grow" : undefined}
             aria-haspopup="true"
             onClick={handleToggle}
-            style={{ cursor: "pointer", zIndex: "1000000", position: "absolute", top: 0, right: 5 }}>
-            <img src="https://i.ibb.co/PCjW83Y/avt.png" alt="user" style={{ width: 45, height: 45, borderRadius: 50 }} />
-            <span className="login__text">{userName}</span>
+            style={{ cursor: "pointer", zIndex: "1000000", position: "absolute", top: 2, right: 5 }}>
+            <img className="mx-auto" src="/img/logo/user.png" alt="user" style={{ width: 45, height: 45, borderRadius: 50 }} />
+            <span className="login__text mx-auto">Hi! {userName}</span>
           </div>
           <Popper
             open={open1}
@@ -236,9 +237,9 @@ function AdminLayout(props) {
             </IconButton>
             <Typography variant="h7" noWrap>
               <NavLink to="/admin/movie" className="logo" style={{ textDecoration: "none", }} >
-                <img src="https://i0.wp.com/thegamehaus.com/wp-content/uploads/2020/05/Volibear_Emote.png?resize=256%2C256&ssl=1"
+                <img src="/img/logo/logo.jpg"
                   alt="logo"
-                  style={{ width: 45, height: 45 }} />
+                  style={{ width: 50, height: 50, borderRadius: "50% " }} />
                 <span style={{ fontFamily: '"Metal Mania",cursive', color: "#60c5ef" }}>Cyber Admin</span>
               </NavLink>
             </Typography>
@@ -260,10 +261,12 @@ function AdminLayout(props) {
           }} style={{
             zIndex: "99",
           }}>
-          <div className={classes.toolbar}>
-            <IconButton onClick={handleDrawerClose}>
+          <div className={classes.toolbar} >
+            <IconButton onClick={handleDrawerClose} className="header">
               {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+              <span>Dashboard</span>
             </IconButton>
+
           </div>
           <Divider />
           <List>
@@ -292,7 +295,7 @@ function AdminLayout(props) {
             </ListItem>
           </NavLink>
         </Drawer>
-        <main className={classes.content} style={{ padding: "0px", paddingTop: "100px", paddingLeft: "250px" }}>
+        <main className={classes.content} style={{ padding: "0px", paddingTop: "80px", paddingLeft: "250px" }}>
           <div className={classes.toolbar} />
           <Typography paragraph>{props.children}</Typography>
         </main>

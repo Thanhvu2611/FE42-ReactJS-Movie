@@ -108,7 +108,7 @@ class AddUser extends Component {
     if (this.state.values.taiKhoan) { this.props.updateUser(this.state.values) } else {
       this.props.fetchAddUser(this.state.values);
     }
-    history.goBack()
+    history.push("/admin/user")
     //console.log(this.props);
   }
 

@@ -486,7 +486,7 @@ export default function MovieList() {
     return <Loading />
   }
   return (
-    <>
+    <Paper>
       <MaterialTable
         title="Quản Lý Phim"
         columns={[
@@ -513,7 +513,7 @@ export default function MovieList() {
 
       />
       <ModalVideo />
-    </>
+    </Paper>
   )
 }
 

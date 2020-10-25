@@ -1,0 +1,6 @@
+.header{
+  color: $dl-color-organge-3;
+  font-size: $dl-fs-0;
+  font-weight: 600;
+  @include style-text-hover( $dl-color-green-3,#000000);
+}

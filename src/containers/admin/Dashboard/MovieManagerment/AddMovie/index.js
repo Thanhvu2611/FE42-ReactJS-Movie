@@ -103,7 +103,7 @@ class AddMovie extends Component {
   handleSubmit = (event) => {
     //console.log("ok");
     event.preventDefault();
-    var { history } = this.props
+    var { history } = this.props;
     var form_data = new FormData();
     let isValid = true;
     for (let key in this.state.values) {
@@ -141,7 +141,7 @@ class AddMovie extends Component {
 
     //this.props.fetchAddListMovie(this.state.values);
     //}
-    history.goBack()
+    history.push("/admin/movie");
   };
   // handleSave = (event) => {
   //   event.preventDefault();

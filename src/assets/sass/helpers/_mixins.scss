@@ -1,0 +1,72 @@
+@mixin style-text($color, $font-size, $font-weight) {
+  color: $color;
+  font-size: $font-size;
+  font-weight: $font-weight;
+}
+@mixin style-text-hover($color, $background-color) {
+  transition: all 0.25s;
+  &:hover {
+    background-color: $background-color;
+    color: $color;
+  }
+}
+@mixin style-button(
+  $border,
+  $padding-y,
+  $padding-x,
+  $background-color,
+  $color,
+  $border-hover,
+  $background-hover,
+  $color-hover,
+  $border-focus: null,
+  $background-focus: null,
+  $color-focus: null,
+  $shadow-focus: null
+) {
+  border: $border;
+  border-radius: $dl-bdr-default;
+  padding: $padding-y $padding-x;
+  background: $background-color;
+  color: $color;
+  text-transform: uppercase;
+  transition: all 0.25s;
+  &:hover {
+    border: $border-hover;
+    background: $background-hover;
+    color: $color-hover;
+  }
+  &:focus {
+    border: $border-focus;
+    background: $background-focus;
+    color: $color-focus;
+    box-shadow: $shadow-focus;
+  }
+}
+
+@mixin screen-resposive-max-width($screen) {
+  @if map-has-key($map: $breakpoints, $key: $screen) {
+    $value: map-get(
+      $map: $breakpoints,
+      $key: $screen,
+    );
+    @media screen and (max-width: $value) {
+      @content;
+    }
+  } @else {
+    @error '$breakpoints khong hop le';
+  }
+}
+@mixin screen-resposive-min-width($screen) {
+  @if map-has-key($map: $breakpoints, $key: $screen) {
+    $value: map-get(
+      $map: $breakpoints,
+      $key: $screen,
+    );
+    @media screen and (min-width: $value) {
+      @content;
+    }
+  } @else {
+    @error "$breakpoints khong hop le";
+  }
+}
