@@ -1,4 +1,3 @@
-
 // import React, { useState, useEffect } from 'react';
 // import { Link } from "react-router-dom";
 // import PropTypes from 'prop-types';
@@ -21,7 +20,6 @@
 // import { qLyAdminService } from "../../../../../services/QuanLyAdminService";
 // import { qLyPhimService } from "../../../../../services/QuanLyPhimServices";
 // import swal from "sweetalert";
-
 
 // var moment = require("moment");
 
@@ -238,10 +236,8 @@
 
 //   const emptyRows = rowsPerPage - Math.min(rowsPerPage, danhSachPhim.length - page * rowsPerPage);
 
-
 //   return (
 //     <div classname="{classes.root}">
-
 
 //       <Paper className={classes.paper}>
 //         <EnhancedTableToolbar numSelected={selected.length} />
@@ -363,28 +359,51 @@
 //     </div>
 //   );
 // }
-import React, { useState, useEffect } from 'react';
-import MaterialTable from 'material-table';
-import Paper from '@material-ui/core/Paper';
+import React, { useState, useEffect } from "react";
+import MaterialTable from "material-table";
+import Paper from "@material-ui/core/Paper";
 import { qLyAdminService } from "../../../../../services/QuanLyAdminService";
 import { qLyPhimService } from "../../../../../services/QuanLyPhimServices";
 import { showVideo } from "../../../../../assets/js/main";
 import ModalVideo from "../../../../../components/Modal/Video";
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from "@material-ui/core/Tooltip";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { actFetchDeleteMovie } from "./modules/action";
 import swal from "sweetalert";
 import Loading from "../../../../../components/Loading";
+import styled from "styled-components";
 
+const DivMaterialTable = styled.div`
+  .MuiTypography-h6 {
+    color: #00ac4d;
+    font-size: 30px;
+  }
+  .MTableHeader-header-25 {
+    background-color: gray;
+    color: white;
+    font-size: 18px;
+    .MuiTableSortLabel-root:hover {
+      color: #108f3e;
+    }
+    .MuiTypography-body1 {
+      padding: 0px !important;
+      font-size: 16px !important;
+      font-weight: 500 !important;
+      span {
+        font-size: 16px !important;
+        font-weight: 500 !important;
+      }
+    }
+  }
+`;
 
 export default function MovieList() {
-
   let [danhSachPhim, setDanhSachPhim] = useState([]);
   const [loading, setLoading] = useState({ loading: true });
   useEffect(() => {
     showVideo();
-  }, [danhSachPhim])
+  }, [danhSachPhim]);
   useEffect(() => {
     qLyPhimService
       .layDanhSachPhim()
@@ -393,67 +412,87 @@ export default function MovieList() {
         setLoading(false);
         // console.log(result.data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.reponse.data);
-      })
+      });
   }, []);
   const renderMovie = () => {
-
     if (danhSachPhim && danhSachPhim.length > 0) {
       return danhSachPhim.map((item) => {
-        const {
-          maPhim,
-          tenPhim,
-          hinhAnh,
-          moTa,
-          trailer,
-          ngayKhoiChieu
-        } = item;
+        const { maPhim, tenPhim, hinhAnh, moTa, trailer, ngayKhoiChieu } = item;
         return {
-          hinhAnh: <div style={{ width: 100, height: 50 }}><img src={hinhAnh} alt="img" style={{ width: "100%" }} /></div>,
+          hinhAnh: (
+            <div style={{ width: 100, height: "auto" }}>
+              <img
+                src={hinhAnh}
+                alt="img"
+                style={{ width: "100%", height: "auto" }}
+              />
+            </div>
+          ),
           maPhim: <span>{maPhim}</span>,
           tenPhim: tenPhim,
           trailer: (
-            <a className="video-popup" data-toggle="modal" data-src={trailer} href="#modalVideo"><span className="mb-2 d-inline-block"><br /><i className="fa fa-play-circle" /></span>
-
+            <a
+              className="video-popup"
+              data-toggle="modal"
+              data-src={trailer}
+              href="#modalVideo"
+            >
+              <span className="mb-2 d-inline-block">
+                <br />
+                <i className="fa fa-play-circle" />
+              </span>
             </a>
           ),
-          moTa: <div style={{ width: 400, }}>{moTa}</div>,
+          moTa: <div style={{ width: 400 }}>{moTa}</div>,
           ngayKhoiChieu: (
             <span>{new Date(ngayKhoiChieu).toLocaleDateString("en-GB")}</span>
           ),
           taoLichChieu: (
-            <>
+            <DivMaterialTable>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Tooltip title="Tạo Lịch Chiếu"><Link to={`/admin/detail/${maPhim}`}><i class="fas fa-video" />
-                </Link></Tooltip>
-                <Tooltip title="Sửa Phim"><Link to={`/admin/addmovie/${maPhim}`}><i className="fa fa-edit" />
-                </Link></Tooltip>
-                <Tooltip title="Xóa Phim"><div><i style={{ cursor: "pointer", color: "#fb4226" }} className="fa fa-trash-alt"
-                  onClick={() => {
-                    swal({
-                      title: "Bạn chắc chứ?",
-                      text: `Xóa phim ${tenPhim}`,
-                      icon: "warning",
-                      buttons: true,
-                      dangerMode: true,
-                    }).then((willDelete) => {
-                      if (willDelete) {
-                        handleDelete(maPhim);
-                      }
-                    });
-                  }} />
-                </div></Tooltip>
+                <Tooltip title="Tạo Lịch Chiếu">
+                  <Link to={`/admin/detail/${maPhim}`}>
+                    <i class="fas fa-video" />
+                  </Link>
+                </Tooltip>
+                <Tooltip title="Sửa Phim">
+                  <Link to={`/admin/addmovie/${maPhim}`}>
+                    <i className="fa fa-edit" />
+                  </Link>
+                </Tooltip>
+                <Tooltip title="Xóa Phim">
+                  <div>
+                    <i
+                      style={{ cursor: "pointer", color: "#fb4226" }}
+                      className="fa fa-trash-alt"
+                      onClick={() => {
+                        swal({
+                          title: "Bạn chắc chứ?",
+                          text: `Xóa phim ${tenPhim}`,
+                          icon: "warning",
+                          buttons: true,
+                          dangerMode: true,
+                        }).then((willDelete) => {
+                          if (willDelete) {
+                            handleDelete(maPhim);
+                          }
+                        });
+                      }}
+                    />
+                  </div>
+                </Tooltip>
               </div>
-            </>
-          )
-        }
-      })
+            </DivMaterialTable>
+          ),
+        };
+      });
     }
-  }
+  };
   const dispatch = useDispatch();
   const handleDelete = (maPhim) => {
-    dispatch(actFetchDeleteMovie(maPhim))
+    dispatch(actFetchDeleteMovie(maPhim));
     qLyAdminService
       .xoaPhim(maPhim)
       .then((res) => {
@@ -477,44 +516,42 @@ export default function MovieList() {
           title: "Xóa Phim không thành công",
           icon: "warning",
           buttons: "OK",
-        })
+        });
       });
-
-  }
+  };
 
   if (loading) {
-    return <Loading />
+    return <Loading />;
   }
   return (
     <Paper>
-      <MaterialTable
-        title="Quản Lý Phim"
-        columns={[
-          { title: 'Mã Phim', field: 'maPhim', width: 103 },
-          { title: 'Tên Phim', field: 'tenPhim', width: 103 },
-          {
-            title: 'Hình Ảnh', field: 'hinhAnh', width: 103,
-            //render: rowData => (
-            // <img style={{ height: 36, width: 50 }} src={rowData.hinhAnh} />
-            //)
-          },
-          { title: 'Mô Tả', field: 'moTa', width: 103 },
-          { title: 'Trailer', field: 'trailer', width: 103 },
-          { title: 'Ngày Khởi Chiếu', field: 'ngayKhoiChieu', width: 103 },
-          { title: 'Tạo Lịch Chiếu', field: 'taoLichChieu', width: 103 },
+      <DivMaterialTable>
+        <MaterialTable
+          title="Quản Lý Phim"
+          columns={[
+            { title: "Mã Phim", field: "maPhim", width: 103 },
+            { title: "Tên Phim", field: "tenPhim", width: 103 },
+            {
+              title: "Hình Ảnh",
+              field: "hinhAnh",
+              width: 103,
+              //render: rowData => (
+              // <img style={{ height: 36, width: 50 }} src={rowData.hinhAnh} />
+              //)
+            },
+            { title: "Mô Tả", field: "moTa", width: 103 },
+            { title: "Trailer", field: "trailer", width: 103 },
+            { title: "Ngày Khởi Chiếu", field: "ngayKhoiChieu", width: 103 },
+            { title: "Tạo Lịch Chiếu", field: "taoLichChieu", width: 103 },
+          ]}
+          data={renderMovie()}
+          options={{
+            search: true,
+          }}
+        />
+      </DivMaterialTable>
 
-        ]}
-        data={renderMovie()
-
-        }
-        options={{
-          search: true
-        }}
-
-      />
       <ModalVideo />
     </Paper>
-  )
+  );
 }
-
-

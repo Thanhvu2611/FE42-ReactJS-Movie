@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { actAddMovie, } from "../AddMovie/modules/action";
-import { actFetchEditMovie, actUpdateMovieRequest, } from "./editmodules/action";
-import Loading from '../../../../../components/Loading';
-
+import { actAddMovie } from "../AddMovie/modules/action";
+import { actFetchEditMovie, actUpdateMovieRequest } from "./editmodules/action";
+import Loading from "../../../../../components/Loading";
+import Paper from "@material-ui/core/Paper";
 
 class AddMovie extends Component {
   constructor(props) {
@@ -18,8 +18,7 @@ class AddMovie extends Component {
         moTa: "",
         maNhom: "GP05",
         ngayKhoiChieu: "",
-        danhGia: ""
-
+        danhGia: "",
       },
       errors: {
         hinhAnh: "",
@@ -30,8 +29,7 @@ class AddMovie extends Component {
         moTa: "",
         maNhom: "",
         ngayKhoiChieu: "",
-        danhGia: ""
-
+        danhGia: "",
       },
       loading: false,
     };
@@ -39,21 +37,18 @@ class AddMovie extends Component {
   }
 
   componentDidMount() {
-
     var { match } = this.props;
     if (match) {
       const id = match.params.id;
       this.props.fetchEditMovie(id);
       if (id) {
-        this.setState({ loading: true })
+        this.setState({ loading: true });
       }
 
       //console.log(this.props.fetchEditMovie(id));
     }
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
-
-
     if (nextProps && nextProps.editMovie) {
       //console.log(nextProps.editMovie.hinhAnh)
       this.setState({
@@ -66,27 +61,28 @@ class AddMovie extends Component {
           hinhAnh: nextProps.editMovie.hinhAnh,
           moTa: nextProps.editMovie.moTa,
           maNhom: nextProps.editMovie.maNhom,
-          ngayKhoiChieu: new Date(nextProps.editMovie.ngayKhoiChieu).toLocaleDateString("en-GB"),
-          danhGia: nextProps.editMovie.danhGia
+          ngayKhoiChieu: new Date(
+            nextProps.editMovie.ngayKhoiChieu
+          ).toLocaleDateString("en-GB"),
+          danhGia: nextProps.editMovie.danhGia,
         },
         loading: false,
       });
-
     }
   }
+
   handleChange = (event) => {
     const { value, name } = event.target;
 
     this.setState({
-      values: { ...this.state.values, [name]: value }
+      values: { ...this.state.values, [name]: value },
     });
     if (event.target.files && event.target.files[0]) {
       this.setState({
         values: { ...this.state.values, hinhAnh: event.target.files[0] },
-      })
+      });
     }
-  }
-
+  };
 
   handleBlur = (event) => {
     const { value, name } = event.target;
@@ -107,7 +103,6 @@ class AddMovie extends Component {
     var form_data = new FormData();
     let isValid = true;
     for (let key in this.state.values) {
-
       const errorMessage = this.validate(key, this.state.values[key]);
       if (errorMessage) {
         isValid = false;
@@ -123,6 +118,7 @@ class AddMovie extends Component {
       // });
     }
     if (!isValid) return;
+
     if (this.state.values.maPhim) {
       this.props.fetchUpdateMovie(form_data);
     } else {
@@ -130,7 +126,6 @@ class AddMovie extends Component {
     }
     // var form_data = new FormData();
     // for (var key in this.state.values) {
-
 
     //   form_data.append(key, this.state.values[key]);
 
@@ -182,21 +177,24 @@ class AddMovie extends Component {
       if (!value) {
         errorMessage = !value ? "Ngày Khởi Chiếu không được để trống" : "";
       } else {
-        const isValid = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/.test(value);
-        errorMessage = !isValid ? "Ngày khởi chiếu không đúng định dạng DD/MM/YYYY" : "";
+        const isValid = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/.test(
+          value
+        );
+        errorMessage = !isValid
+          ? "Ngày khởi chiếu không đúng định dạng DD/MM/YYYY"
+          : "";
       }
     }
     return errorMessage;
   };
   render() {
     const { loading } = this.state;
-    if (loading) return <Loading />
+    if (loading) return <Loading />;
     console.log(this.state);
     return (
       <div className="container">
         <h3>{this.props.match.params.id ? "EDIT MOVIE" : "ADD MOVIE"}</h3>
         <form onSubmit={this.handleSubmit}>
-
           <div className="row">
             <div className="col-6">
               {/* <div className="form-group">
@@ -300,7 +298,7 @@ class AddMovie extends Component {
                   className="form-control"
                   onChange={this.handleChange}
                   onBlur={this.handleBlur}
-                //value={this.state.values.hinhAnh[0]}
+                  //value={this.state.values.hinhAnh[0]}
                 />
 
                 {this.state.errors.hinhAnh && (
@@ -336,9 +334,7 @@ class AddMovie extends Component {
             </div>
           </div>
           <div>
-            <button
-              type="submit"
-              className="btn btn-success">
+            <button type="submit" className="btn btn-success">
               Submit
             </button>
             {/* <button type="submit" className="btn btn-info" onClick={this.handleSave}>
@@ -351,10 +347,9 @@ class AddMovie extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     editMovie: state.EditMovieReducer.editMovie,
-
   };
 };
 

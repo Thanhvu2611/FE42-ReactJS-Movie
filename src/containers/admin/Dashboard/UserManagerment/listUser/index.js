@@ -1,4 +1,3 @@
-
 // import React, { useState, useEffect } from 'react';
 // import { useSelector } from "react-redux";
 // import { Link } from "react-router-dom";
@@ -24,7 +23,6 @@
 // import { qLyAdminService } from "../../../../../services/QuanLyAdminService";
 
 // import swal from "sweetalert";
-
 
 // function descendingComparator(a, b, orderBy) {
 //   if (b[orderBy] < a[orderBy]) {
@@ -417,24 +415,48 @@
 //   );
 // }
 
-import React, { useState, useEffect } from 'react';
-import MaterialTable from 'material-table';
+import React, { useState, useEffect } from "react";
+import MaterialTable from "material-table";
 import { qLyAdminService } from "../../../../../services/QuanLyAdminService";
-import Tooltip from '@material-ui/core/Tooltip';
-import { Link } from 'react-router-dom';
+import Tooltip from "@material-ui/core/Tooltip";
+import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import { useDispatch } from "react-redux";
 import { actFetchDeleteUser } from "./module/action";
 import { actGetUsers } from "../AddUser/editmodule/action";
 import Loading from "./../../../../../components/Loading";
-//import state from 'sweetalert/typings/modules/state';
+import styled from "styled-components";
+import { Paper } from "@material-ui/core";
 
+const DivMaterialTable = styled.div`
+  .MuiTypography-h6 {
+    color: #00ac4d;
+    font-size: 30px;
+  }
+  .MTableHeader-header-25 {
+    background-color: gray;
+    color: white;
+    font-size: 18px;
+    .MuiTableSortLabel-root:hover {
+      color: #108f3e;
+    }
+    .MuiTypography-body1 {
+      padding: 0px !important;
+      font-size: 16px !important;
+      font-weight: 500 !important;
+      span {
+        font-size: 16px !important;
+        font-weight: 500 !important;
+      }
+    }
+  }
+`;
 
 export default function UserList() {
-
   let [danhSachNguoiDung, setDanhSachNguoiDung] = useState([]);
   const dispatch = useDispatch();
-  const editUser = (danhSachNguoiDung) => dispatch(actGetUsers(danhSachNguoiDung));
+  const editUser = (danhSachNguoiDung) =>
+    dispatch(actGetUsers(danhSachNguoiDung));
   const [loading, setLoading] = useState({ loading: true });
 
   useEffect(() => {
@@ -444,26 +466,16 @@ export default function UserList() {
         setDanhSachNguoiDung(result.data);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.reponse.data);
-      })
+      });
   }, []);
   const renderUser = () => {
-
     if (danhSachNguoiDung && danhSachNguoiDung.length > 0) {
-
       return danhSachNguoiDung.map((item) => {
-        const {
-
-          taiKhoan,
-          matKhau,
-          hoTen,
-          email,
-          soDt,
-        } = (item);
+        const { taiKhoan, matKhau, hoTen, email, soDt } = item;
 
         return {
-
           taiKhoan,
           matKhau,
           hoTen,
@@ -472,36 +484,47 @@ export default function UserList() {
           thaoTac: (
             <>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Tooltip title="Cập Nhật Thông Tin Người Dùng"><Link to={`/admin/adduser/${taiKhoan}`}><i className="fa fa-edit" onClick={editUser(danhSachNguoiDung)} />
-                </Link></Tooltip>
-                <Tooltip title="Xóa Người Dùng"><div><i style={{ cursor: "pointer", color: "#fb4226" }} className="fa fa-trash-alt"
-                  onClick={() => {
-                    swal({
-                      title: "Bạn chắc chứ?",
-                      text: `Xóa ${taiKhoan}`,
-                      icon: "warning",
-                      button: true,
-                      dangerMode: true,
-                    }).then((willDelete) => {
-                      if (willDelete) {
-                        handleDelete(taiKhoan);
-                      }
-                    });
-                  }} />
-                </div></Tooltip>
+                <Tooltip title="Cập Nhật Thông Tin Người Dùng">
+                  <Link to={`/admin/adduser/${taiKhoan}`}>
+                    <i
+                      className="fa fa-edit"
+                      onClick={editUser(danhSachNguoiDung)}
+                    />
+                  </Link>
+                </Tooltip>
+                <Tooltip title="Xóa Người Dùng">
+                  <div>
+                    <i
+                      style={{ cursor: "pointer", color: "#fb4226" }}
+                      className="fa fa-trash-alt"
+                      onClick={() => {
+                        swal({
+                          title: "Bạn chắc chứ?",
+                          text: `Xóa ${taiKhoan}`,
+                          icon: "warning",
+                          button: true,
+                          dangerMode: true,
+                        }).then((willDelete) => {
+                          if (willDelete) {
+                            handleDelete(taiKhoan);
+                          }
+                        });
+                      }}
+                    />
+                  </div>
+                </Tooltip>
               </div>
             </>
-          )
-
-        }
-      })
+          ),
+        };
+      });
     }
-  }
+  };
   const handleDelete = (taiKhoan) => {
-    dispatch(actFetchDeleteUser(taiKhoan))
+    dispatch(actFetchDeleteUser(taiKhoan));
     qLyAdminService
       .layDanhSachNguoiDung()
-      .then(res => {
+      .then((res) => {
         swal({
           title: `Xóa ${taiKhoan} thành công`,
           icon: "success",
@@ -514,7 +537,7 @@ export default function UserList() {
           })
           .catch((err) => {
             console.log(err.reponse.data);
-          })
+          });
       })
       .catch((err) => {
         swal({
@@ -524,26 +547,29 @@ export default function UserList() {
           button: "OK",
         });
       });
-  }
+  };
   if (loading) {
-    return <Loading />
+    return <Loading />;
   }
   return (
-    <>
-      <MaterialTable
-        title="Quản Lý Người Dùng"
-        columns={[
-
-          { title: 'Tài Khoản', field: 'taiKhoan', width: 103 },
-          { title: 'Mật Khẩu', field: 'matKhau', width: 103 },
-          { title: 'Họ Tên', field: 'hoTen', width: 103 },
-          { title: 'Email', field: 'email', width: 103 },
-          { title: 'Số Điện Thoại', field: 'soDt', width: 103 },
-          { title: 'Thao Tác', field: 'thaoTac', width: 103 },
-        ]}
-        data={renderUser()}
-        options={{ search: true }}
-      />
-    </>
-  )
+    <Paper>
+      <DivMaterialTable>
+        <MaterialTable
+          title="Quản Lý Người Dùng"
+          columns={[
+            { title: "Tài Khoản", field: "taiKhoan", width: 103 },
+            { title: "Mật Khẩu", field: "matKhau", width: 103 },
+            { title: "Họ Tên", field: "hoTen", width: 103 },
+            { title: "Email", field: "email", width: 103 },
+            { title: "Số Điện Thoại", field: "soDt", width: 103 },
+            { title: "Thao Tác", field: "thaoTac", width: 103 },
+          ]}
+          data={renderUser()}
+          options={{
+            search: true,
+          }}
+        />
+      </DivMaterialTable>
+    </Paper>
+  );
 }

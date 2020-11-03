@@ -1,11 +1,16 @@
-import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILED, FECTH_SIGN_OUT } from "./constants";
-import { createBrowserHistory } from 'history';
+import {
+  AUTH_REQUEST,
+  AUTH_SUCCESS,
+  AUTH_FAILED,
+  FECTH_SIGN_OUT,
+} from "./constants";
+import { createBrowserHistory } from "history";
 
 let initialState = {
   loading: false,
   user: {},
-  err: null
-}
+  err: null,
+};
 const history = createBrowserHistory();
 
 const authReducer = (state = initialState, action) => {
@@ -26,9 +31,9 @@ const authReducer = (state = initialState, action) => {
       state.err = action.err;
       return { ...state };
     case FECTH_SIGN_OUT: {
-      localStorage.removeItem("userLogin");
+      localStorage.removeItem("userAdmin");
       state.user = "";
-      history.push('/');
+      history.push("/");
       window.location.reload();
       return { ...state };
     }
@@ -36,7 +41,6 @@ const authReducer = (state = initialState, action) => {
     default:
       return { ...state };
   }
-
-}
+};
 
 export default authReducer;

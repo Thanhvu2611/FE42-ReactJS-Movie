@@ -4,33 +4,31 @@ import { connect } from "react-redux";
 import { qLyPhimService } from "../../../../services/QuanLyPhimServices";
 import Showtime from "./showtime";
 import { qLyAdminService } from "../../../../services/QuanLyAdminService";
+import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import swal from "sweetalert";
 
 function ListMovieShedule(props) {
   const [state, setState] = useState({
     maRap: null,
-    ngayChieu: '',
-    gioChieu: '',
+    ngayChieu: "",
+    gioChieu: "",
     giaVe: null,
     maPhim: props.match.params.id,
-  })
-  const [danhSachHeThongRap, setDanhSachHeThongRap] = useState([])
-  const [danhSachCumRap, setDanhSachCumRap] = useState([])
+  });
+  const [danhSachHeThongRap, setDanhSachHeThongRap] = useState([]);
+  const [danhSachCumRap, setDanhSachCumRap] = useState([]);
 
   const { movieShedule } = props;
+  const id = props.match.params.id;
   useEffect(() => {
-    const id = props.match.params.id;
     props.fetchMovieSchedule(id);
-    qLyPhimService
-      .layHeThongRap()
-      .then(result => {
-        setDanhSachHeThongRap(result.data)
-      })
+    qLyPhimService.layHeThongRap().then((result) => {
+      setDanhSachHeThongRap(result.data);
+    });
 
     //console.log(props.fetchMovieSchedule(id));
-
-  }, []);
+  }, [id]);
 
   // let [heThongRap, setHeThongRap] = useState([]);
   // useEffect(() => {
@@ -52,24 +50,19 @@ function ListMovieShedule(props) {
           setDanhSachCumRap(result.data);
           //console.log(result.data);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
-        })
-
+        });
     }
-  }, [maHeThongRap])
+  }, [maHeThongRap]);
   const renderTable = () => {
-
-
     if (
       movieShedule.heThongRapChieu &&
       movieShedule.heThongRapChieu.length > 0
     ) {
       return movieShedule.heThongRapChieu.map((heThong) => (
-        < Showtime heThong={heThong} />
-      )
-
-      )
+        <Showtime heThong={heThong} />
+      ));
       //console.log(movieShedule.heThongRapChieu.cumRapChieu);
 
       //movieShedule.heThongRapChieu.map((movieShowtime) => {
@@ -90,32 +83,30 @@ function ListMovieShedule(props) {
     }
   };
 
-
   const layMaHeThongRap = (event) => {
     let maHeThongRap = event.target.value;
     setMaHeThongRap(maHeThongRap);
   };
-  const [danhSachRap, setDanhSachRap] = useState([])
+  const [danhSachRap, setDanhSachRap] = useState([]);
   const layDanhSachRap = (event) => {
     let maCumRap = event.target.value;
     if (danhSachCumRap && danhSachCumRap.length > 0) {
-      let cumRapTimDuoc = danhSachCumRap.find(cumRap => cumRap.maCumRap === maCumRap)
+      let cumRapTimDuoc = danhSachCumRap.find(
+        (cumRap) => cumRap.maCumRap === maCumRap
+      );
       console.log(cumRapTimDuoc);
 
       if (cumRapTimDuoc) {
         if (danhSachRap.length > 0) {
-          setDanhSachRap([])
+          setDanhSachRap([]);
         }
-        setDanhSachRap(cumRapTimDuoc.danhSachRap)
+        setDanhSachRap(cumRapTimDuoc.danhSachRap);
       }
     }
   };
 
   const renderHeThongRap = () => {
-    if (
-      danhSachHeThongRap &&
-      danhSachHeThongRap.length > 0
-    ) {
+    if (danhSachHeThongRap && danhSachHeThongRap.length > 0) {
       return danhSachHeThongRap.map((heThongRap, index) => {
         return (
           <option key={heThongRap.maHeThongRap} value={heThongRap.maHeThongRap}>
@@ -126,24 +117,25 @@ function ListMovieShedule(props) {
     }
   };
   const renderCumRap = () => {
-    if (
-      danhSachCumRap &&
-      danhSachCumRap.length > 0
-    ) {
+    if (danhSachCumRap && danhSachCumRap.length > 0) {
       return danhSachCumRap.map((cumRap) => {
-        return <option key={cumRap.maCumRap}
-          value={cumRap.maCumRap}
-        >
-          {cumRap.tenCumRap}
-        </option>
+        return (
+          <option key={cumRap.maCumRap} value={cumRap.maCumRap}>
+            {cumRap.tenCumRap}
+          </option>
+        );
       });
     }
   };
   const renderRap = () => {
     if (danhSachRap && danhSachRap.length > 0) {
       return danhSachRap.map((rap) => {
-        return <option key={rap.maRap} value={rap.maRap}>{rap.tenRap}</option>
-      })
+        return (
+          <option key={rap.maRap} value={rap.maRap}>
+            {rap.tenRap}
+          </option>
+        );
+      });
     }
 
     // if (
@@ -174,9 +166,8 @@ function ListMovieShedule(props) {
     setState({
       ...state,
       [name]: value,
-    })
-  }
-
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -185,17 +176,17 @@ function ListMovieShedule(props) {
       maPhim: parseInt(maPhim),
       maRap: parseInt(maRap),
       giaVe: parseInt(giaVe),
-      ngayChieuGioChieu: `${ngayChieu} ${gioChieu}`
-    }
-    console.log('thongtin', thongtin);
+      ngayChieuGioChieu: `${ngayChieu} ${gioChieu}`,
+    };
+    console.log("thongtin", thongtin);
     qLyAdminService
       .taoLichChieu(thongtin)
-      .then(result => {
+      .then((result) => {
         swal({
           title: "Tạo Lịch Chiếu Phim thành Công",
           icon: "success",
-          button: "OK"
-        })
+          button: "OK",
+        });
       })
       .catch((err) => {
         swal({
@@ -204,74 +195,108 @@ function ListMovieShedule(props) {
           icon: "warning",
           button: "OK",
         });
-      })
-
-
-  }
+      });
+  };
   //console.log(state);
 
   //let index = 0;
   return (
-    <Paper>
-      <div className="container">
-        <div className="header py-1">
-          <h4 className="title" style={{ color: "green" }}>Thông Tin Lịch Chiếu Phim Của Phim {movieShedule.tenPhim}</h4>
-        </div>
-        <div className="body">
-          <form onSubmit={handleSubmit}>
-            <div className="row">
-              <div className="col-4">
-                <img className="img-thumbnail" src={movieShedule.hinhAnh} style={{ width: "100 %", height: 300, backgroundColor: "black" }} />
-              </div>
-              <div className="col-3">
-                <div className="form-group">
-                  <select style={{ width: 200 }}
-                    name="heThongRap"
-                    onChange={layMaHeThongRap}
-                  >
-                    <option value="#">--Chọn Hệ Thống Rạp</option>
-                    {renderHeThongRap()}
-                  </select>
+    <Container>
+      <Paper elevation={3}>
+        <div className="container">
+          <div className="header py-1">
+            <h4 className="title" style={{ color: "green" }}>
+              Thông Tin Lịch Chiếu Phim Của Phim {movieShedule.tenPhim}
+            </h4>
+          </div>
+          <div className="body">
+            <form onSubmit={handleSubmit}>
+              <div className="row">
+                <div className="col-4">
+                  <img
+                    className="img-thumbnail"
+                    src={movieShedule.hinhAnh}
+                    style={{
+                      width: "100 %",
+                      height: 300,
+                      backgroundColor: "black",
+                    }}
+                  />
                 </div>
-                <div className="form-group">
-                  <select style={{ width: 200 }} name="cumRap" onChange={layDanhSachRap}>
-                    <option value="#">--Chọn Cụm Rạp</option>
-                    {renderCumRap()}
-                  </select>
-                </div>
+                <div className="col-3">
+                  <div className="form-group">
+                    <select
+                      style={{ width: 200 }}
+                      name="heThongRap"
+                      onChange={layMaHeThongRap}
+                    >
+                      <option value="#">--Chọn Hệ Thống Rạp</option>
+                      {renderHeThongRap()}
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <select
+                      style={{ width: 200 }}
+                      name="cumRap"
+                      onChange={layDanhSachRap}
+                    >
+                      <option value="#">--Chọn Cụm Rạp</option>
+                      {renderCumRap()}
+                    </select>
+                  </div>
 
-                <div className="form-group">
-                  <select style={{ width: 200 }} name="maRap" onChange={handeChange}>
-                    <option value="#">--Chọn Rạp</option>
-                    {renderRap()}
-                  </select>
-                </div>
-
-              </div>
-
-              <div className="col-5">
-                <div className="form-group">
-                  <label>Chọn ngày chiếu</label>
-                  <input name="ngayChieu" type="text" className="form-control" onChange={handeChange} />
-                </div>
-                <div className="form-group">
-                  <label>Chọn giờ chiếu</label>
-                  <input name="gioChieu" type="text" className="form-control" onChange={handeChange} />
-                </div>
-                <div className="form-group">
-                  <label>Giá vé</label>
-                  <div className="input-group">
-                    <input name="giaVe" type="number" className="form-control" onChange={handeChange} />
-                    <div className="input-group-append">
-                      <span className="input-group-text">VNĐ</span>
-                    </div>
+                  <div className="form-group">
+                    <select
+                      style={{ width: 200 }}
+                      name="maRap"
+                      onChange={handeChange}
+                    >
+                      <option value="#">--Chọn Rạp</option>
+                      {renderRap()}
+                    </select>
                   </div>
                 </div>
-                <button type="submit" className="btn btn-success">Tạo Lịch Chiếu</button>
+
+                <div className="col-5">
+                  <div className="form-group">
+                    <label>Chọn ngày chiếu</label>
+                    <input
+                      name="ngayChieu"
+                      type="text"
+                      className="form-control"
+                      onChange={handeChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Chọn giờ chiếu</label>
+                    <input
+                      name="gioChieu"
+                      type="text"
+                      className="form-control"
+                      onChange={handeChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Giá vé</label>
+                    <div className="input-group">
+                      <input
+                        name="giaVe"
+                        type="number"
+                        className="form-control"
+                        onChange={handeChange}
+                      />
+                      <div className="input-group-append">
+                        <span className="input-group-text">VNĐ</span>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit" className="btn btn-success">
+                    Tạo Lịch Chiếu
+                  </button>
+                </div>
               </div>
-            </div>
-          </form>
-          {/* <div>
+            </form>
+            {/* <div>
               <button type="submit" className="btn btn-success">
                 Submit
               </button>
@@ -280,19 +305,17 @@ function ListMovieShedule(props) {
               </button>
             </div> */}
 
-          <div>
-            <hr />
+            <div>
+              <hr />
 
-            {renderTable()}
-
+              {renderTable()}
+            </div>
           </div>
         </div>
-      </div>
-    </Paper>
+      </Paper>
+    </Container>
   );
 }
-
-
 
 const mapStateToProps = (state) => {
   return {
