@@ -1,13 +1,12 @@
-import React from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import TableFooter from '@material-ui/core/TableFooter';
+import React from "react";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -21,7 +20,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
-    '&:nth-of-type(odd)': {
+    "&:nth-of-type(odd)": {
       backgroundColor: theme.palette.action.hover,
     },
   },
@@ -30,7 +29,6 @@ const StyledTableRow = withStyles((theme) => ({
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
-
 
 const useStyles = makeStyles({
   table: {
@@ -45,7 +43,6 @@ export default function Showtime(props) {
   let tongSoRow = null;
 
   return (
-
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
@@ -59,25 +56,24 @@ export default function Showtime(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {
-            heThong.cumRapChieu.map((cumrap) => (
-              cumrap.lichChieuPhim.map((lichchieu) => (
-                <StyledTableRow key={lichchieu.maLichChieu}>
-                  <StyledTableCell >{lichchieu.maLichChieu}</StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
-                    <img src={heThong.logo} alt={heThong.tenHeThongRap} style={{ width: 50, height: 50 }} />
-                  </StyledTableCell>
-                  <StyledTableCell>{cumrap.tenCumRap}</StyledTableCell>
-                  <StyledTableCell>{lichchieu.ngayChieuGioChieu}</StyledTableCell>
-                  <StyledTableCell>{lichchieu.giaVe}</StyledTableCell>
-                  <StyledTableCell>{lichchieu.thoiLuong} ph</StyledTableCell>
-                </StyledTableRow>
-              ))
-            )
-
-            )
-
-          }
+          {heThong.cumRapChieu.map((cumrap) =>
+            cumrap.lichChieuPhim.map((lichchieu) => (
+              <StyledTableRow key={lichchieu.maLichChieu}>
+                <StyledTableCell>{lichchieu.maLichChieu}</StyledTableCell>
+                <StyledTableCell component="th" scope="row">
+                  <img
+                    src={heThong.logo}
+                    alt={heThong.tenHeThongRap}
+                    style={{ width: 50, height: 50 }}
+                  />
+                </StyledTableCell>
+                <StyledTableCell>{cumrap.tenCumRap}</StyledTableCell>
+                <StyledTableCell>{lichchieu.ngayChieuGioChieu}</StyledTableCell>
+                <StyledTableCell>{lichchieu.giaVe}</StyledTableCell>
+                <StyledTableCell>{lichchieu.thoiLuong} ph</StyledTableCell>
+              </StyledTableRow>
+            ))
+          )}
         </TableBody>
         {/* <TableFooter>
           <TableRow>

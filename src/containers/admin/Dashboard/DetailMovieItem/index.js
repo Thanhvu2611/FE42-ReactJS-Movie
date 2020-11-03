@@ -87,6 +87,7 @@ function ListMovieShedule(props) {
     let maHeThongRap = event.target.value;
     setMaHeThongRap(maHeThongRap);
   };
+
   const [danhSachRap, setDanhSachRap] = useState([]);
   const layDanhSachRap = (event) => {
     let maCumRap = event.target.value;
