@@ -19,7 +19,6 @@ function ListMovieShedule(props) {
   const [danhSachHeThongRap, setDanhSachHeThongRap] = useState([]);
   const [danhSachCumRap, setDanhSachCumRap] = useState([]);
 
-  const { movieShedule } = props;
   const id = props.match.params.id;
   useEffect(() => {
     props.fetchMovieSchedule(id);
@@ -29,7 +28,7 @@ function ListMovieShedule(props) {
 
     //console.log(props.fetchMovieSchedule(id));
   }, [id]);
-
+  const { movieShedule } = props;
   // let [heThongRap, setHeThongRap] = useState([]);
   // useEffect(() => {
   //   qLyPhimService
@@ -199,7 +198,6 @@ function ListMovieShedule(props) {
       });
   };
   //console.log(state);
-
   //let index = 0;
   return (
     <Container>
