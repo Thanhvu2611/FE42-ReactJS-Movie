@@ -158,7 +158,7 @@ function Booking({
       </div>
       <section className="booking">
         <div className="row ml-0 mr-0">
-          <div className="booking__left col-9">
+          <div className="booking__left col-9 col-xs-12">
             <div className="container-fluid">
               <div className="booking__left-header row align-items-center">
                 <div className="cinema col">
@@ -222,7 +222,7 @@ function Booking({
               </div>
             </div>
           </div>
-          <div className="booking__right col-3">
+          <div className="booking__right col-3 col-xs-12">
             <div className="booking__right-content">
               <p className="price-total text-center">Tổng hoá đơn: {" "}
                 {(calcSeatPrice() + calcComboPrice()).toLocaleString("fr-FR")} đ

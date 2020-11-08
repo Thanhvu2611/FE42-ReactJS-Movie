@@ -138,7 +138,7 @@ export default function HomeDetailPhim(props) {
                           "41.01"
                         ) {
                           return (
-                            <a href="#" key={index}>
+                            <Link  to={`/booking/${itemLich.maLichChieu}`} key={index}>
                               {moment(itemLich.ngayChieuGioChieu).format(
                                 "DD/MM"
                               )}
@@ -146,7 +146,7 @@ export default function HomeDetailPhim(props) {
                               {moment(itemLich.ngayChieuGioChieu).format(
                                 "hh:mm A"
                               )}
-                            </a>
+                            </Link>
                           );
                         }
                       }

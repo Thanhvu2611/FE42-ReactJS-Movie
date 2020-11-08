@@ -11,7 +11,8 @@ class LoginPage extends Component {
       username: "",
       password: "",
     };
-  }
+  };
+
 
   handleOnchange = (event) => {
     const { name, value } = event.target;
@@ -56,10 +57,11 @@ class LoginPage extends Component {
               </div>
               <div className="form-group">
                 <label>Mật Khẩu:</label>
-                <input type="text" className="form-control" name='password' onChange={this.handleOnchange} value={this.state.password} />
+                <input type="password" className="form-control" name='password' onChange={this.handleOnchange} value={this.state.password} />
               </div>
               <button type="submit" className="btn btn-success">Đăng Nhập</button>
             </form>
+            <a style={{color: 'tomato', marginTop: '10px'}} href="/registration">(*) Bạn chưa có tài khoản ?</a>
           </div>
         </div>
       </div>
