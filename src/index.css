@@ -1067,3 +1067,21 @@ footer .footer-items li a:hover {
 #FormDangNhapDangKy .nav li .active {
   color: tomato;
 }
+.login_page{
+  padding: 10vh 0;
+}
+.login_page h1{
+  text-align: center;
+  color: tomato;
+}
+.login_page label{
+  font-weight: 600;
+}
+.login_page .btn-success{
+  width: 100%;
+}
+.nav_user{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

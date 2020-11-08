@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
+  const [userName, setUserName] = useState();
+  useEffect(()=>{
+    let name = JSON.parse(localStorage.getItem('userSignIn'));
+    setUserName(name)
+  })
+  const DangXuat = () => {
+    localStorage.removeItem('userSignIn');
+    window.location.replace("/");
+  }
   return (
     <div>
       <header id="header">
@@ -50,13 +59,20 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li className="text-decoration-none">
-                  <button
+                  {userName ? (
+                    <div> 
+                      <h5><i style={{color: 'tomato'}} class="fa fa-user"></i>{" "}{userName.toString()}</h5>
+                      <button onClick={DangXuat} style={{color: 'red'}} className='btn'>(Đăng Xuất)</button>
+                    </div>
+                  ): (
+                     <Link
                     className="btn buttonDangNhap"
-                    data-toggle="modal"
-                    data-target="#DangNhap"
+                    to={"/login"}
                   >
                     <i className="fa fa-user" /> Đăng nhập
-                  </button>
+                  </Link>
+                  )}
+                 
                 </li>{" "}
               </ul>
             </div>

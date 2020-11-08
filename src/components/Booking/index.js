@@ -37,7 +37,7 @@ function Booking({
   });
 
   let userInfo = JSON.parse(localStorage.getItem("userSignIn"));
-
+  let token = JSON.parse(localStorage.getItem("accessToken"));
   let { thongTinPhim, danhSachGhe } = ticketRoom;
   if (!thongTinPhim) {
     thongTinPhim = {};
@@ -60,7 +60,7 @@ function Booking({
        * (lần đầu khi useEffect chạy, ticketRoom đang [])
        * --> Kết hợp điều kiện if với useEffect tham số để kiểm soát và chạy lại hàm khi tham số  thay đổi
        */
-      countdownTimer(400, () => {
+      countdownTimer(180, () => {
         alertFailedBooking(() => {
           fetchData(match.params.id);
         });
@@ -133,14 +133,14 @@ function Booking({
     let bookingInfo = {
       maLichChieu: ticketRoom.thongTinPhim.maLichChieu,
       danhSachVe: seatListServer,
-      taiKhoanNguoiDung: userInfo.taiKhoan,
+      taiKhoanNguoiDung: userInfo,
     };
 
     return bookingInfo;
   };
 
   const handleBookTicket = () => {
-    bookTicket(state, userInfo.accessToken, history);
+    bookTicket(state, token, history);
   };
 
   // if (ticketRoomLoading) {
@@ -224,7 +224,7 @@ function Booking({
           </div>
           <div className="booking__right col-3">
             <div className="booking__right-content">
-              <p className="price-total text-center">
+              <p className="price-total text-center">Tổng hoá đơn: {" "}
                 {(calcSeatPrice() + calcComboPrice()).toLocaleString("fr-FR")} đ
               </p>
               <div className="booking__right-movie">

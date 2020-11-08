@@ -27,6 +27,7 @@ export const actFetchTicketRoomAPI = (maLichChieu) => (dispatch) => {
     })
     .catch((err) => {
       dispatch(actFetchTicketRoomFail(err));
+     
       alertGeneralErrAPI(err);
     });
 };
@@ -64,7 +65,8 @@ export const actBookTicketAPI = (data, token, history) => (dispatch) => {
     })
     .catch((err) => {
       dispatch(actBookTicketFailure(err));
-      alertGeneralErrAPI(err);
+      console.log(err);
+     // alertGeneralErrAPI(err);
     });
 };
 

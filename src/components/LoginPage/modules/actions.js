@@ -13,16 +13,12 @@ const actFetchLogin = (user, history) => {
         dispatch(actLoginSuccess(result.data))
         //Lưu danh sách người dùng xuống trang, hệ thống trả về 2 mã loại người dùng
         //Xét mã loại người dùng quan trị hay user để phân loại quyền truy cập
-        if (result.data.maLoaiNguoiDung === "QuanTri") {
+        localStorage.setItem('accessToken', JSON.stringify(result.data.accessToken));
 
-          localStorage.setItem("userAdmin", JSON.stringify(result.data));
-          localStorage.setItem('userName', JSON.stringify(result.data.taiKhoan));
           localStorage.setItem('userSignIn', JSON.stringify(result.data.taiKhoan));
           //Chuyển hướng qua trang Dashboard
-          history.push("/admin/movie");
-        } else {
-          alert("Không có quyền truy cập!");
-        }
+          history.push("/");
+       
 
       })
       .catch(err => {
@@ -51,8 +47,9 @@ const actLoginFailed = (err) => {
   };
 };
 
-export { actFetchLogin };
+
 
 export const dangXuatAction = () => {
   return { type: FECTH_SIGN_OUT }
-}
+};
+export { actFetchLogin };
