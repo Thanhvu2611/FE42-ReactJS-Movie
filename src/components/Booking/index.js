@@ -46,6 +46,9 @@ function Booking({
   }
 
   useEffect(() => {
+    if(!userInfo){
+      history.push('/login');
+    }
     let showtimesID = match.params.id;
     fetchData(showtimesID);
     document.title = "Đặt vé";

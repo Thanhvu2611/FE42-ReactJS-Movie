@@ -7,7 +7,7 @@ import "./style.scss";
 
 export default function HomeLichChieu() {
   let [danhSachRap, setdanhSachRap] = useState([]);
-
+  let userSignIn = localStorage.getItem('userSignIn');
   let [lichChieu, setlichChieu] = useState({});
   const maHeThongRap = useSelector(
     (state) => state.MovieHookReducer.maHeThongRap
