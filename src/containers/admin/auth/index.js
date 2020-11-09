@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { actFetchLogin } from "./modules/actions";
 import { connect } from "react-redux";
 import Loading from "./../../../components/Loading";
-
 
 class Auth extends Component {
   constructor(props) {
@@ -16,7 +15,7 @@ class Auth extends Component {
   handleOnchange = (event) => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -24,18 +23,17 @@ class Auth extends Component {
     event.preventDefault();
     const user = {
       taiKhoan: this.state.username,
-      matkhau: this.state.password
-    }
+      matkhau: this.state.password,
+    };
     this.props.fetchLogin(user, this.props.history);
   };
 
   renderNoti = () => {
     const { errUser } = this.props;
     if (errUser) {
-      return <div className="alert alert-danger">{errUser.response.data}</div>
+      return <div className="alert alert-danger">{errUser.response.data}</div>;
     }
-  }
-
+  };
 
   render() {
     // console.log(this.props);
@@ -45,40 +43,55 @@ class Auth extends Component {
     }
     return (
       <div className="container">
-        <div className="row">
-          <div className="col-sm-6 mx-auto">
+        <div className="row title-label ">
+          <div className="col-sm-6 mx-auto bg-secondary px-2 py-3 rounded">
+            <h3 className="title">Đăng Nhập</h3>
             {this.renderNoti()}
             <form onSubmit={this.handleLogin}>
               <div className="form-group">
                 <label>UserName</label>
-                <input type="text" className="form-control" name='username' onChange={this.handleOnchange} value={this.state.username} />
+                <input
+                  type="text"
+                  className="form-control"
+                  name="username"
+                  onChange={this.handleOnchange}
+                  value={this.state.username}
+                />
               </div>
               <div className="form-group">
                 <label>PassWord</label>
-                <input type="text" className="form-control" name='password' onChange={this.handleOnchange} value={this.state.password} />
+                <input
+                  type="text"
+                  className="form-control"
+                  name="password"
+                  onChange={this.handleOnchange}
+                  value={this.state.password}
+                />
               </div>
-              <button type="submit" className="btn btn-success">Login</button>
+              <button type="submit" className="btn btn-success">
+                Login
+              </button>
             </form>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     loading: state.authReducer.loading,
-    errUser: state.authReducer.err
+    errUser: state.authReducer.err,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchLogin: (user, history) => {
       dispatch(actFetchLogin(user, history));
-    }
+    },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Auth)
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

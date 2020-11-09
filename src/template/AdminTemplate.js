@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { NavLink, Route, Redirect } from "react-router-dom";
+import { NavLink, Link, Route, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -127,6 +127,8 @@ const useStyles = makeStyles((theme) => ({
 
 function AdminLayout(props) {
   let userName = JSON.parse(localStorage.getItem("userName"));
+  let userAdmin = JSON.parse(localStorage.getItem("userAdmin"));
+
   //console.log(userName);
   const classes = useStyles();
   const theme = useTheme();
@@ -162,6 +164,7 @@ function AdminLayout(props) {
   //Avatar
   const [open1, setOpen1] = React.useState(false);
   const user = useSelector((state) => state.authReducer.user);
+
   //console.log(user);
   const dispatch = useDispatch();
 
@@ -170,6 +173,7 @@ function AdminLayout(props) {
   };
 
   const renderLogin = () => {
+    const { taiKhoan } = userAdmin;
     if (userName) {
       return (
         <Fragment>
@@ -218,10 +222,10 @@ function AdminLayout(props) {
                       onKeyDown={handleListKeyDown}
                     >
                       <MenuItem onClick={handleClose}>
-                        <NavLink to="/profile">
+                        <Link to={`/admin/adduser/${taiKhoan}`}>
                           <i className="fa fa-user mr-1"></i>
-                          Profile
-                        </NavLink>
+                          Cập Nhật Thông Tin
+                        </Link>
                       </MenuItem>
                       <MenuItem onClick={LogOut}>
                         <i className="fa fa-sign-out-alt mr-1">Logout</i>
