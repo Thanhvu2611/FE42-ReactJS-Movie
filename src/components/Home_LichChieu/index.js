@@ -7,7 +7,7 @@ import "./style.scss";
 
 export default function HomeLichChieu() {
   let [danhSachRap, setdanhSachRap] = useState([]);
-  let userSignIn = localStorage.getItem('userSignIn');
+  let userSignIn = localStorage.getItem("userSignIn");
   let [lichChieu, setlichChieu] = useState({});
   const maHeThongRap = useSelector(
     (state) => state.MovieHookReducer.maHeThongRap
@@ -30,8 +30,8 @@ export default function HomeLichChieu() {
     qLyPhimService
       .layCumRapTheoHeThong(maHeThongRap)
       .then((res) => {
-        let lichchieu = res.data;
-        setlichChieu(lichchieu);
+        //let lichchieu = res.data;
+        setlichChieu(res.data);
         //console.log(lichchieu);
       })
       .catch((err) => {

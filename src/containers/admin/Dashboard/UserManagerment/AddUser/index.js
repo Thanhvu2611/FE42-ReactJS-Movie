@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { actAddUser } from "./module/action";
 import { actGetUsers, fectUpdateUserRequest } from "./editmodule/action";
-
+import styled from "styled-components";
 
 class AddUser extends Component {
   constructor(props) {
@@ -15,9 +15,7 @@ class AddUser extends Component {
         soDt: "",
         maNhom: "GP01",
         maLoaiNguoiDung: "",
-        hoTen: ""
-
-
+        hoTen: "",
       },
       errors: {
         taiKhoan: "",
@@ -26,10 +24,9 @@ class AddUser extends Component {
         soDt: "",
         maNhom: "",
         maLoaiNguoiDung: "",
-        hoTen: ""
+        hoTen: "",
       },
-    }
-
+    };
   }
 
   componentDidMount() {
@@ -40,9 +37,8 @@ class AddUser extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-
     if (nextProps && nextProps.editUser) {
-      nextProps.editUser.forEach(editUser => {
+      nextProps.editUser.forEach((editUser) => {
         this.setState({
           values: {
             ...this.state.values,
@@ -51,29 +47,28 @@ class AddUser extends Component {
             email: editUser.email,
             soDt: editUser.soDt,
             maLoaiNguoiDung: editUser.maLoaiNguoiDung,
-            hoTen: editUser.hoTen
-
-          }
+            hoTen: editUser.hoTen,
+          },
         });
-      })
+        console.log(editUser);
+      });
     }
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { value, name } = event.target;
-    this.setState(state => {
+    this.setState((state) => {
       return {
         values: {
           ...state.values,
-          [name]: value
-        }
+          [name]: value,
+        },
       };
       //console.log(this.state.values);
     });
   };
 
-  handleBlur = event => {
-
+  handleBlur = (event) => {
     const { value, name } = event.target;
     const errorMessage = this.validate(name, value);
     this.setState((state) => {
@@ -103,14 +98,16 @@ class AddUser extends Component {
           },
         };
       });
-    };
+    }
     if (!isValid) return;
-    if (this.state.values.taiKhoan) { this.props.updateUser(this.state.values) } else {
+    if (this.state.values.taiKhoan) {
+      this.props.updateUser(this.state.values);
+    } else {
       this.props.fetchAddUser(this.state.values);
     }
-    history.push("/admin/user")
+    history.push("/admin/user");
     //console.log(this.props);
-  }
+  };
 
   //UPDATE USER
   // handleSave = (event) => {
@@ -149,11 +146,14 @@ class AddUser extends Component {
       errorMessage = !value ? "Họ Tên không được để trống" : "";
     }
     return errorMessage;
-  }
-
-
+  };
 
   render() {
+    //style css
+    // let disabled = false;
+    // if (this.props.match.params.id) {
+    //   disabled = true;
+    // }
 
     return (
       <div className="container">
@@ -170,6 +170,7 @@ class AddUser extends Component {
                   value={this.state.values.taiKhoan}
                   onChange={this.handleChange}
                   onBlur={this.handleBlur}
+                  disabled={this.props.match.params.id}
                 />
                 {this.state.errors.taiKhoan && (
                   <div className="alert alert-danger">
@@ -193,7 +194,6 @@ class AddUser extends Component {
                     <span>{this.state.errors.matKhau}</span>
                   </div>
                 )}
-
               </div>
               <div className="form-group">
                 <label>Họ Tên</label>
@@ -211,7 +211,6 @@ class AddUser extends Component {
                   </div>
                 )}
               </div>
-
             </div>
             <div className="col-6">
               <div className="form-group">
@@ -248,29 +247,35 @@ class AddUser extends Component {
               </div>
               <div className="form-group">
                 <label>Loại Người Dùng </label>
-                <select className="form-control" name="maLoaiNguoiDung" value={this.state.values.maLoaiNguoiDung.value}>
+                <select
+                  className="form-control"
+                  name="maLoaiNguoiDung"
+                  value={this.state.values.maLoaiNguoiDung.value}
+                  disabled
+                >
                   <option value="KhachHang">Khách Hàng</option>
                   <option value="QuanTri">Quản Trị</option>
-
                 </select>
               </div>
             </div>
-            <button type="submit" className="btn btn-success">Submit</button>
+            <button type="submit" className="btn btn-success">
+              Submit
+            </button>
             {/* <button type="submit" className="btn btn-success" onClick={this.handleSave}>Lưu</button> */}
           </div>
         </form>
-      </div >
-    )
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     editUser: state.editUserReducer.editUser,
   };
-}
+};
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchAddUser: (user) => {
       dispatch(actAddUser(user));
@@ -281,8 +286,8 @@ const mapDispatchToProps = dispatch => {
     updateUser: (editUser) => {
       dispatch(fectUpdateUserRequest(editUser));
       // console.log(1);
-    }
-  }
-}
+    },
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddUser);

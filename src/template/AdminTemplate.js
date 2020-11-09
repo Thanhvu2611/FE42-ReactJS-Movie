@@ -19,16 +19,15 @@ import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import LocalMoviesIcon from "@material-ui/icons/LocalMovies";
 import ListItemText from "@material-ui/core/ListItemText";
-import { userLogin } from "../services/config/setting";
 import { dangXuatAction } from "../containers/admin/auth/modules/actions";
-import { FormatBoldRounded } from "@material-ui/icons";
 import Popper from "@material-ui/core/Popper";
 import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import { Button, MenuList } from "@material-ui/core";
+import { MenuList } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import styled from "styled-components";
+import { actGetUsers } from "../containers/admin/Dashboard/UserManagerment/AddUser/editmodule/action";
 
 const DivIconButton = styled.div`
   .MuiIconButton-root {
@@ -127,9 +126,16 @@ const useStyles = makeStyles((theme) => ({
 
 function AdminLayout(props) {
   let userName = JSON.parse(localStorage.getItem("userName"));
-  let userAdmin = JSON.parse(localStorage.getItem("userAdmin"));
+  //const editUser = useSelector((state) => state.editUserReducer.editUser);
+  const userAdmin = JSON.parse(localStorage.getItem("userAdmin"));
+  //let [userAdmin, setUserAdmin] = useState([]);
+  const dispatch = useDispatch();
+  const editUser = (userAdmin) => dispatch(actGetUsers([userAdmin]));
+  // useEffect(() => {
+  //   setUserAdmin = JSON.parse(localStorage.getItem("userAdmin"));
+  // }, []);
 
-  //console.log(userName);
+  console.log(userAdmin);
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -163,17 +169,15 @@ function AdminLayout(props) {
 
   //Avatar
   const [open1, setOpen1] = React.useState(false);
-  const user = useSelector((state) => state.authReducer.user);
 
   //console.log(user);
-  const dispatch = useDispatch();
 
   const LogOut = () => {
     dispatch(dangXuatAction());
   };
 
   const renderLogin = () => {
-    const { taiKhoan } = userAdmin;
+    //const { taiKhoan } = user;
     if (userName) {
       return (
         <Fragment>
@@ -222,8 +226,11 @@ function AdminLayout(props) {
                       onKeyDown={handleListKeyDown}
                     >
                       <MenuItem onClick={handleClose}>
-                        <Link to={`/admin/adduser/${taiKhoan}`}>
-                          <i className="fa fa-user mr-1"></i>
+                        <Link to={`/admin/adduser/${userAdmin.taiKhoan}`}>
+                          <i
+                            className="fa fa-user mr-1"
+                            onClick={editUser(userAdmin)}
+                          ></i>
                           Cập Nhật Thông Tin
                         </Link>
                       </MenuItem>

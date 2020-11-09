@@ -316,6 +316,7 @@ class AddMovie extends Component {
                   value={this.state.values.maNhom}
                   onChange={this.handleChange}
                   onBlur={this.handleBlur}
+                  disabled
                 />
               </div>
             </div>
