@@ -8,7 +8,7 @@ export default function MovieManagerment(props) {
       {/* <div className="row">
           <div className="col-5"> */}
       <Link to="/admin/addmovie">
-        <button className="btn btn-success">ADD MOVIE</button>
+        <button className="btn btn-success header1">ADD MOVIE</button>
       </Link>
       {/* </div>
         </div> */}

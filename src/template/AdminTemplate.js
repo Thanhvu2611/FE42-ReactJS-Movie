@@ -28,6 +28,7 @@ import { MenuList } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import styled from "styled-components";
 import { actGetUsers } from "../containers/admin/Dashboard/UserManagerment/AddUser/editmodule/action";
+import { dark } from "@material-ui/core/styles/createPalette";
 
 const DivIconButton = styled.div`
   .MuiIconButton-root {
@@ -49,6 +50,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    backgroundColor: "#607D8B",
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -130,12 +132,12 @@ function AdminLayout(props) {
   const userAdmin = JSON.parse(localStorage.getItem("userAdmin"));
   //let [userAdmin, setUserAdmin] = useState([]);
   const dispatch = useDispatch();
-  const editUser = (userAdmin) => dispatch(actGetUsers([userAdmin]));
+  const editUser = (userAdmin) => dispatch(actGetUsers(userAdmin));
   // useEffect(() => {
   //   setUserAdmin = JSON.parse(localStorage.getItem("userAdmin"));
   // }, []);
 
-  console.log(userAdmin);
+  console.log(editUser(userAdmin));
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -360,7 +362,12 @@ function AdminLayout(props) {
         </Drawer>
         <main
           className={classes.content}
-          style={{ padding: "0px", paddingTop: "80px", paddingLeft: "250px" }}
+          style={{
+            padding: "0px",
+            paddingTop: "80px",
+            paddingLeft: "250px",
+            backgroundColor: "#9E9E9E",
+          }}
         >
           <div className={classes.toolbar} />
           <Typography paragraph>{props.children}</Typography>

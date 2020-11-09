@@ -1,13 +1,13 @@
 .title{
 
-  text-align: center;
+  h3{text-align: center;
   color: $dl-color-green-0;
-  font-weight: 600;
+  font-weight: 600;}
 }
 .title-label{
-  color: $dl-color-blue-1;
+  color:  $dl-color-indigo-2;
   font-size:  $dl-fs-1;
-  font-weight:  $fw-default;
+  font-weight:  $fw-bold;
   border-radius: 20px;
  
 }

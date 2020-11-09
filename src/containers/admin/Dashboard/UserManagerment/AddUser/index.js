@@ -156,10 +156,10 @@ class AddUser extends Component {
     // }
 
     return (
-      <div className="container">
+      <div className="container title">
         <h3>{this.props.match.params.id ? "EDIT USER" : "ADD USER"}</h3>
         <form onSubmit={this.handleSubmit}>
-          <div className="row">
+          <div className="row title-label">
             <div className="col-6">
               <div className="form-group">
                 <label>Tài Khoản</label>

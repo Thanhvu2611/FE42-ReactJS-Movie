@@ -4,3 +4,8 @@
   font-weight: 600;
   @include style-text-hover( $dl-color-green-3,#000000);
 }
+.header1{
+  font-weight: $fw-bold;
+  font-size:  $dl-fs-1;
+  @include style-text-hover( $dl-color-indigo-1, $dl-color-green-0);
+}

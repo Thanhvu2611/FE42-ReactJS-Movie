@@ -192,10 +192,10 @@ class AddMovie extends Component {
     if (loading) return <Loading />;
     console.log(this.state);
     return (
-      <div className="container">
+      <div className="container title">
         <h3>{this.props.match.params.id ? "EDIT MOVIE" : "ADD MOVIE"}</h3>
         <form onSubmit={this.handleSubmit}>
-          <div className="row">
+          <div className="row title-label">
             <div className="col-6">
               {/* <div className="form-group">
                 <label>Mã Phim</label>

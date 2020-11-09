@@ -467,7 +467,7 @@ export default function UserList() {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err.reponse.data);
+        console.log(err.response.data);
       });
   }, []);
   const renderUser = () => {

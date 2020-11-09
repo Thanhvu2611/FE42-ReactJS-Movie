@@ -10,7 +10,7 @@ export default function UserManagerment(props) {
   return (
     <Paper elevation={3}>
       <Link to="/admin/adduser">
-        <button className="btn btn-success">Thêm Người Dùng</button>
+        <button className="btn btn-success header1">Thêm Người Dùng</button>
       </Link>
       <ListUser />
     </Paper>
