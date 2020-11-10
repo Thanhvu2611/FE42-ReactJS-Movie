@@ -441,7 +441,7 @@ export default function MovieList() {
             >
               <span className="mb-2 d-inline-block">
                 <br />
-                <i className="fa fa-play-circle" />
+                <i className="fa fa-play-circle hover-icon" />
               </span>
             </a>
           ),
@@ -454,19 +454,19 @@ export default function MovieList() {
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <Tooltip title="Tạo Lịch Chiếu">
                   <Link to={`/admin/detail/${maPhim}`}>
-                    <i class="fas fa-video" />
+                    <i class="fas fa-video hover-icon" />
                   </Link>
                 </Tooltip>
                 <Tooltip title="Sửa Phim">
                   <Link to={`/admin/addmovie/${maPhim}`}>
-                    <i className="fa fa-edit" />
+                    <i className="fa fa-edit hover-icon" />
                   </Link>
                 </Tooltip>
                 <Tooltip title="Xóa Phim">
                   <div>
                     <i
                       style={{ cursor: "pointer", color: "#fb4226" }}
-                      className="fa fa-trash-alt"
+                      className="fa fa-trash-alt hover-icon"
                       onClick={() => {
                         swal({
                           title: "Bạn chắc chứ?",
@@ -547,6 +547,14 @@ export default function MovieList() {
           data={renderMovie()}
           options={{
             search: true,
+            headerStyle: {
+              backgroundColor: "gray",
+              color: "white",
+              fontSize: "18px",
+            },
+            rowStyle: (rowData, idx, num) => ({
+              background: idx % 2 ? "#c7c6ca" : "initial",
+            }),
           }}
         />
       </DivMaterialTable>

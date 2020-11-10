@@ -9,3 +9,10 @@
   font-size:  $dl-fs-1;
   @include style-text-hover( $dl-color-indigo-1, $dl-color-green-0);
 }
+.hover-icon{
+  transition: all 0.5s;
+&:hover{
+  transform: scale(1.5);
+
+}
+}

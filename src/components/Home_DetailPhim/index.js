@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { qLyPhimService } from "../../services/QuanLyPhimServices";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import { showVideo } from "../../assets/js/main";
+import ModalVideo from "../../components/Modal/Video";
 
 export default function HomeDetailPhim(props) {
   let [phimduocchon, setphimduocchon] = useState({});
@@ -11,6 +13,9 @@ export default function HomeDetailPhim(props) {
 
   const { match } = props;
   const id = match.params.id;
+  useEffect(() => {
+    showVideo();
+  }, [phimduocchon]);
 
   useEffect(() => {
     if (match) {
@@ -19,7 +24,6 @@ export default function HomeDetailPhim(props) {
         .then((res) => {
           let phim = res.data;
           setphimduocchon(phim);
-
         })
         .catch((err) => {
           console.log(err.response.data);
@@ -35,7 +39,7 @@ export default function HomeDetailPhim(props) {
         });
     }
   }, [id]);
-  console.log(lichchieutheophim);
+  //console.log(lichchieutheophim);
   useEffect(() => {
     qLyPhimService
       .layThongTinPhimTheoTrang(1, 6)
@@ -55,7 +59,7 @@ export default function HomeDetailPhim(props) {
       .catch((err) => {
         console.log(err.response.data);
       });
-  }, []);
+  }, [id]);
 
   const renderPhimDeXuat = () => {
     return danhsachphim.map((item, index) => {
@@ -121,7 +125,7 @@ export default function HomeDetailPhim(props) {
             <img src={item.logo} alt="logoRap" />
           </h5>
           {Object.entries(item.cumRapChieu).map(([index, itemRap]) => {
-            console.log(itemRap);
+            //console.log(itemRap);
             return (
               <div className="LichChieu_gioChieu">
                 <div className="row">
@@ -138,7 +142,10 @@ export default function HomeDetailPhim(props) {
                           "41.01"
                         ) {
                           return (
-                            <Link  to={`/booking/${itemLich.maLichChieu}`} key={index}>
+                            <Link
+                              to={`/booking/${itemLich.maLichChieu}`}
+                              key={index}
+                            >
                               {moment(itemLich.ngayChieuGioChieu).format(
                                 "DD/MM"
                               )}
@@ -182,14 +189,16 @@ export default function HomeDetailPhim(props) {
               <div className="row">
                 <div className="col-12 col-sm-5 img-Phim">
                   <img src={phimduocchon.hinhAnh} alt />
-                  <Link
-                    to={phimduocchon.trailer}
-                    className="btn-playVideo"
+                  <a
+                    //to={phimduocchon.trailer}
+                    className="btn-playVideo video-popup"
                     data-toggle="modal"
-                    data-target="#trailerPhim"
+                    //data-target="#trailerPhim"
+                    data-src={phimduocchon.trailer}
+                    href="#modalVideo"
                   >
                     <i className="fa fa-play" />
-                  </Link>
+                  </a>
                 </div>
                 <div className="col-12 col-sm-7 titlePhim">
                   <div className="row justify-content-center">
@@ -300,6 +309,7 @@ export default function HomeDetailPhim(props) {
           </div>
         </div>
       </section>
+      <ModalVideo />
     </div>
   );
 }

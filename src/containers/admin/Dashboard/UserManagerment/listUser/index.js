@@ -487,16 +487,16 @@ export default function UserList() {
                 <Tooltip title="Cập Nhật Thông Tin Người Dùng">
                   <Link to={`/admin/adduser/${taiKhoan}`}>
                     <i
-                      className="fa fa-edit"
+                      className="fa fa-edit hover-icon"
                       onClick={editUser(danhSachNguoiDung)}
                     />
                   </Link>
                 </Tooltip>
                 <Tooltip title="Xóa Người Dùng">
-                  <div>
+                  <div className="">
                     <i
                       style={{ cursor: "pointer", color: "#fb4226" }}
-                      className="fa fa-trash-alt"
+                      className="fa fa-trash-alt hover-icon"
                       onClick={() => {
                         swal({
                           title: "Bạn chắc chứ?",
@@ -567,6 +567,14 @@ export default function UserList() {
           data={renderUser()}
           options={{
             search: true,
+            headerStyle: {
+              backgroundColor: "gray",
+              color: "white",
+              fontSize: "18px",
+            },
+            rowStyle: (rowData, idx, num) => ({
+              background: idx % 2 ? "#c7c6ca" : "initial",
+            }),
           }}
         />
       </DivMaterialTable>

@@ -100,22 +100,24 @@ class AddMovie extends Component {
     //console.log("ok");
     event.preventDefault();
     var { history } = this.props;
-    var form_data = new FormData();
     let isValid = true;
+    let form_data = new FormData();
+    //let form_data = this.state.values;
+
     for (let key in this.state.values) {
       const errorMessage = this.validate(key, this.state.values[key]);
       if (errorMessage) {
         isValid = false;
+        this.setState((state) => {
+          return {
+            errors: {
+              ...state.errors,
+              [key]: errorMessage,
+            },
+          };
+        });
       }
       form_data.append(key, this.state.values[key]);
-      // this.setState((state) => {
-      //   return {
-      //     errors: {
-      //       ...state.errors,
-      //       [key]: errorMessage,
-      //     },
-      //   };
-      // });
     }
     if (!isValid) return;
 
@@ -190,12 +192,12 @@ class AddMovie extends Component {
   render() {
     const { loading } = this.state;
     if (loading) return <Loading />;
-    console.log(this.state);
+    //console.log(this.state);
     return (
       <div className="container title">
         <h3>{this.props.match.params.id ? "EDIT MOVIE" : "ADD MOVIE"}</h3>
         <form onSubmit={this.handleSubmit}>
-          <div className="row title-label">
+          <div className="row title-label mx-1">
             <div className="col-6">
               {/* <div className="form-group">
                 <label>Mã Phim</label>
@@ -333,15 +335,14 @@ class AddMovie extends Component {
                 />
               </div>
             </div>
-          </div>
-          <div>
-            <button type="submit" className="btn btn-success">
+            <button type="submit" className="btn btn-success btn-submit">
               Submit
             </button>
-            {/* <button type="submit" className="btn btn-info" onClick={this.handleSave}>
+          </div>
+
+          {/* <button type="submit" className="btn btn-info" onClick={this.handleSave}>
               Save
             </button> */}
-          </div>
         </form>
       </div>
     );

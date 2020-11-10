@@ -50,7 +50,7 @@ class AddUser extends Component {
             hoTen: editUser.hoTen,
           },
         });
-        console.log(editUser);
+        // console.log(editUser);
       });
     }
   }
@@ -156,10 +156,10 @@ class AddUser extends Component {
     // }
 
     return (
-      <div className="container title">
+      <div className="container mx-auto title">
         <h3>{this.props.match.params.id ? "EDIT USER" : "ADD USER"}</h3>
         <form onSubmit={this.handleSubmit}>
-          <div className="row title-label">
+          <div className="row title-label mx-1">
             <div className="col-6">
               <div className="form-group">
                 <label>Tài Khoản</label>
@@ -258,7 +258,7 @@ class AddUser extends Component {
                 </select>
               </div>
             </div>
-            <button type="submit" className="btn btn-success">
+            <button type="submit" className="btn btn-success btn-submit">
               Submit
             </button>
             {/* <button type="submit" className="btn btn-success" onClick={this.handleSave}>Lưu</button> */}

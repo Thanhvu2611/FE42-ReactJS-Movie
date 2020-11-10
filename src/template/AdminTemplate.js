@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { NavLink, Link, Route, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import clsx from "clsx";
@@ -129,15 +129,25 @@ const useStyles = makeStyles((theme) => ({
 function AdminLayout(props) {
   let userName = JSON.parse(localStorage.getItem("userName"));
   //const editUser = useSelector((state) => state.editUserReducer.editUser);
-  const userAdmin = JSON.parse(localStorage.getItem("userAdmin"));
+
   //let [userAdmin, setUserAdmin] = useState([]);
   const dispatch = useDispatch();
-  const editUser = (userAdmin) => dispatch(actGetUsers(userAdmin));
+  const [editUser, setEditUser] = useState(Object);
+
+  //const editUser<Object> = (userAdmin) => dispatch(actGetUsers(userAdmin));
   // useEffect(() => {
   //   setUserAdmin = JSON.parse(localStorage.getItem("userAdmin"));
   // }, []);
-
-  console.log(editUser(userAdmin));
+  useEffect(() => {
+    let userAdmin = JSON.parse(localStorage.getItem("userAdmin"));
+    setEditUser(userAdmin);
+    // console.log();
+    // if (editUser) {
+    //   console.log(editUser);
+    // }
+  }, editUser);
+  //console.log(editUser);
+  editUser && dispatch(actGetUsers(editUser));
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -228,10 +238,10 @@ function AdminLayout(props) {
                       onKeyDown={handleListKeyDown}
                     >
                       <MenuItem onClick={handleClose}>
-                        <Link to={`/admin/adduser/${userAdmin.taiKhoan}`}>
+                        <Link to={`/admin/adduser/${editUser.taiKhoan}`}>
                           <i
                             className="fa fa-user mr-1"
-                            onClick={editUser(userAdmin)}
+                            //onClick={editUser(editUser)}
                           ></i>
                           Cập Nhật Thông Tin
                         </Link>

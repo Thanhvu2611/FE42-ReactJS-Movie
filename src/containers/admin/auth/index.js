@@ -43,8 +43,8 @@ class Auth extends Component {
     }
     return (
       <div className="container">
-        <div className="row title-label ">
-          <div className="col-sm-6 mx-auto bg-secondary px-2 py-3 rounded">
+        <div className="row ">
+          <div className="col-sm-6 mx-auto px-3 py-3 rounded title title-label ">
             <h3 className="title">Đăng Nhập</h3>
             {this.renderNoti()}
             <form onSubmit={this.handleLogin}>

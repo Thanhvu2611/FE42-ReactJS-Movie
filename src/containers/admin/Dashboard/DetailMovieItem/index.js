@@ -18,17 +18,37 @@ function ListMovieShedule(props) {
   });
   const [danhSachHeThongRap, setDanhSachHeThongRap] = useState([]);
   const [danhSachCumRap, setDanhSachCumRap] = useState([]);
+  const [ThongLichChieu, setThongLichChieu] = useState([]);
 
   const id = props.match.params.id;
+  useEffect(() => {
+    qLyPhimService
+      .layThongTinPhim(id)
+      .then((res) => {
+        setThongLichChieu(res.data);
+      })
+      .catch((err) => {});
+  }, [id]);
   useEffect(() => {
     props.fetchMovieSchedule(id);
     qLyPhimService.layHeThongRap().then((result) => {
       setDanhSachHeThongRap(result.data);
     });
+    // if (props) {
+
+    //setmovieShedule1(movieShedule);
+    // }
 
     //console.log(props.fetchMovieSchedule(id));
   }, [id]);
-  const { movieShedule } = props;
+  //console.log(ThongLichChieu);
+  //const { movieShedule } = props;
+  //console.log(movieShedule);
+  // useEffect(() => {
+  //   setmovieShedule(props.movieShedule);
+  // }, []);
+  // console.log(movieShedule);
+  //const { movieShedule } = useState;
   // let [heThongRap, setHeThongRap] = useState([]);
   // useEffect(() => {
   //   qLyPhimService
@@ -56,10 +76,10 @@ function ListMovieShedule(props) {
   }, [maHeThongRap]);
   const renderTable = () => {
     if (
-      movieShedule.heThongRapChieu &&
-      movieShedule.heThongRapChieu.length > 0
+      ThongLichChieu.heThongRapChieu &&
+      ThongLichChieu.heThongRapChieu.length > 0
     ) {
-      return movieShedule.heThongRapChieu.map((heThong) => (
+      return ThongLichChieu.heThongRapChieu.map((heThong) => (
         <Showtime heThong={heThong} />
       ));
       //console.log(movieShedule.heThongRapChieu.cumRapChieu);
@@ -202,19 +222,19 @@ function ListMovieShedule(props) {
   return (
     <Container>
       <Paper elevation={3}>
-        <div className="container">
+        <div className="container title">
           <div className="header py-1">
-            <h4 className="title" style={{ color: "green" }}>
-              Thông Tin Lịch Chiếu Phim Của Phim {movieShedule.tenPhim}
+            <h4 style={{ color: "green" }}>
+              Thông Tin Lịch Chiếu Phim Của Phim {ThongLichChieu.tenPhim}
             </h4>
           </div>
           <div className="body">
             <form onSubmit={handleSubmit}>
-              <div className="row">
+              <div className="row title-label">
                 <div className="col-4">
                   <img
                     className="img-thumbnail"
-                    src={movieShedule.hinhAnh}
+                    src={ThongLichChieu.hinhAnh}
                     style={{
                       width: "100 %",
                       height: 300,
