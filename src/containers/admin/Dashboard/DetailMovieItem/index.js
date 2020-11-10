@@ -7,14 +7,25 @@ import { qLyAdminService } from "../../../../services/QuanLyAdminService";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import swal from "sweetalert";
+import Loading from "../../../../components/Loading";
 
 function ListMovieShedule(props) {
   const [state, setState] = useState({
-    maRap: null,
-    ngayChieu: "",
-    gioChieu: "",
-    giaVe: null,
-    maPhim: props.match.params.id,
+    values: {
+      maRap: null,
+      ngayChieu: "",
+      gioChieu: "",
+      giaVe: null,
+      maPhim: props.match.params.id,
+    },
+    errors: {
+      maRap: null,
+      ngayChieu: "",
+      gioChieu: "",
+      giaVe: null,
+      maPhim: "",
+    },
+    loading: true,
   });
   const [danhSachHeThongRap, setDanhSachHeThongRap] = useState([]);
   const [danhSachCumRap, setDanhSachCumRap] = useState([]);
@@ -26,6 +37,7 @@ function ListMovieShedule(props) {
       .layThongTinPhim(id)
       .then((res) => {
         setThongLichChieu(res.data);
+        setState({ loading: false });
       })
       .catch((err) => {});
   }, [id]);
@@ -184,13 +196,44 @@ function ListMovieShedule(props) {
   const handeChange = (e) => {
     const { name, value } = e.target;
     setState({
-      ...state,
-      [name]: value,
+      // ...state,
+      // [name]: value,
+      values: { ...state.values, [name]: value },
+    });
+  };
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    const errorMessage = validate(name, value);
+    setState((state) => {
+      return {
+        errors: {
+          ...state.errors,
+          [name]: errorMessage,
+        },
+      };
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    let isValid = true;
+    for (let key in state.values) {
+      const errorMessage = validate(key, state.values[key]);
+      if (errorMessage) {
+        isValid = false;
+      }
+
+      setState((state) => {
+        return {
+          errors: {
+            ...state.errors,
+            [key]: errorMessage,
+          },
+        };
+      });
+    }
+    if (!isValid) return;
     const { maPhim, maRap, giaVe, ngayChieu, gioChieu } = state;
     const thongtin = {
       maPhim: parseInt(maPhim),
@@ -217,18 +260,60 @@ function ListMovieShedule(props) {
         });
       });
   };
+
+  //Validate
+  const validate = (name, value) => {
+    let errorMessage = "";
+    if (name === "heThongRap") {
+      errorMessage = !value ? "Bạn chưa chọn hệ thống rạp" : "";
+    }
+    if (name === "cumRap") {
+      errorMessage = !value ? "Bạn chưa chọn cụm rạp" : "";
+    }
+    if (name === "maRap") {
+      errorMessage = !value ? "Bạn chưa chọn rạp" : "";
+    }
+    if (name === "ngayChieu") {
+      if (!value) {
+        errorMessage = !value ? "Ngày Khởi Chiếu không được để trống" : "";
+      } else {
+        const isValid = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/.test(
+          value
+        );
+        errorMessage = !isValid
+          ? "Ngày khởi chiếu không đúng định dạng DD/MM/YYYY"
+          : "";
+      }
+    }
+    if (name === "gioChieu") {
+      if (!value) {
+        errorMessage = !value ? "Giờ Chiếu không được để trống" : "";
+      } else {
+        const isValid = /^[0-2][0-3]:[0-5][0-9]:[0-5][0-9]$/.test(value);
+        errorMessage = !isValid
+          ? "Ngày khởi chiếu không đúng định dạng 00:00:00"
+          : "";
+      }
+    }
+    if (name === "giaVe") {
+      errorMessage = !value ? "Bạn chưa chọn giá vé" : "";
+    }
+    return errorMessage;
+  };
+
+  if (state.loading) return <Loading />;
   //console.log(state);
   //let index = 0;
   return (
     <Container>
       <Paper elevation={3}>
-        <div className="container title">
+        <div className="container my-1">
           <div className="header py-1">
-            <h4 style={{ color: "green" }}>
+            <h4 className="title">
               Thông Tin Lịch Chiếu Phim Của Phim {ThongLichChieu.tenPhim}
             </h4>
           </div>
-          <div className="body">
+          <div className="body title p-2">
             <form onSubmit={handleSubmit}>
               <div className="row title-label">
                 <div className="col-4">
@@ -243,34 +328,37 @@ function ListMovieShedule(props) {
                   />
                 </div>
                 <div className="col-3">
-                  <div className="form-group">
+                  <div className="form-group py-2">
                     <select
-                      style={{ width: 200 }}
+                      style={{ width: 200, height: 50 }}
                       name="heThongRap"
                       onChange={layMaHeThongRap}
+                      onBlur={handleBlur}
                     >
-                      <option value="#">--Chọn Hệ Thống Rạp</option>
+                      <option value="#">Chọn Hệ Thống Rạp</option>
                       {renderHeThongRap()}
                     </select>
                   </div>
-                  <div className="form-group">
+                  <div className="form-group py-2">
                     <select
-                      style={{ width: 200 }}
+                      style={{ width: 200, height: 50 }}
                       name="cumRap"
                       onChange={layDanhSachRap}
+                      onBlur={handleBlur}
                     >
-                      <option value="#">--Chọn Cụm Rạp</option>
+                      <option value="#">Chọn Cụm Rạp</option>
                       {renderCumRap()}
                     </select>
                   </div>
 
-                  <div className="form-group">
+                  <div className="form-group py-2">
                     <select
-                      style={{ width: 200 }}
+                      style={{ width: 200, height: 50 }}
                       name="maRap"
                       onChange={handeChange}
+                      onBlur={handleBlur}
                     >
-                      <option value="#">--Chọn Rạp</option>
+                      <option value="#">Chọn Rạp</option>
                       {renderRap()}
                     </select>
                   </div>
@@ -284,6 +372,7 @@ function ListMovieShedule(props) {
                       type="text"
                       className="form-control"
                       onChange={handeChange}
+                      onBlur={handleBlur}
                     />
                   </div>
                   <div className="form-group">
@@ -293,6 +382,7 @@ function ListMovieShedule(props) {
                       type="text"
                       className="form-control"
                       onChange={handeChange}
+                      onBlur={handleBlur}
                     />
                   </div>
                   <div className="form-group">
@@ -302,14 +392,22 @@ function ListMovieShedule(props) {
                         name="giaVe"
                         type="number"
                         className="form-control"
+                        //value={state.values.giaVe}
                         onChange={handeChange}
+                        onBlur={handleBlur}
+                        min="1000"
                       />
+                      {/* {state.errors.giaVe && (
+                        <div className="alert alert-danger">
+                          <span>{state.errors.giaVe}</span>
+                        </div>
+                      )} */}
                       <div className="input-group-append">
                         <span className="input-group-text">VNĐ</span>
                       </div>
                     </div>
                   </div>
-                  <button type="submit" className="btn btn-success">
+                  <button type="submit" className="btn btn-success btn-submit">
                     Tạo Lịch Chiếu
                   </button>
                 </div>
@@ -323,12 +421,11 @@ function ListMovieShedule(props) {
                 Delete
               </button>
             </div> */}
+          </div>
+          <div>
+            <hr />
 
-            <div>
-              <hr />
-
-              {renderTable()}
-            </div>
+            {renderTable()}
           </div>
         </div>
       </Paper>
