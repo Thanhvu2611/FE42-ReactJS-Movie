@@ -14,6 +14,7 @@ import addUserReducer from "../../containers/admin/Dashboard/UserManagerment/Add
 import editUserReducer from "../../containers/admin/Dashboard/UserManagerment/AddUser/editmodule/reducer";
 import MovieHookReducer from "./MovieHookReducer";
 import BookingTicket from "./BookingTicket";
+import signUpReducer from "../../components/Registration/modules/reducer"
 const rootReducers = combineReducers({
   //key: value
   nowMovieReducer,
@@ -28,6 +29,7 @@ const rootReducers = combineReducers({
   editUserReducer,
   MovieHookReducer,
   BookingTicket,
+  signUpReducer
 });
 
 export default rootReducers;

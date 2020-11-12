@@ -64,7 +64,7 @@ class LoginPage extends Component {
             <a style={{color: 'tomato', marginTop: '10px'}} href="/registration">(*) Bạn chưa có tài khoản ?</a>
           </div>
         </div>
-      </div>
+       </div>
     )
   }
 }

@@ -1,5 +1,5 @@
 // import HomePage from "../containers/home/HomePage";
-import CarouselHome from "../components/CarouselHome";
+import SignUp from "../components/Registration";
 import Movie from "../components/Movie";
 import HomePage from "../containers/home/HomePage";
 
@@ -34,6 +34,11 @@ const routesHome = [
     exact: false,
     path: "/login",
     component: LoginPage,
+  },
+  {
+    exact: false,
+    path: "/signup",
+    component: SignUp,
   },
   {
     path: "/booking/:id",
