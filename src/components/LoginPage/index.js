@@ -61,7 +61,7 @@ class LoginPage extends Component {
               </div>
               <button type="submit" className="btn btn-success">Đăng Nhập</button>
             </form>
-            <a style={{color: 'tomato', marginTop: '10px'}} href="/registration">(*) Bạn chưa có tài khoản ?</a>
+            <a style={{color: 'tomato', marginTop: '10px'}} href="/signup">(*) Bạn chưa có tài khoản ?</a>
           </div>
         </div>
        </div>
