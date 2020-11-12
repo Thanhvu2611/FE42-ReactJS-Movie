@@ -39,22 +39,22 @@ export default function Navbar() {
             >
               <ul className="nav justify-content-center">
                 <li className="nav-item">
-                  <a className="nav-link" href="#A">
+                  <a className="nav-link" href="/">
                     LỊCH CHIẾU
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#A">
+                  <a className="nav-link" href="/">
                     CỤM RẠP
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#A">
+                  <a className="nav-link" href="/">
                     TIN TỨC
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#A">
+                  <a className="nav-link" href="/">
                     VỀ CHÚNG TÔI
                   </a>
                 </li>
