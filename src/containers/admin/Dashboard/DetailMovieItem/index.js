@@ -8,6 +8,7 @@ import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import swal from "sweetalert";
 import Loading from "../../../../components/Loading";
+import { MessageSharp } from "@material-ui/icons";
 
 function ListMovieShedule(props) {
   const [state, setState] = useState({
@@ -19,14 +20,21 @@ function ListMovieShedule(props) {
       maPhim: props.match.params.id,
     },
     errors: {
-      maRap: null,
+      // maRap: null,
       ngayChieu: "",
       gioChieu: "",
       giaVe: null,
       maPhim: "",
     },
+    validations: {
+      // maRap: false,
+      ngayChieu: false,
+      gioChieu: false,
+      giaVe: false,
+    },
     loading: true,
   });
+  const [formValid, setFormValid] = useState(false);
   const [danhSachHeThongRap, setDanhSachHeThongRap] = useState([]);
   const [danhSachCumRap, setDanhSachCumRap] = useState([]);
   const [ThongLichChieu, setThongLichChieu] = useState([]);
@@ -192,48 +200,101 @@ function ListMovieShedule(props) {
     //   });
     // }
   };
+  //xét validation
+
+  // useEffect(() => {
+  //   let { ngayChieu, gioChieu, giaVe } = state.validations;
+  //   setFormValid(ngayChieu && gioChieu && giaVe);
+  // }, [state]);
 
   const handeChange = (e) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
     setState({
-      // ...state,
-      // [name]: value,
+      ...state,
+
       values: { ...state.values, [name]: value },
     });
   };
-  const handleBlur = (e) => {
-    const { name, value } = e.target;
-    const errorMessage = validate(name, value);
-    setState((state) => {
-      return {
-        errors: {
-          ...state.errors,
-          [name]: errorMessage,
-        },
-      };
+  // const handleBlur = (e) => {
+  //   const { name, value } = e.target;
+  //   const errorMessage = validate(name, value);
+  //   setState((state) => {
+  //     return {
+  //       errors: {
+  //         ...state.errors,
+  //         [name]: errorMessage,
+  //       },
+  //     };
+  //   });
+  // };
+  //Validate
+  const handleErrors = (e) => {
+    let { placeholder, name, value } = e.target;
+    //check rỗng
+    let mess = value === "" ? placeholder + "không được để trống" : "";
+    //check từng ô input đã nhập
+    switch (name) {
+      // case "maRap":
+      //   break;
+      case "ngayChieu":
+        let ngayPattern = /^[0-2][0-3]:[0-5][0-9]:[0-5][0-9]$/;
+        mess =
+          value && !value.match(ngayPattern)
+            ? placeholder + "Ngày khởi chiếu không đúng định dạng DD/MM/YYYY"
+            : mess;
+        break;
+      case "gioChieu":
+        let gioPattern = /^[0-2][0-3]:[0-5][0-9]:[0-5][0-9]$/;
+        mess =
+          value && !value.match(gioPattern)
+            ? placeholder + "Giờ khởi chiếu không đúng định dạng 00:00:00"
+            : mess;
+        break;
+      case "giaVe":
+        mess =
+          value && value.length < 10000
+            ? placeholder + "Phải từ 10000 vnđ trở lên"
+            : mess;
+        break;
+
+      default:
+        break;
+    }
+    let valid = mess ? false : true;
+    setState({
+      ...state,
+      errors: {
+        ...state.errors,
+        [name]: mess,
+      },
+      validations: {
+        ...state.validations,
+        [name]: valid,
+      },
     });
   };
 
+  //Submit
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let isValid = true;
-    for (let key in state.values) {
-      const errorMessage = validate(key, state.values[key]);
-      if (errorMessage) {
-        isValid = false;
-      }
+    // let isValid = true;
+    // for (let key in state.values) {
+    //   const errorMessage = validate(key, state.values[key]);
+    //   if (errorMessage) {
+    //     isValid = false;
+    //   }
 
-      setState((state) => {
-        return {
-          errors: {
-            ...state.errors,
-            [key]: errorMessage,
-          },
-        };
-      });
-    }
-    if (!isValid) return;
+    //   setState((state) => {
+    //     return {
+    //       errors: {
+    //         ...state.errors,
+    //         [key]: errorMessage,
+    //       },
+    //     };
+    //   });
+    // }
+    // if (!isValid) return;
     const { maPhim, maRap, giaVe, ngayChieu, gioChieu } = state;
     const thongtin = {
       maPhim: parseInt(maPhim),
@@ -241,7 +302,7 @@ function ListMovieShedule(props) {
       giaVe: parseInt(giaVe),
       ngayChieuGioChieu: `${ngayChieu} ${gioChieu}`,
     };
-    console.log("thongtin", thongtin);
+    //console.log("thongtin", thongtin);
     qLyAdminService
       .taoLichChieu(thongtin)
       .then((result) => {
@@ -260,46 +321,52 @@ function ListMovieShedule(props) {
         });
       });
   };
-
-  //Validate
-  const validate = (name, value) => {
-    let errorMessage = "";
-    if (name === "heThongRap") {
-      errorMessage = !value ? "Bạn chưa chọn hệ thống rạp" : "";
+  //Eorror
+  const renderError = (name) => {
+    if (state.errors[name]) {
+      return <div className="alert alert-danger">{state.errors[name]}</div>;
     }
-    if (name === "cumRap") {
-      errorMessage = !value ? "Bạn chưa chọn cụm rạp" : "";
-    }
-    if (name === "maRap") {
-      errorMessage = !value ? "Bạn chưa chọn rạp" : "";
-    }
-    if (name === "ngayChieu") {
-      if (!value) {
-        errorMessage = !value ? "Ngày Khởi Chiếu không được để trống" : "";
-      } else {
-        const isValid = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/.test(
-          value
-        );
-        errorMessage = !isValid
-          ? "Ngày khởi chiếu không đúng định dạng DD/MM/YYYY"
-          : "";
-      }
-    }
-    if (name === "gioChieu") {
-      if (!value) {
-        errorMessage = !value ? "Giờ Chiếu không được để trống" : "";
-      } else {
-        const isValid = /^[0-2][0-3]:[0-5][0-9]:[0-5][0-9]$/.test(value);
-        errorMessage = !isValid
-          ? "Ngày khởi chiếu không đúng định dạng 00:00:00"
-          : "";
-      }
-    }
-    if (name === "giaVe") {
-      errorMessage = !value ? "Bạn chưa chọn giá vé" : "";
-    }
-    return errorMessage;
+    return "";
   };
+  //Validate
+  // const validate = (name, value) => {
+  //   let errorMessage = "";
+  //   if (name === "heThongRap") {
+  //     errorMessage = !value ? "Bạn chưa chọn hệ thống rạp" : "";
+  //   }
+  //   if (name === "cumRap") {
+  //     errorMessage = !value ? "Bạn chưa chọn cụm rạp" : "";
+  //   }
+  //   if (name === "maRap") {
+  //     errorMessage = !value ? "Bạn chưa chọn rạp" : "";
+  //   }
+  //   if (name === "ngayChieu") {
+  //     if (!value) {
+  //       errorMessage = !value ? "Ngày Khởi Chiếu không được để trống" : "";
+  //     } else {
+  //       const isValid = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/.test(
+  //         value
+  //       );
+  //       errorMessage = !isValid
+  //         ? "Ngày khởi chiếu không đúng định dạng DD/MM/YYYY"
+  //         : "";
+  //     }
+  //   }
+  //   if (name === "gioChieu") {
+  //     if (!value) {
+  //       errorMessage = !value ? "Giờ Chiếu không được để trống" : "";
+  //     } else {
+  //       const isValid = /^[0-2][0-3]:[0-5][0-9]:[0-5][0-9]$/.test(value);
+  //       errorMessage = !isValid
+  //         ? "Ngày khởi chiếu không đúng định dạng 00:00:00"
+  //         : "";
+  //     }
+  //   }
+  //   if (name === "giaVe") {
+  //     errorMessage = !value ? "Bạn chưa chọn giá vé" : "";
+  //   }
+  //   return errorMessage;
+  // };
 
   if (state.loading) return <Loading />;
   //console.log(state);
@@ -333,7 +400,8 @@ function ListMovieShedule(props) {
                       style={{ width: 200, height: 50 }}
                       name="heThongRap"
                       onChange={layMaHeThongRap}
-                      onBlur={handleBlur}
+                      // onBlur={handleErrors}
+                      // onKeyUp={handleErrors}
                     >
                       <option value="#">Chọn Hệ Thống Rạp</option>
                       {renderHeThongRap()}
@@ -344,7 +412,6 @@ function ListMovieShedule(props) {
                       style={{ width: 200, height: 50 }}
                       name="cumRap"
                       onChange={layDanhSachRap}
-                      onBlur={handleBlur}
                     >
                       <option value="#">Chọn Cụm Rạp</option>
                       {renderCumRap()}
@@ -356,8 +423,10 @@ function ListMovieShedule(props) {
                       style={{ width: 200, height: 50 }}
                       name="maRap"
                       onChange={handeChange}
-                      onBlur={handleBlur}
+                      // onBlur={handleErrors}
+                      // onKeyUp={handleErrors}
                     >
+                      {/* {renderError("maRap")} */}
                       <option value="#">Chọn Rạp</option>
                       {renderRap()}
                     </select>
@@ -372,8 +441,10 @@ function ListMovieShedule(props) {
                       type="text"
                       className="form-control"
                       onChange={handeChange}
-                      onBlur={handleBlur}
+                      // onBlur={handleErrors}
+                      // onKeyUp={handleErrors}
                     />
+                    {/* {renderError("ngayChieu")} */}
                   </div>
                   <div className="form-group">
                     <label>Chọn giờ chiếu</label>
@@ -382,8 +453,10 @@ function ListMovieShedule(props) {
                       type="text"
                       className="form-control"
                       onChange={handeChange}
-                      onBlur={handleBlur}
+                      // onBlur={handleErrors}
+                      // onKeyUp={handleErrors}
                     />
+                    {/* {renderError("gioChieu")} */}
                   </div>
                   <div className="form-group">
                     <label>Giá vé</label>
@@ -394,9 +467,11 @@ function ListMovieShedule(props) {
                         className="form-control"
                         //value={state.values.giaVe}
                         onChange={handeChange}
-                        onBlur={handleBlur}
-                        min="1000"
+                        // onBlur={handleErrors}
+                        // onKeyUp={handleErrors}
+                        min="10000"
                       />
+                      {/* {renderError("giaVe")} */}
                       {/* {state.errors.giaVe && (
                         <div className="alert alert-danger">
                           <span>{state.errors.giaVe}</span>
@@ -407,7 +482,11 @@ function ListMovieShedule(props) {
                       </div>
                     </div>
                   </div>
-                  <button type="submit" className="btn btn-success btn-submit">
+                  <button
+                    type="submit"
+                    className="btn btn-success btn-submit"
+                    // disabled={!formValid}
+                  >
                     Tạo Lịch Chiếu
                   </button>
                 </div>
