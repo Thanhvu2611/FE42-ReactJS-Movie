@@ -6,7 +6,7 @@ import swal from "sweetalert";
 export const actGetUsers = (id) => {
   return (dispatch) => {
     Axios({
-      url: `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01&tuKhoa=${id}`,
+      url: `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP05&tuKhoa=${id}`,
       method: "GET",
     })
       .then((result) => {
